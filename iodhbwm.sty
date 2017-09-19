@@ -16,9 +16,15 @@
 \pgfkeys{
     dhbw/.cd,
     pretty-font/.is choice,
-    pretty-font/true/.code = \booltrue{dhbw@if@prettyfont},
+    pretty-font/true/.code = {\booltrue{dhbw@if@prettyfont}},
     pretty-font/false/.code= {\boolfalse{dhbw@if@prettyfont}},
-    pretty-font/.initial = true
+    pretty-font/.initial = true,
+    titlepage/.store in = \@iodhbwm@file@titlepage,
+    titlepage/.default = dhbw-titlepage.def,
+    titlepage = dhbw-titlepage.def,
+    declaration/.store in = \@iodhbwm@file@declaration,
+    declaration/.default = dhbw-declaration.def,
+    declaration = dhbw-declaration.def
 }
 
 \newrobustcmd\dhbwsetup[1]{\pgfqkeys{/dhbw}{#1}}
@@ -36,9 +42,7 @@
 
 % DEBUG
 \newcommand{\testfont}{\ifbool{dhbw@if@prettyfont}{true}{false}}
-\newcommand{\testmatrikel}{%
-    \ifdefempty{\iodhbwm@matrikel@nummer}{true}{false}
-}
+\newcommand{\testmatrikel}{\ifdefempty{\iodhbwm@matrikel@nummer}{true}{false}}
 
 \newcommand{\iodhbwm@matrikel@nummer}{}
 \newcommand{\iodhwm@kurs}{}
@@ -51,8 +55,17 @@
 \newcommand{\iodhwm@end@datum}{}
 \newcommand{\iodhwm@abteilung}{}
 
-\newcommand{\Matrikelnummer}[1]{\renewcommand{\iodhbwm@matrikel@nummer}{#1}}
+\newcommand{\studentid}[1]{\renewcommand{\iodhbwm@matrikel@nummer}{#1}}
 
-
-\newcommand{\dhbwtitlepage}{}
-\newcommand{\dhbwdeclaration}{}
+\newcommand{\dhbwtitlepage}{%
+    \InputIfFileExists{\@iodhbwm@file@titlepage}{}{%
+        \input{\pgfkeysvalueof{/dhbw/titlepage/.@def}}%
+        \PackageWarning{iodhbwm}{The passed titlepage file `\@iodhbwm@file@titlepage` was not found. Used default instead.}
+    }%
+}
+\newcommand{\dhbwdeclaration}{%
+    \InputIfFileExists{\@iodhbwm@file@declaration}{}{%
+        \input{\pgfkeysvalueof{/dhbw/declaration/.@def}}%
+        \PackageWarning{iodhbwm}{The passed declaration file `\@iodhbwm@file@declaration` is unknown. Used default instead.}
+    }%
+}
