@@ -1,3 +1,73 @@
 \begin{titlepage}
-    Inhalt...
+    \begin{minipage}[c]{.30\textwidth}
+        \includegraphics[height=1.7cm]{example-image}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{.30\textwidth}
+        \centering
+        \includegraphics[height=1.7cm]{example-image}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{.30\textwidth}
+        \raggedleft
+        \includegraphics[height=1.7cm]{example-image}
+    \end{minipage}
+    
+    \begin{center}
+    \Large\textsc{\getThesisType}
+    
+    \normalsize
+    des Studiengangs Informationstechnik\par
+    der Dualen Hochschule Baden-Württemberg Mannheim
+    \end{center}
+    
+    \rule{\linewidth}{.5mm}
+    %    \begin{minipage}[t]{.45\textwidth}
+    %        \centering\textsc{Thema A}
+    %        
+    %        \bfseries\large Erweiterung der C++ Applikation \enquote{Test Control GUI} um eine systemweit einheitliche Logging-Funktionalität
+    %    \end{minipage}
+    %    \hfill
+    %    \begin{minipage}[t]{.45\textwidth}
+    %        \centering\textsc{Thema B}
+    %        
+    %        \tikz{\node (1) [draw, rounded rectangle] {Kolloquium};}\par
+    %        
+    %        \bfseries\large Durchführung und Evaluierung eines Performance-Testes der Datendurchsatzkapazität des DDA-iDEA Prototypen
+    %    \end{minipage}
+    %    \\[1em]
+    
+    \centering\textsc{\large Thema A}
+    
+    {\bfseries Topic 1}\bigskip
+    
+    \textsc{\large Thema B}\par
+%    \tikz{\node (1) [draw, rounded rectangle] {Kolloquium};}
+    
+    {\bfseries Topic 2}
+    
+    \rule{\textwidth}{.5mm}
+    
+    \vfill
+    
+    \begin{center}
+    von\par
+    \centering{\bfseries\large \getAuthor}\par
+    \today
+    \end{center}
+    
+    \vfill
+    
+    \small{%
+    \begin{tabularx}{\textwidth}{@{}lX@{}}
+    \toprule
+    Bearbeitungszeitraum: & \getProcessingPeriod\\
+    Matrikelnummer, Kurs: & \getStudentId\\
+    Abteilung: & \getInstituteSection\\
+    Ausbildungsfirma: & \getInstitute\\
+    Betreuer: & \getSupervisor\\
+    Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
+    \end{tabularx}
+    }
+    \cleardoublepage
 \end{titlepage}

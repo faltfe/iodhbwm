@@ -1,1 +1,18 @@
-Declaration
+\ifcsdef{chapter}%
+{\chapter*{Ehrenwörtliche Erklärung}}%
+{\section*{Ehrenwörtliche Erklärung}}
+
+\thispagestyle{empty}
+
+\vspace{5cm}
+Gemäß \S 5 (3) der Studien- und Prüfungsordnung DHBW Technik vom 22. September 2011.\\
+Ich habe die vorliegende Arbeit selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel verwendet.
+
+\vfill
+
+\begin{tabular}{l}
+    \hline
+    \getLocation, den \getDate
+\end{tabular}
+
+\clearpage

@@ -1,3 +1,28 @@
+% ----------------------------------------------------------
+% iodhbwm package
+%
+%   inofficial package for DHBW Mannheim to simplify writing
+%   theses with the given requirements
+% ----------------------------------------------------------
+% Felix Faltin
+% E-Mail:
+% ----------------------------------------------------------
+% Copyright 2017 Felix Faltin
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Felix Faltin.
+%
+% ----------------------------------------------------------
+
 \newcommand*{\@iodhbwm@version}{v0.1}
 \newcommand*{\@iodhbwm@date}{2017-09-01}
 \newcommand*{\@iodhbwm@info}{Inoffical DHBW Mannheim thesis package}
@@ -9,63 +34,111 @@
 \RequirePackage{etoolbox, pgfopts}
 
 %---------------------------------------------------
+% KOMA-Script settings
+%---------------------------------------------------
+\@ifundefined{KOMAClassName}{%
+    \PackageWarningNoLine{iodhbwm}{This package is designed to work with KOMA-Script. Please use either `scrartcl`, `scrreprt` or `scrbook`}
+}{%
+    \KOMAoptions{%
+        fontsize=12pt,
+        paper=a4,
+        parskip=half-
+    }
+}
+
+\PassOptionsToPackage{table}{xcolor}
+\RequirePackage{graphicx, tikz}
+\RequirePackage{tabularx, booktabs}
+
+%---------------------------------------------------
 % Defining package options
 %---------------------------------------------------
-\newbool{dhbw@if@prettyfont}
+\newbool{iodhbwm@if@preable}
+\newbool{iodhbwm@if@prettyfont}
+\newbool{iodhbwm@if@hasSecondTopic}\boolfalse{iodhbwm@if@hasSecondTopic}
+
+\newcommand*{\iodhbwm@thesis@type}{Arbeit}
 
 \pgfkeys{
     dhbw/.cd,
-    pretty-font/.is choice,
-    pretty-font/true/.code = {\booltrue{dhbw@if@prettyfont}},
-    pretty-font/false/.code= {\boolfalse{dhbw@if@prettyfont}},
-    pretty-font/.initial = true,
+    pretty font/.is choice,
+    pretty font/true/.code = {\booltrue{iodhbwm@if@prettyfont}},
+    pretty font/false/.code= {\boolfalse{iodhbwm@if@prettyfont}},
+    pretty font/.initial = true,
     titlepage/.store in = \@iodhbwm@file@titlepage,
     titlepage/.default = dhbw-titlepage.def,
     titlepage = dhbw-titlepage.def,
     declaration/.store in = \@iodhbwm@file@declaration,
     declaration/.default = dhbw-declaration.def,
-    declaration = dhbw-declaration.def
+    declaration = dhbw-declaration.def,
+    thesis type/.is choice,
+    thesis type/BA/.code = {\renewcommand{\iodhbwm@thesis@type}{Bachelorarbeit}},
+    thesis type/SA/.code = {\renewcommand{\iodhbwm@thesis@type}{Studienarbeit}},
+    thesis type/PA/.code = {\renewcommand{\iodhbwm@thesis@type}{Projektarbeit}},
+    author/.store in = \iodhbwm@author,
+    date/.store in = \iodhbwm@date,
+    date = \today,
+    location/.store in = \iodhbwm@location,
+    institute/.store in = \iodhbwm@institute,
+    institute section/.store in = \iodhbwm@institute@section,
+    student id/.store in = \iodhbwm@student@id,
+    course/.store in = \iodhbwm@course,
+    supervisor/.store in = \iodhbwm@supervisor,
+    processing period/.store in = \iodhbwm@processing@period
 }
 
 \newrobustcmd\dhbwsetup[1]{\pgfqkeys{/dhbw}{#1}}
 
 \ProcessPgfOptions{/dhbw}
 
-%---------------------------------------------------
+% ----------------------------------------------------------
 % Defining package commands
-%---------------------------------------------------
-%    \AtEndPreamble{
-%        \ifbool{dhbw@if@prettyfont}{%
-%            \RequirePackage{lmodern}%
-%        }{}
-%    }
+% ----------------------------------------------------------
+\AtEndPreamble{
+    \ifbool{iodhbwm@if@prettyfont}{%
+        \RequirePackage{lmodern}%
+        \RequirePackage{microtype}
+    }{}
+}
 
-% DEBUG
-\newcommand{\testfont}{\ifbool{dhbw@if@prettyfont}{true}{false}}
-\newcommand{\testmatrikel}{\ifdefempty{\iodhbwm@matrikel@nummer}{true}{false}}
-
-\newcommand{\iodhbwm@matrikel@nummer}{}
-\newcommand{\iodhwm@kurs}{}
-\newcommand{\iodhwm@ort}{}
-\newcommand{\iodhwm@betreuer}{}
-\newcommand{\iodhwm@firma}{}
-\newcommand{\iodhwm@firma@logo}{}
-\newcommand{\iodhwm@thema}{}
-\newcommand{\iodhwm@start@datum}{}
-\newcommand{\iodhwm@end@datum}{}
-\newcommand{\iodhwm@abteilung}{}
-
+\newcommand{\iodhbwm@matrikel@nummer}{%
+    \PackageWarningNoLine{iodhbwm}{Please provide an student id by \noexpand{\studentid{}}}
+}
 \newcommand{\studentid}[1]{\renewcommand{\iodhbwm@matrikel@nummer}{#1}}
 
+% Makro zum Einfügen einer Titelseite
 \newcommand{\dhbwtitlepage}{%
     \InputIfFileExists{\@iodhbwm@file@titlepage}{}{%
         \input{\pgfkeysvalueof{/dhbw/titlepage/.@def}}%
         \PackageWarning{iodhbwm}{The passed titlepage file `\@iodhbwm@file@titlepage` was not found. Used default instead.}
     }%
 }
+
+% Makro zum Einfügen der Selbsterklärung
 \newcommand{\dhbwdeclaration}{%
     \InputIfFileExists{\@iodhbwm@file@declaration}{}{%
         \input{\pgfkeysvalueof{/dhbw/declaration/.@def}}%
         \PackageWarning{iodhbwm}{The passed declaration file `\@iodhbwm@file@declaration` is unknown. Used default instead.}
     }%
 }
+
+\newcommand{\getAuthor}{\iodhbwm@author}
+\newcommand{\getDate}{\iodhbwm@date}
+\newcommand{\getThesisType}{\iodhbwm@thesis@type}
+\newcommand{\getLocation}{\iodhbwm@location}
+\newcommand{\getSupervisor}{\iodhbwm@supervisor}
+\newcommand{\getCourse}{\iodhbwm@course}
+\newcommand{\getStudentId}{\iodhbwm@student@id}
+\newcommand{\getInstitute}{\iodhbwm@institute}
+\newcommand{\getInstituteSection}{\iodhbwm@institute@section}
+\newcommand{\getProcessingPeriod}{\iodhbwm@processing@period}
+
+
+% DEBUG
+\newcommand{\testfont}{\ifbool{iodhbwm@if@prettyfont}{true}{false}}
+\newcommand{\testmatrikel}{\ifdefempty{\iodhbwm@matrikel@nummer}{true}{false}}
+
+
+% ----------------------------------------------------------
+% CHANCELOG
+% ----------------------------------------------------------

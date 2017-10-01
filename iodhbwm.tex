@@ -1,13 +1,25 @@
-\listfiles
+%\listfiles
 \documentclass{scrartcl}
+%\documentclass{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[pretty-font=true]{iodhbwm}
+\usepackage[ngerman]{babel}
+\usepackage{iodhbwm}
 
 \dhbwsetup{%
-    pretty-font = true,
-    titlepage = test.def
+    pretty font = true,
+    author = Max Mustermann,
+    thesis type = BA,
+    student id = 12345,
+    location = Musterstadt,
+    institute = Musterwerke GmbH,
+    institute section = Planabteilung,
+    course = Txxxx,
+    supervisor = Gott,
+    processing period = {01.01.17 - 31.01.17} 
 }
+
+%\setAuthor{Felix Faltin}
 
 \begin{document}
     
@@ -28,6 +40,4 @@
         \item Benutzerdefinierte Farben und Kommandos
     \end{itemize}
 
-Font: \testfont
-Matrikelnummer: \testmatrikel
 \end{document}
