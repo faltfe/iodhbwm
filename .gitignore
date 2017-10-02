@@ -4,12 +4,6 @@
 # Don't ignore directories, so we can recurse into them
 !*/
 
-# Ignore certain directory temporarily
-*others
-*beamer
-*bewerbung
-*cls
-
 # Don't ignore
 !.gitignore
 !*.md
@@ -17,3 +11,5 @@
 !*.bib
 !*.pdf
 !*.def
+!*.cls
+!*.sty

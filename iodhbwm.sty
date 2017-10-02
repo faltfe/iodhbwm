@@ -23,14 +23,14 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\@iodhbwm@version}{v0.1}
-\newcommand*{\@iodhbwm@date}{2017-09-01}
-\newcommand*{\@iodhbwm@info}{Inoffical DHBW Mannheim thesis package}
+\newcommand*{\iodhbwm@pkg@version}{v0.1}
+\newcommand*{\iodhbwm@pkg@date}{2017-09-01}
+\newcommand*{\iodhbwm@pkg@info}{Inoffical DHBW Mannheim thesis package}
 
 \ProvidesPackage{iodhbwm}[%
-    \@iodhbwm@date\space
-    \@iodhbwm@version\space
-    \@iodhbwm@info]
+    \iodhbwm@pkg@date\space
+    \iodhbwm@pkg@version\space
+    \iodhbwm@pkg@info]
 \RequirePackage{etoolbox, pgfopts}
 
 %---------------------------------------------------
@@ -38,13 +38,7 @@
 %---------------------------------------------------
 \@ifundefined{KOMAClassName}{%
     \PackageWarningNoLine{iodhbwm}{This package is designed to work with KOMA-Script. Please use either `scrartcl`, `scrreprt` or `scrbook`}
-}{%
-    \KOMAoptions{%
-        fontsize=12pt,
-        paper=a4,
-        parskip=half-
-    }
-}
+}{}
 
 \PassOptionsToPackage{table}{xcolor}
 \RequirePackage{graphicx, tikz}
@@ -54,53 +48,62 @@
 % Defining package options
 %---------------------------------------------------
 \newbool{iodhbwm@if@preable}
-\newbool{iodhbwm@if@prettyfont}
 \newbool{iodhbwm@if@hasSecondTopic}\boolfalse{iodhbwm@if@hasSecondTopic}
+\newbool{iodhbwm@if@toc}
+\newbool{iodhbwm@if@bibliography}
 
 \newcommand*{\iodhbwm@thesis@type}{Arbeit}
 
 \pgfkeys{
-    dhbw/.cd,
-    pretty font/.is choice,
-    pretty font/true/.code = {\booltrue{iodhbwm@if@prettyfont}},
-    pretty font/false/.code= {\boolfalse{iodhbwm@if@prettyfont}},
-    pretty font/.initial = true,
-    titlepage/.store in = \@iodhbwm@file@titlepage,
-    titlepage/.default = dhbw-titlepage.def,
-    titlepage = dhbw-titlepage.def,
-    declaration/.store in = \@iodhbwm@file@declaration,
-    declaration/.default = dhbw-declaration.def,
-    declaration = dhbw-declaration.def,
-    thesis type/.is choice,
-    thesis type/BA/.code = {\renewcommand{\iodhbwm@thesis@type}{Bachelorarbeit}},
-    thesis type/SA/.code = {\renewcommand{\iodhbwm@thesis@type}{Studienarbeit}},
-    thesis type/PA/.code = {\renewcommand{\iodhbwm@thesis@type}{Projektarbeit}},
-    author/.store in = \iodhbwm@author,
-    date/.store in = \iodhbwm@date,
-    date = \today,
-    location/.store in = \iodhbwm@location,
-    institute/.store in = \iodhbwm@institute,
-    institute section/.store in = \iodhbwm@institute@section,
-    student id/.store in = \iodhbwm@student@id,
-    course/.store in = \iodhbwm@course,
-    supervisor/.store in = \iodhbwm@supervisor,
-    processing period/.store in = \iodhbwm@processing@period
+    /dhbw/.cd,
+        titlepage/.store in = \@iodhbwm@file@titlepage,
+        titlepage/.default = dhbw-titlepage.def,
+        titlepage = dhbw-titlepage.def,
+        declaration/.store in = \@iodhbwm@file@declaration,
+        declaration/.default = dhbw-declaration.def,
+        declaration = dhbw-declaration.def,
+        auto-bib/.is if = iodhbwm@if@bibliography,
+        auto-toc/.is if = iodhbwm@if@toc,
+        bib file/.store in = \iodhbwm@bib@file,
+        bib file = source.bib
+}
+
+\pgfkeys{%
+    /dhbw/.cd,
+        thesis type/.is choice,
+            thesis type/BA/.code = {\renewcommand{\iodhbwm@thesis@type}{Bachelorarbeit}},
+            thesis type/SA/.code = {\renewcommand{\iodhbwm@thesis@type}{Studienarbeit}},
+            thesis type/PA/.code = {\renewcommand{\iodhbwm@thesis@type}{Projektarbeit}},
+        author/.store in = \iodhbwm@author,
+        date/.store in = \iodhbwm@date,
+        date = \today,
+        location/.store in = \iodhbwm@location,
+        institute/.store in = \iodhbwm@institute,
+        institute section/.store in = \iodhbwm@institute@section,
+        student id/.store in = \iodhbwm@student@id,
+        course/.store in = \iodhbwm@course,
+        supervisor/.store in = \iodhbwm@supervisor,
+        processing period/.store in = \iodhbwm@processing@period
 }
 
 \newrobustcmd\dhbwsetup[1]{\pgfqkeys{/dhbw}{#1}}
 
 \ProcessPgfOptions{/dhbw}
 
+\newcommand{\getAuthor}{\iodhbwm@author}
+\newcommand{\getDate}{\iodhbwm@date}
+\newcommand{\getThesisType}{\iodhbwm@thesis@type}
+\newcommand{\getLocation}{\iodhbwm@location}
+\newcommand{\getSupervisor}{\iodhbwm@supervisor}
+\newcommand{\getCourse}{\iodhbwm@course}
+\newcommand{\getStudentId}{\iodhbwm@student@id}
+\newcommand{\getInstitute}{\iodhbwm@institute}
+\newcommand{\getInstituteSection}{\iodhbwm@institute@section}
+\newcommand{\getProcessingPeriod}{\iodhbwm@processing@period}
+
 % ----------------------------------------------------------
 % Defining package commands
 % ----------------------------------------------------------
-\AtEndPreamble{
-    \ifbool{iodhbwm@if@prettyfont}{%
-        \RequirePackage{lmodern}%
-        \RequirePackage{microtype}
-    }{}
-}
-
 \newcommand{\iodhbwm@matrikel@nummer}{%
     \PackageWarningNoLine{iodhbwm}{Please provide an student id by \noexpand{\studentid{}}}
 }
@@ -121,18 +124,6 @@
         \PackageWarning{iodhbwm}{The passed declaration file `\@iodhbwm@file@declaration` is unknown. Used default instead.}
     }%
 }
-
-\newcommand{\getAuthor}{\iodhbwm@author}
-\newcommand{\getDate}{\iodhbwm@date}
-\newcommand{\getThesisType}{\iodhbwm@thesis@type}
-\newcommand{\getLocation}{\iodhbwm@location}
-\newcommand{\getSupervisor}{\iodhbwm@supervisor}
-\newcommand{\getCourse}{\iodhbwm@course}
-\newcommand{\getStudentId}{\iodhbwm@student@id}
-\newcommand{\getInstitute}{\iodhbwm@institute}
-\newcommand{\getInstituteSection}{\iodhbwm@institute@section}
-\newcommand{\getProcessingPeriod}{\iodhbwm@processing@period}
-
 
 % DEBUG
 \newcommand{\testfont}{\ifbool{iodhbwm@if@prettyfont}{true}{false}}
