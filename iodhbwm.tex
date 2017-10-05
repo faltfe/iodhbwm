@@ -2,7 +2,8 @@
 \documentclass[
     load-preamble,
     load-dhbw-templates,
-    add-bibliography
+    add-bibliography,
+    bib-file = quellen.bib
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -27,19 +28,11 @@
     
     \dhbwdeclaration
     
-    \begin{itemize}
-        \item Deckblatt
-        \item Erklärung
-        \item Formatierung
-        \begin{itemize}
-            \item Seitenränder
-            \item Kopf- und Fußzeile
-        \end{itemize}
-        \item Laden von Paketen
-        \item Bibliografie
-        \item Benutzerdefinierte Farben und Kommandos
-    \end{itemize}
+    \tableofcontents
+    \listoffigures
+    \listoftables
 
-\blindtext
+    \blinddocument
+    \cite{Helmke2007}
 
 \end{document}

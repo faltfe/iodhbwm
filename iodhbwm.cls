@@ -32,7 +32,7 @@
     \iodhbwm@cls@version\space
     \iodhbwm@cls@info]
     
-\RequirePackage{etoolbox, pgfopts}
+\RequirePackage{etoolbox, pgfopts, scrlfile}
 
 \newcommand*{\iodhbwm@cls@baseclass}{scrreprt}
 \newcommand*{\iodhbwm@cls@baseclass@options}{}
@@ -77,14 +77,20 @@
 }{}
 
 \ifbool{iodhbwm@cls@if@bib}{%
-    \RequirePackage{csquotes}
-    \RequirePackage[backend=biber]{biblatex}
-    \IfFileExists{\iodhbwm@bib@file}{}{}
+    \AfterPackage{inputenc}{\RequirePackage{csquotes}}%
+    \IfFileExists{\iodhbwm@bib@file}{%
+        \AtEndDocument{\printbibliography}%
+        \RequirePackage[backend=biber]{biblatex}%
+        \addbibresource{\iodhbwm@bib@file}%
+    }{}%
 }{}
 
 \ifbool{iodhbwm@cls@if@templates}{%
     \RequirePackage{iodhbwm}
 }{}
+
+\AfterPackage!{hyperref}{\RequirePackage{cleveref}}
+\AtEndPreamble{\RequirePackage{hyperref}}
 
 \endinput
 
