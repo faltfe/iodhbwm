@@ -35,26 +35,41 @@
 \RequirePackage{etoolbox, pgfopts}
 
 \newcommand*{\iodhbwm@cls@baseclass}{scrreprt}
+\newcommand*{\iodhbwm@cls@baseclass@options}{}
 
 \newbool{iodhbwm@cls@if@preamble}
-\newbool{iodhbwm@cls@if@toc}
+\newbool{iodhbwm@cls@if@templates}
+\newbool{iodhbwm@cls@if@nodefaultsettings}
+%\newbool{iodhbwm@cls@if@toc}
 \newbool{iodhbwm@cls@if@bib}
+\newbool{iodhbwm@cls@if@tocstotoc}
+\newbool{iodhbwm@cls@if@isdebug}
 
 \pgfkeys{
     iodhbwm/.cd,
-        load-preamble/.is if = iodhbwm@cls@if@preamble,
-        add-toc/.is if = iodhbwm@cls@if@toc,
-        add-bib/.is if = iodhbwm@cls@if@bib
+        load-preamble/.is if        = iodhbwm@cls@if@preamble,
+        load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
+%        add-toc/.is if              = iodhbwm@cls@if@toc,
+        add-bibliography/.is if     = iodhbwm@cls@if@bib,
+        add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
+        bib-file/.store in          = \iodhbwm@bib@file,
+        bib-file = \relax,
+        no-default-settings/.is if  = iodhbwm@cls@if@nodefaultsettings,
+        debug/.is if                = iodhbwm@cls@if@isdebug,
+        unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
 }
 
 \ProcessPgfOptions{/iodhbwm}
 
-\PassOptionsToClass{%
-        fontsize=12pt,
-        a4paper,
-        parskip=half-
-}{\iodhbwm@cls@baseclass}
-\LoadClass{\iodhbwm@cls@baseclass}
+\ifbool{iodhbwm@cls@if@nodefaultsettings}{}{%
+    \PassOptionsToClass{%
+            fontsize=12pt,
+            a4paper,
+            parskip=half-
+    }{\iodhbwm@cls@baseclass}
+}
+
+\LoadClass[\iodhbwm@cls@baseclass@options]{\iodhbwm@cls@baseclass}
 
 \ifbool{iodhbwm@cls@if@preamble}{%
     \RequirePackage{lmodern}
@@ -64,7 +79,15 @@
 \ifbool{iodhbwm@cls@if@bib}{%
     \RequirePackage{csquotes}
     \RequirePackage[backend=biber]{biblatex}
-%    \addbibresource{bibliographic resource}
+    \IfFileExists{\iodhbwm@bib@file}{}{}
+}{}
+
+\ifbool{iodhbwm@cls@if@templates}{%
+    \RequirePackage{iodhbwm}
 }{}
 
 \endinput
+
+% ----------------------------------------------------------
+% CHANCELOG
+% ----------------------------------------------------------

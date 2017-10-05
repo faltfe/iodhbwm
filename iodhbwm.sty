@@ -47,10 +47,7 @@
 %---------------------------------------------------
 % Defining package options
 %---------------------------------------------------
-\newbool{iodhbwm@if@preable}
 \newbool{iodhbwm@if@hasSecondTopic}\boolfalse{iodhbwm@if@hasSecondTopic}
-\newbool{iodhbwm@if@toc}
-\newbool{iodhbwm@if@bibliography}
 
 \newcommand*{\iodhbwm@thesis@type}{Arbeit}
 
@@ -61,11 +58,7 @@
         titlepage = dhbw-titlepage.def,
         declaration/.store in = \@iodhbwm@file@declaration,
         declaration/.default = dhbw-declaration.def,
-        declaration = dhbw-declaration.def,
-        auto-bib/.is if = iodhbwm@if@bibliography,
-        auto-toc/.is if = iodhbwm@if@toc,
-        bib file/.store in = \iodhbwm@bib@file,
-        bib file = source.bib
+        declaration = dhbw-declaration.def
 }
 
 \pgfkeys{%
@@ -128,6 +121,8 @@
 % DEBUG
 \newcommand{\testfont}{\ifbool{iodhbwm@if@prettyfont}{true}{false}}
 \newcommand{\testmatrikel}{\ifdefempty{\iodhbwm@matrikel@nummer}{true}{false}}
+
+\endinput
 
 
 % ----------------------------------------------------------
