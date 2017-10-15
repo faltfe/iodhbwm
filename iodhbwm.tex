@@ -1,14 +1,15 @@
 \listfiles
 \documentclass[
-    load-preamble,
+%    load-preamble,             % automatically activated, when `no-default-settings`
+%    no-default-settings,       % set to false (default)
     load-dhbw-templates,
     add-bibliography,
-    bib-file = quellen.bib
+    bib-file = quellen.bib,
+    ngerman,
+    debug
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[ngerman]{babel}
-\usepackage{blindtext}
 
 \dhbwsetup{%
     author              = Max Mustermann,
@@ -31,8 +32,14 @@
     \tableofcontents
     \listoffigures
     \listoftables
-
-    \blinddocument
-    \cite{Helmke2007}
-
+    
+    \chapter{Test Kapitel}\label{chap:test-chap}
+        \section{Test Section}\label{sec:test-sec}
+            \blindtext
+            
+            Verweis auf \Cref{chap:test-chap} und auf mich selbst \Cref{sec:test-sec}.
+            
+            \lipsum
+            
+            Ich bin eine Quelle \cite{Helmke2007}
 \end{document}

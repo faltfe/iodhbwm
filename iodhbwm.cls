@@ -37,6 +37,9 @@
 \newcommand*{\iodhbwm@cls@baseclass}{scrreprt}
 \newcommand*{\iodhbwm@cls@baseclass@options}{}
 
+% ----------------------------------------------------------
+% Define booleans
+% ----------------------------------------------------------
 \newbool{iodhbwm@cls@if@preamble}
 \newbool{iodhbwm@cls@if@templates}
 \newbool{iodhbwm@cls@if@nodefaultsettings}
@@ -45,6 +48,9 @@
 \newbool{iodhbwm@cls@if@tocstotoc}
 \newbool{iodhbwm@cls@if@isdebug}
 
+% ----------------------------------------------------------
+% Define available options
+% ----------------------------------------------------------
 \pgfkeys{
     iodhbwm/.cd,
         load-preamble/.is if        = iodhbwm@cls@if@preamble,
@@ -61,12 +67,15 @@
 
 \ProcessPgfOptions{/iodhbwm}
 
-\ifbool{iodhbwm@cls@if@nodefaultsettings}{}{%
+\ifbool{iodhbwm@cls@if@nodefaultsettings}{%
+    \boolfalse{iodhbwm@cls@if@preamble}
+}{%
     \PassOptionsToClass{%
             fontsize=12pt,
             a4paper,
             parskip=half-
     }{\iodhbwm@cls@baseclass}
+    \booltrue{iodhbwm@cls@if@preamble}
 }
 
 \LoadClass[\iodhbwm@cls@baseclass@options]{\iodhbwm@cls@baseclass}
@@ -74,13 +83,83 @@
 \ifbool{iodhbwm@cls@if@preamble}{%
     \RequirePackage{lmodern}
     \RequirePackage{microtype}
+    \RequirePackage{scrhack}
+    \RequirePackage{babel}
+    \RequirePackage{setspace}
+    \RequirePackage[%
+        headsepline,
+        footsepline,
+        plainfootsepline,
+        clines,
+        automark,
+    ]{scrlayer-scrpage}
+    \RequirePackage{geometry}
+    \RequirePackage{siunitx}
+    \PassOptionsToPackage{intlimits}{amsmath}
+    \RequirePackage{mathtools}
+    \PassOptionsToPackage{
+        table,
+        dvipsnames
+    }{xcolor}
+    \RequirePackage{graphicx}
+    \RequirePackage[most]{tcolorbox}
+    \RequirePackage{tabularx}
+    \RequirePackage{booktabs}
+    \RequirePackage{multirow}
+}{}
+
+% Package settings
+\@ifpackageloaded{geometry}{%
+    \geometry{%
+        top           = 3cm,    % Seitenabstand oben
+        right         = 2.5cm,  % Seitenabstand recht
+        bottom        = 3cm,    % Seitenabstand unten
+        left          = 2.5cm,  % Seitenabstand links
+        bindingoffset = 1cm,    % Bindekorrektur
+        includeheadfoot
+    }
+}{}
+
+\@ifpackageloaded{siunitx}{%
+    \sisetup{
+        %    mode = math, % text is printed using a math font
+        detect-all,
+        separate-uncertainty = true,
+        locale               = DE,
+        per-mode             = fraction,
+        range-phrase= -,
+        range-units=single
+    }
+}{}
+
+\@ifpackageloaded{scrlayer-scrpage}{%
+    \automark[section]{chapter}
+    \automark*{section}
+    \clearpairofpagestyles                          % Leeren von Kopf- und Fußzeile
+    %\ohead{\pagemark}                              % Kopfzeile außen: Seitenzahl
+    \ihead{\headmark}                               % Kopfzeile innen: chapter und section Titel
+    \cfoot[-~\pagemark~-]{-~\pagemark~-}            % Fußzeile mitte: Seitenzahl
 }{}
 
 \ifbool{iodhbwm@cls@if@bib}{%
-    \AfterPackage{inputenc}{\RequirePackage{csquotes}}%
+    \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
     \IfFileExists{\iodhbwm@bib@file}{%
-        \AtEndDocument{\printbibliography}%
-        \RequirePackage[backend=biber]{biblatex}%
+        \AtEndDocument{\singlespacing\printbibliography}%
+        \RequirePackage[%
+            backend      = biber,           % bibtex oder biber [default]
+            style        = numeric-comp,    % Zitierstil
+%            bibstyle     = authortitle,
+%            citestyle    = authoryear,
+            sorting      = nty,             % Sortierung (Name, Titel, Jahr)
+%            natbib      = true,            % Kompatibilität mit Natbib-Bibliothek
+            block        = space,           % kleiner horizontaler Platz zwischen den Feldern
+            backrefstyle = three+,          % fasst Seiten zusammen, z.B. S. 2f, 6ff, 7-10
+            date         = short,           % Datumsformat
+            bibwarn      = true,
+            texencoding  = auto,            % auto-detect the input encoding
+            bibencoding  = auto,            % (auto (equal to tex), <encoding>)
+            isbn         = false
+        ]{biblatex}%
         \addbibresource{\iodhbwm@bib@file}%
     }{}%
 }{}
@@ -89,8 +168,33 @@
     \RequirePackage{iodhbwm}
 }{}
 
-\AfterPackage!{hyperref}{\RequirePackage{cleveref}}
-\AtEndPreamble{\RequirePackage{hyperref}}
+\ifbool{iodhbwm@cls@if@isdebug}{%
+    \RequirePackage{blindtext, lipsum}
+}{}
+
+\AfterPackage!{hyperref}{%
+    \RequirePackage[%
+        noabbrev,
+        nameinlink
+    ]{cleveref}
+}
+\AtEndPreamble{%
+    \RequirePackage{hyperref}
+    \hypersetup{
+        pdftitle           = {Titel},               % Name des Dokuments
+        pdfsubject         = {Einführung},          % Thema der Dokuments
+        pdfauthor          = {Undefined},               % Autor
+        %    pdfkeywords       = {},
+        pdfcreator        = {Undefined},
+        %    pdfproducer       = {},
+        pdftoolbar         = true,
+        pdfmenubar         = false,
+        %    bookmarks         = true,
+        bookmarksopen      = false,                 % bookmarksopen ODER bookmarksopenlevel!
+        colorlinks
+    }
+}
+
 
 \endinput
 
