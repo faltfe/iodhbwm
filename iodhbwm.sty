@@ -49,8 +49,6 @@
 %---------------------------------------------------
 \newbool{iodhbwm@if@hasSecondTopic}\boolfalse{iodhbwm@if@hasSecondTopic}
 
-\newcommand*{\iodhbwm@thesis@type}{Arbeit}
-
 \pgfkeys{
     /dhbw/.cd,
         titlepage/.store in = \@iodhbwm@file@titlepage,
@@ -64,19 +62,23 @@
 \pgfkeys{%
     /dhbw/.cd,
         thesis type/.is choice,
-            thesis type/BA/.code = {\renewcommand{\iodhbwm@thesis@type}{Bachelorarbeit}},
-            thesis type/SA/.code = {\renewcommand{\iodhbwm@thesis@type}{Studienarbeit}},
-            thesis type/PA/.code = {\renewcommand{\iodhbwm@thesis@type}{Projektarbeit}},
+            thesis type/BA/.style = {/dhbw/titlepage = dhbw-titlepage-ba.def},
+            thesis type/SA/.style = {/dhbw/titlepage = dhbw-titlepage-sa.def},
+            thesis type/PA/.style = {/dhbw/titlepage = dhbw-titlepage-pa.def},
+        thesis title/.store in = \iodhbwm@thesis@title,
+        thesis second title/.store in = \iodhbwm@thesis@second@title,
+        thesis second title = {},
         author/.store in = \iodhbwm@author,
         date/.store in = \iodhbwm@date,
         date = \today,
         location/.store in = \iodhbwm@location,
         institute/.store in = \iodhbwm@institute,
         institute section/.store in = \iodhbwm@institute@section,
+        institute logo/.store in = \iodhbwm@institute@logo,
         student id/.store in = \iodhbwm@student@id,
         course/.store in = \iodhbwm@course,
         supervisor/.store in = \iodhbwm@supervisor,
-        processing period/.store in = \iodhbwm@processing@period
+        processing period/.store in = \iodhbwm@processing@period,
 }
 
 \newrobustcmd\dhbwsetup[1]{\pgfqkeys{/dhbw}{#1}}
@@ -85,7 +87,8 @@
 
 \newcommand{\getAuthor}{\iodhbwm@author}
 \newcommand{\getDate}{\iodhbwm@date}
-\newcommand{\getThesisType}{\iodhbwm@thesis@type}
+\newcommand{\getThesisTitle}{\iodhbwm@thesis@title}
+\newcommand{\getThesisSecondTitle}{\iodhbwm@thesis@second@title}
 \newcommand{\getLocation}{\iodhbwm@location}
 \newcommand{\getSupervisor}{\iodhbwm@supervisor}
 \newcommand{\getCourse}{\iodhbwm@course}

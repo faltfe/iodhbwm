@@ -1,24 +1,12 @@
 \begin{titlepage}
-    \begin{minipage}[c]{.30\textwidth}
-        \includegraphics[height=1.7cm]{dhbw-logo}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{.30\textwidth}
-        \centering
-        \includegraphics[height=1.7cm]{example-image}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{.30\textwidth}
-        \raggedleft
-        \includegraphics[height=1.7cm]{example-image}
-    \end{minipage}
-    
     \begin{center}
-    \Large\textsc{Arbeit}
+        \includegraphics[height=1.7cm]{dhbw-logo}
     
-    \normalsize
-    des Studiengangs Informationstechnik\par
-    der Dualen Hochschule Baden-Württemberg Mannheim
+        \Large\textsc{Studienarbeit}
+        
+        \normalsize
+        des Studiengangs Informationstechnik\par
+        der Dualen Hochschule Baden-Württemberg Mannheim
     \end{center}
     
     \rule{\textwidth}{.5mm}\bigskip
