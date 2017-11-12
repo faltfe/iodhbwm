@@ -40,9 +40,8 @@
 % ----------------------------------------------------------
 % Define booleans
 % ----------------------------------------------------------
-\newbool{iodhbwm@cls@if@preamble}
+\newbool{iodhbwm@cls@if@preamble}\booltrue{iodhbwm@cls@if@preamble}
 \newbool{iodhbwm@cls@if@templates}
-\newbool{iodhbwm@cls@if@nodefaultsettings}
 %\newbool{iodhbwm@cls@if@toc}
 \newbool{iodhbwm@cls@if@bib}
 \newbool{iodhbwm@cls@if@tocstotoc}
@@ -56,29 +55,29 @@
         load-preamble/.is if        = iodhbwm@cls@if@preamble,
         load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
 %        add-toc/.is if              = iodhbwm@cls@if@toc,
-        add-bibliography/.is if     = iodhbwm@cls@if@bib,
         add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
+        add-bibliography/.is if     = iodhbwm@cls@if@bib,
         bib-file/.store in          = \iodhbwm@bib@file,
-        bib-file = \relax,
-        no-default-settings/.is if  = iodhbwm@cls@if@nodefaultsettings,
+        bib-file = {},
         debug/.is if                = iodhbwm@cls@if@isdebug,
         unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
 }
 
 \ProcessPgfOptions{/iodhbwm}
 
-\ifbool{iodhbwm@cls@if@nodefaultsettings}{%
-    \boolfalse{iodhbwm@cls@if@preamble}
-}{%
-    \PassOptionsToClass{%
-            fontsize=12pt,
-            a4paper,
-            parskip=half-
-    }{\iodhbwm@cls@baseclass}
-    \booltrue{iodhbwm@cls@if@preamble}
-}
+\PassOptionsToClass{%
+        fontsize=12pt,
+        a4paper,
+        parskip=half-
+}{\iodhbwm@cls@baseclass}
 
 \LoadClass[\iodhbwm@cls@baseclass@options]{\iodhbwm@cls@baseclass}
+
+\ifbool{iodhbwm@cls@if@tocstotoc}{%
+    \KOMAoptions{%
+        listof  = totoc
+    }%
+}{}
 
 \ifbool{iodhbwm@cls@if@preamble}{%
     \RequirePackage{lmodern}
@@ -143,29 +142,45 @@
 
 \ifbool{iodhbwm@cls@if@bib}{%
     \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
-    \IfFileExists{\iodhbwm@bib@file}{%
-        \AtEndDocument{\singlespacing\printbibliography}%
-        \RequirePackage[%
-            backend      = biber,           % bibtex oder biber [default]
-            style        = numeric-comp,    % Zitierstil
-%            bibstyle     = authortitle,
-%            citestyle    = authoryear,
-            sorting      = nty,             % Sortierung (Name, Titel, Jahr)
-%            natbib      = true,            % Kompatibilität mit Natbib-Bibliothek
-            block        = space,           % kleiner horizontaler Platz zwischen den Feldern
-            backrefstyle = three+,          % fasst Seiten zusammen, z.B. S. 2f, 6ff, 7-10
-            date         = short,           % Datumsformat
-            bibwarn      = true,
-            texencoding  = auto,            % auto-detect the input encoding
-            bibencoding  = auto,            % (auto (equal to tex), <encoding>)
-            isbn         = false
-        ]{biblatex}%
-        \addbibresource{\iodhbwm@bib@file}%
-    }{}%
-}{}
+    \AtEndDocument{%
+        \singlespacing%
+        \ifbool{iodhbwm@cls@if@tocstotoc}{%
+            \printbibliography[heading=bibintoc]%
+        }{%
+            \printbibliography%
+        }%
+    }%
+    \RequirePackage[%
+        backend      = biber,           % bibtex oder biber [default]
+        style        = numeric-comp,    % Zitierstil
+        %            bibstyle     = authortitle,
+        %            citestyle    = authoryear,
+        sorting      = nty,             % Sortierung (Name, Titel, Jahr)
+        natbib       = true,            % Kompatibilität mit Natbib-Bibliothek
+        block        = space,           % kleiner horizontaler Platz zwischen den Feldern
+        backrefstyle = three+,          % fasst Seiten zusammen, z.B. S. 2f, 6ff, 7-10
+        date         = short,           % Datumsformat
+        bibwarn      = true,
+        texencoding  = auto,            % auto-detect the input encoding
+        bibencoding  = auto,            % (auto (equal to tex), <encoding>)
+        isbn         = false
+    ]{biblatex}%
+    \ifdefempty{\iodhbwm@bib@file}{%
+        \IfFileExists{dhbw-source.bib}{%
+            \pgfkeys{/iodhbwm/bib-file = dhbw-source.bib}%
+        }{%
+            \ClassWarning{iodhbwm}{Cannot find default dbhw-source.bib file.}%
+        }%
+    }{%
+        \IfFileExists{\iodhbwm@bib@file}{}{%
+            \ClassWarning{iodhbwm}{Couldn't find passed bib file}
+        }%
+    }%
+    \addbibresource{\iodhbwm@bib@file}%
+}{}%
 
 \ifbool{iodhbwm@cls@if@templates}{%
-    \RequirePackage{iodhbwm}
+    \RequirePackage{iodhbwm-templates}
 }{}
 
 \ifbool{iodhbwm@cls@if@isdebug}{%
@@ -181,20 +196,17 @@
 \AtEndPreamble{%
     \RequirePackage{hyperref}
     \hypersetup{
-        pdftitle           = {Titel},               % Name des Dokuments
-        pdfsubject         = {Einführung},          % Thema der Dokuments
-        pdfauthor          = {Undefined},               % Autor
-        %    pdfkeywords       = {},
-        pdfcreator        = {Undefined},
-        %    pdfproducer       = {},
-        pdftoolbar         = true,
-        pdfmenubar         = false,
-        %    bookmarks         = true,
-        bookmarksopen      = false,                 % bookmarksopen ODER bookmarksopenlevel!
+        pdftitle       = {\ifdef{\getTitel}{\getTitel}{undefined}},
+        pdfsubject     = {\ifdef{\getTitel}{\getTitel}{undefined}},
+        pdfauthor      = {\ifdef{\getAuthor}{\getAuthor}{undefined}},
+        pdfcreator     = {pdf\LaTeX},
+        pdfproducer    = {pdf\LaTeX},
+        pdftoolbar     = true,
+        pdfmenubar     = false,
+        bookmarksopen  = false,                 % bookmarksopen ODER bookmarksopenlevel!
         colorlinks
     }
 }
-
 
 \endinput
 

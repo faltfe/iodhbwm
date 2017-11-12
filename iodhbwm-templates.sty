@@ -27,7 +27,7 @@
 \newcommand*{\iodhbwm@pkg@date}{2017-09-01}
 \newcommand*{\iodhbwm@pkg@info}{Inoffical DHBW Mannheim thesis package}
 
-\ProvidesPackage{iodhbwm}[%
+\ProvidesPackage{iodhbwm-templates}[%
     \iodhbwm@pkg@date\space
     \iodhbwm@pkg@version\space
     \iodhbwm@pkg@info]
@@ -56,11 +56,7 @@
         titlepage = dhbw-titlepage.def,
         declaration/.store in = \@iodhbwm@file@declaration,
         declaration/.default = dhbw-declaration.def,
-        declaration = dhbw-declaration.def
-}
-
-\pgfkeys{%
-    /dhbw/.cd,
+        declaration = dhbw-declaration.def,
         thesis type/.is choice,
             thesis type/BA/.style = {/dhbw/titlepage = dhbw-titlepage-ba.def},
             thesis type/SA/.style = {/dhbw/titlepage = dhbw-titlepage-sa.def},
