@@ -80,7 +80,38 @@
 
     \section{Das Paket iodbwm-templates}\label{pkg:iodhbwm-templates}
         \subsection{Optionen}
-            \blindtext
+            Das Paket stellt das Makro \Macro{dhbwsetup}{\meta{key}=\meta{value}} bereit, über welches alle Einstellungen (Optionen) angepasst werden können. Hierfür sind eine Reihe von \meta{key} Variablen vordefiniert.\bigskip
+            
+            \Option{titlepage}\WithValues{\meta{filename}}\AndDefault{dhbw-titlepage.def}\bigskip
+            
+            \Option{declaration}\WithValues{\meta{filename}}\AndDefault{dhbw-declaration.def}\bigskip
+            
+            \Option{thesis type}\WithValues{SA, BA, PA}\bigskip
+            
+            \Option{thesis title}\WithValues{}\bigskip
+            
+            \Option{thesis second title}\WithValues{}\bigskip
+            
+            \Option{author}\WithValues{}\bigskip
+            
+            \Option{date}\WithValues{date}\AndDefault{\today}\bigskip
+            
+            \Option{location}\WithValues{}\bigskip
+            
+            \Option{institute}\WithValues{}\bigskip
+            
+            \Option{institute section}\WithValues{}\bigskip
+            
+            \Option{institute logo}\WithValues{}\bigskip
+            
+            \Option{student id}\WithValues{}\bigskip
+            
+            \Option{course}\WithValues{}\bigskip
+            
+            \Option{supervisor}\WithValues{}\bigskip
+            
+            \Option{processing period}\WithValues{}\bigskip
+            
         \subsection{Allgemeine Makros}
             \DescribeMacro\dhbwsetup{\meta{key}=\meta{value}}
             
@@ -88,8 +119,37 @@
             
             \DescribeMacro\dhbwdeclaration
             
-    \section{Beispiel (MWE)}
-        \blindtext
+            \DescribeMacro\getAuthor
+            
+            \DescribeMacro\getDate
+            
+            \DescribeMacro\getThesisTitle
+            
+            \DescribeMacro\getThesisSecondTitle
+            
+            \DescribeMacro\getLocation
+            
+            \DescribeMacro\getSupervisor
+            
+            \DescribeMacro\getCourse
+            
+            \DescribeMacro\getStudentId
+            
+            \DescribeMacro\getInstitute
+            
+            \DescribeMacro\getInstituteSection
+            
+            \DescribeMacro\getProcessingPeriod
+            
+    \section{Beispiele und Anwendungen}
+        \subsection{Eigene Titelseite definieren}
+            \blindtext
+            
+        \section{Eigene Erklärung definieren}
+            \blindtext
+            
+        \section{Abstract hinzufügen}
+            \blindtext
             
     \section{Installation}
         \blindtext
