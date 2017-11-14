@@ -23,8 +23,8 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@cls@version}{v0.1}
-\newcommand*{\iodhbwm@cls@date}{2017-09-01}
+\newcommand*{\iodhbwm@cls@version}{v0.1-alpha}
+\newcommand*{\iodhbwm@cls@date}{2017-11-14}
 \newcommand*{\iodhbwm@cls@info}{Inoffical DHBW Mannheim thesis class}
 
 \ProvidesClass{iodhbwm}[%
@@ -34,7 +34,8 @@
     
 \RequirePackage{etoolbox, pgfopts, scrlfile}
 
-\newcommand*{\iodhbwm@cls@baseclass}{scrreprt}
+
+\providecommand*{\iodhbwm@cls@baseclass}{scrreprt}
 \newcommand*{\iodhbwm@cls@baseclass@options}{}
 
 % ----------------------------------------------------------

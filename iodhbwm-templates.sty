@@ -1,5 +1,5 @@
 % ----------------------------------------------------------
-% iodhbwm package
+% iodhbwm-templates package
 %
 %   inofficial package for DHBW Mannheim to simplify writing
 %   theses with the given requirements
@@ -23,8 +23,8 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@pkg@version}{v0.1}
-\newcommand*{\iodhbwm@pkg@date}{2017-09-01}
+\newcommand*{\iodhbwm@pkg@version}{v0.1-alpha}
+\newcommand*{\iodhbwm@pkg@date}{2017-11-14}
 \newcommand*{\iodhbwm@pkg@info}{Inoffical DHBW Mannheim thesis package}
 
 \ProvidesPackage{iodhbwm-templates}[%
@@ -41,8 +41,8 @@
 }{}
 
 \PassOptionsToPackage{table}{xcolor}
-\RequirePackage{graphicx, tikz}
-\RequirePackage{tabularx, booktabs}
+\RequirePackage{graphicx, tikz}         % Required inside titlepage templates
+\RequirePackage{tabularx, booktabs}     % Required inside titlepage templates
 
 %---------------------------------------------------
 % Defining package options
@@ -96,10 +96,10 @@
 % ----------------------------------------------------------
 % Defining package commands
 % ----------------------------------------------------------
-\newcommand{\iodhbwm@matrikel@nummer}{%
-    \PackageWarningNoLine{iodhbwm}{Please provide an student id by \noexpand{\studentid{}}}
-}
-\newcommand{\studentid}[1]{\renewcommand{\iodhbwm@matrikel@nummer}{#1}}
+%\newcommand{\iodhbwm@matrikel@nummer}{%
+%    \PackageWarningNoLine{iodhbwm}{Please provide an student id by \noexpand{\studentid{}}}
+%}
+%\newcommand{\studentid}[1]{\renewcommand{\iodhbwm@matrikel@nummer}{#1}}
 
 % Makro zum Einfügen einer Titelseite
 \newcommand{\dhbwtitlepage}{%
@@ -116,6 +116,8 @@
         \PackageWarning{iodhbwm}{The passed declaration file `\@iodhbwm@file@declaration` is unknown. Used default instead.}
     }%
 }
+
+%\newcommand{\dhbwtocs}{}
 
 \endinput
 
