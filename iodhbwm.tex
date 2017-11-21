@@ -22,7 +22,7 @@
     \maketitle
 
     \begin{abstract}
-        Bei dem Bundle \pkg{iodbwm} handelt es sich um eine \textbf{i}n\textbf{o}ffizielle Vorlage der \textbf{DHBW} \textbf{M}annheim zum Schreiben von Studien-, Praxis- und Bachelorarbeiten. Das Bundle stellt eine Klasse \pkg{iodbwm} und ein Paket \pkg{iodbwm-templates} bereit.
+        Bei dem Bundle \pkg{iodhbwm} handelt es sich um eine \textbf{i}n\textbf{o}ffizielle Vorlage der \textbf{DHBW} \textbf{M}annheim zum Schreiben von Studien-, Praxis- und Bachelorarbeiten. Das Bundle stellt eine Klasse \pkg{iodhbwm} und ein Paket \pkg{iodhbwm-templates} bereit.
 
         Die vorgenommenen Einstellungen richtigen sie im Wesentlichen nach den Richtlinien der DHBW Mannheim zur Erstellung wissenschaftlicher Arbeiten.
     \end{abstract}
@@ -36,7 +36,7 @@
 
         Deshalb kam ich zu dem Entschluss eine einfache Klasse zu entwickeln, welches das grundlegende Design entsprechend der Richtlinien der DHBW umsetzt. Zusätzlich dazu habe ich ein kleines Paket geschrieben, welches häufige Befehle definiert. Es wird empfohlen, dass das Paket in Verbindung mit der Klasse verwendet wird. Eine Voraussetzung ist es jedoch nicht.
 
-    \section{Die Klasse iodbwm}\label{cls:iodhbwm}
+    \section{Die Klasse iodhbwm}\label{cls:iodhbwm}
         Die Angabe der Optionen erfolgt über das optionale Argument von \cs{documentclass}.
         Dabei wird auf das \meta{key}=\meta{value} System von \pkg{pgfopts} zurückgegriffen.
         
@@ -44,7 +44,7 @@
         
             \Option{load-preamble}\WithValues{true, false}\AndDefault{true}
             Bei Angabe der Option \opt{load-preamble} werden eine Reihe von zusätzlichen Paketen geladen und teilweise vorkonfiguriert. Nachfolgend erfolgt eine Auflistung der geladenen Pakete:
-            \begin{description}[noitemsep]
+            \begin{description}[noitemsep, style=multiline, leftmargin=3cm]
                 \item [\pkg{lmodern}]
                 \item [\pkg{microtype}]
                 \item [\pkg{srchack}]
@@ -55,7 +55,7 @@
                 \item [\pkg{siunitx}]
                 \item [\pkg{mathtools}]
                 \item [\pkg{graphicx}]
-                \item [\pkg{tcolobox}] - Dieses Paket lädt implizit \pkg{tikz} und \pkg{xcolor}. Dem Paket \pkg{xcolor} werden die Optionen \opt{table} und \opt{dvipsnames} übergeben.
+                \item [\pkg{tcolobox}] Dieses Paket lädt implizit \pkg{tikz} und \pkg{xcolor}. Dem Paket \pkg{xcolor} werden die Optionen \opt{table} und \opt{dvipsnames} übergeben.
                 \item [\pkg{tabularx}]
                 \item [\pkg{booktabs}]
                 \item [\pkg{multirow}]
@@ -77,46 +77,72 @@
             Derzeit stellt die Klasse keine Makros zur Verfügung.
             
         \subsection{Hintergrund Informationen}
-            Die Klasse basiert auf der KOMA-Script Klasse \pkg{scrartcl}.
+            Die Klasse basiert auf der KOMA-Script Klasse \pkg{scrreprt}. Eine Änderung der Klasse ist in der derzeitigen Version \theversion{} nicht vorgesehen.
 
-    \section{Das Paket iodbwm-templates}\label{pkg:iodhbwm-templates}
-        \subsection{Optionen}
+    \section{Das Paket iodhbwm-templates}\label{pkg:iodhbwm-templates}
+        \subsection{Optionen}\label{pkg:options}
             Das Paket stellt das Makro \Macro{dhbwsetup}{\meta{key}=\meta{value}} bereit, über welches alle Einstellungen (Optionen) angepasst werden können. Hierfür sind eine Reihe von \meta{key} Variablen vordefiniert.\bigskip
             
-            \Option{titlepage}\WithValues{\meta{filename}}\AndDefault{dhbw-titlepage.def}\bigskip
+            \Option{titlepage}\WithValues{\meta{filename}}\AndDefault{dhbw-titlepage.def}
+            Mit der Option kann eine eigene Titelseite übergeben werden. Die Option \opt{thesis type} wird dabei ignoriert. Falls die angegeben Datei nicht gefunden wird, wird auf die Standardtitleseite zurückgegriffen.\bigskip
             
-            \Option{declaration}\WithValues{\meta{filename}}\AndDefault{dhbw-declaration.def}\bigskip
+            \Option{declaration}\WithValues{\meta{filename}}\AndDefault{dhbw-declaration.def}
+            Mit der Option kann eine eigene Eigenständigkeitserklärung übergeben werden. In der derzeitigen Version wird nur eine deutsche Variante bereitgestellt.\bigskip
             
-            \Option{thesis type}\WithValues{SA, BA, PA}\bigskip
+            \Option{thesis type}\WithValues{SA, BA, PA}
+            Die Option gibt die Art der Arbeit an. Die Abkürzungen sind wie folgt zu verstehen:
+            \begin{description}[noitemsep,style=multiline,leftmargin=1cm]
+                \item[SA] Studienarbeit
+                \item[BA] Bachelorarbeit
+                \item[PA] Praxisarbeit
+            \end{description}
+            Die Angabe des Typ der Arbeit bestimmt die Gestaltung der Titelseite.\medskip
             
-            \Option{thesis title}\WithValues{}\bigskip
+            \Option{thesis title}\WithValues{\meta{value}}
+            Die Option ermöglicht die Angabe des Titel (Thema) der Arbeit.\medskip
             
-            \Option{thesis second title}\WithValues{}\bigskip
+            \Option{thesis second title}\WithValues{\meta{value}}
+            Im Fall einer Praxisarbeit \opt{thesis type} = \meta{PA} kann es vorkommen, dass zwei unterschiedliche Themen in einer Arbeit vorkommen. Das zweite Thema kann über diese Option definiert werden.\medskip
             
-            \Option{author}\WithValues{}\bigskip
+            \Option{author}\WithValues{\meta{value}}
+            Mit der Option wird der Autor der Arbeit angegeben. Der Autor wird auf der Titelseite und im der Eigenständigkeitserklärung verwendet.\medskip
             
-            \Option{date}\WithValues{date}\AndDefault{\today}\bigskip
+            \Option{date}\WithValues{\meta{value}}\AndDefault{\cs{today}}
+            Mit der Option wird das Datum angegeben.\medskip
             
-            \Option{location}\WithValues{}\bigskip
+            \Option{location}\WithValues{\meta{value}}
+            Mit Setzen der Option wird der Ort angegeben, an welchem die Arbeit erstellt wurde.\medskip
             
-            \Option{institute}\WithValues{}\bigskip
+            \Option{institute}\WithValues{\meta{value}}
+            Mit Angabe der Option wird der Firmenname angeben.\medskip
             
-            \Option{institute section}\WithValues{}\bigskip
+            \Option{institute section}\WithValues{\meta{value}}
+            Eine weitere Spezialisierung des Firmennamen kann durch Angabe des Abteilung beschrieben werden. Die Abteilung kann mithilfe dieser Option angegeben werden.\medskip
             
-            \Option{institute logo}\WithValues{}\bigskip
+            \Option{institute logo}\WithValues{\meta{filename}}
+            Ein Firmenlogo kann dieser Option übergeben werden. Dieses wird automatisch auf den voreingestellten Titelseiten verwendet. Der \meta{filename} sollte ohne Dateiendung angegeben werden.\medskip
             
-            \Option{student id}\WithValues{}\bigskip
+            \Option{student id}\WithValues{\meta{value}}
+            Mit der Option wird die Matrikelnummer des Studenten angegeben.\medskip
             
-            \Option{course}\WithValues{}\bigskip
+            \Option{course}\WithValues{\meta{value}}
+            Mit der Option wird die Kurskennung angegeben.\medskip
             
-            \Option{supervisor}\WithValues{}\bigskip
+            \Option{supervisor}\WithValues{\meta{value}}
+            Mit der Option wird der Betreuer der Arbeit angegeben.\medskip
             
-            \Option{processing period}\WithValues{}\bigskip
+            \Option{processing period}\WithValues{\meta{value}}
+            Mit der Option wird der Zeitraum der Arbeit angegeben. Bei Arbeiten über zwei Semester kann die Angabe beispielsweise wie folgt erfolgen:
+            \begin{verbatim}
+\dhbwsetup{
+    processing period = {01.01. - 31.03.17, 25.05. - 31.09.17}
+}
+            \end{verbatim}
             
         \subsection{Allgemeine Makros}
             \DescribeMacro\dhbwsetup{\meta{key}=\meta{value}}
             
-            \DescribeMacro\dhbwtitlepage{<filename>}
+            \DescribeMacro\dhbwtitlepage
             
             \DescribeMacro\dhbwdeclaration
             
