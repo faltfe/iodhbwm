@@ -17,6 +17,8 @@
 \usepackage{blindtext}
 
 %\KOMAoptions{parskip=half-}
+\let\oldblindtext\blindtext
+\renewcommand{\blindtext}{{\color{gray}\oldblindtext}}
 
 \begin{document}
     \maketitle
@@ -44,33 +46,41 @@
         
             \Option{load-preamble}\WithValues{true, false}\AndDefault{true}
             Bei Angabe der Option \opt{load-preamble} werden eine Reihe von zusätzlichen Paketen geladen und teilweise vorkonfiguriert. Nachfolgend erfolgt eine Auflistung der geladenen Pakete:
-            \begin{description}[noitemsep, style=multiline, leftmargin=3cm]
-                \item [\pkg{lmodern}]
-                \item [\pkg{microtype}]
-                \item [\pkg{srchack}]
-                \item [\pkg{babel}]
-                \item [\pkg{setspace}]
+            \begin{description}[itemsep=1pt, style=multiline, leftmargin=3cm]
+                \item [\pkg{lmodern}] Verwendung von Latin Modern anstatt Computer Modern
+                \item [\pkg{microtype}] Verbesserungen des Schriftsatzes durch Änderungen der Abstände zwischen einzelnen Buchstaben und Wörtern
+                \item [\pkg{babel}] Ermöglicht Sprachumschaltungen. Die Sprache kann als Option bei \verb|documenclass[language]{iodhbwm}| mitgeben werden.
+                \item [\pkg{setspace}] Umschaltung zwischen einzeilig und anderthalbzeilig
                 \item [\pkg{scrlayer-srcpage}] Zusätzlich werden grundlegende Konfiguration zur Darstellung der Kopf- und Fußzeilen vorgenommen.
-                \item [\pkg{geometry}] Die Seitenränder werden entsprechend der Richtlinien der DHBW eingestellt.
-                \item [\pkg{siunitx}]
-                \item [\pkg{mathtools}]
-                \item [\pkg{graphicx}]
+                \item [\pkg{geometry}] Die Seitenränder werden entsprechend der Richtlinien der DHBW voreingestellt.
+                \item [\pkg{siunitx}] Paket zum Schreiben von mathematischen Einheiten unter Beachtung der korrekten Schreibweise.
+                \item [\pkg{mathtools}] Erweiterung des Standard zur Darstellung von mathematischen Ausdrücken
+                \item [\pkg{graphicx}] Möglichkeit zur Einbindung von Bildern.
                 \item [\pkg{tcolobox}] Dieses Paket lädt implizit \pkg{tikz} und \pkg{xcolor}. Dem Paket \pkg{xcolor} werden die Optionen \opt{table} und \opt{dvipsnames} übergeben.
-                \item [\pkg{tabularx}]
-                \item [\pkg{booktabs}]
-                \item [\pkg{multirow}]
+                \item [\pkg{tabularx}] Erweiterung der Tabellenumgebung
+                \item [\pkg{booktabs}] Möglichkeit zur Darstellung horizontaler Linien in Tabellen zur besseren Gestaltung
+                \item [\pkg{multirow}] Paket zur vertikalen Verbinden von einzelnen Zellen in einer Tabelle
             \end{description}
 
             \Option{load-dhbw-templates}\WithValues{true, false}\AndDefault{false}
-            Bei Angabe der Option wird das Paket \pkg{iodhbwm-templates} geladen. Die dadurch bereitgestellten zusätzlichen Funktionen werden im Abschnitt~\ref{pkg:iodhbwm-templates} beschrieben.\bigskip
+            Bei Angabe der Option wird das Paket \pkg{iodhbwm-templates} geladen. Die dadurch bereitgestellten zusätzlichen Funktionen werden im Abschnitt~\ref{pkg:iodhbwm-templates} beschrieben.\medskip
 
             \Option{add-bibliography}\WithValues{true, false}\AndDefault{false}
-            \blindtext\bigskip
+            Bei Aktivierung der Option wird versucht, ein Literaturverzeichnis zu erstellen. Dabei wenn die Option \opt{bib-file} nicht gesetzt ist, wird automatisch nach der Datei \file{dhbw-source.bib} gesucht.
+            
+            Das Literaturverzeichnis wird mittel \pkg{biblatex} und biber erstellt. Es ist darauf zu achten, dass die Einstellungen in der IDE gegebenenfalls anzupassen sind!\medskip
 
             \Option{bib-file}\WithValues{\meta{filename}}
-            \blindtext\bigskip
+            Der Option kann als \meta{key} eine Datei mitgegeben werden, welche die Einträge für das Inhaltsverzeichnis beinhalten. Es ist darauf zu achten, dass die Datei einschließlich Dateiendung übergeben wird.
+            \begin{verbatim}
+\documentclass[%
+    add-bibliography = true,
+    bib-file = my-source.bib
+]{iodhbwm}
+            \end{verbatim}
+Diese Option ist nur in Verbindung mit \opt{add-bibliography} wirksam.\medskip
 
-            \Option{debug}
+            \Option{debug}\WithValues{true, false}\AndDefault{false}
             Bei Angabe der Option werden die Pakete \pkg{blindtext} und \pkg{lipsum} geladen.
             
         \subsection{Allgemeine Makros}
@@ -81,13 +91,13 @@
 
     \section{Das Paket iodhbwm-templates}\label{pkg:iodhbwm-templates}
         \subsection{Optionen}\label{pkg:options}
-            Das Paket stellt das Makro \Macro{dhbwsetup}{\meta{key}=\meta{value}} bereit, über welches alle Einstellungen (Optionen) angepasst werden können. Hierfür sind eine Reihe von \meta{key} Variablen vordefiniert.\bigskip
+            Das Paket stellt das Makro \Macro\dhbwsetup{\meta{key}=\meta{value}} bereit, über welches alle Einstellungen (Optionen) angepasst werden können. Hierfür sind eine Reihe von \meta{key} Variablen vordefiniert.\medskip
             
             \Option{titlepage}\WithValues{\meta{filename}}\AndDefault{dhbw-titlepage.def}
-            Mit der Option kann eine eigene Titelseite übergeben werden. Die Option \opt{thesis type} wird dabei ignoriert. Falls die angegeben Datei nicht gefunden wird, wird auf die Standardtitleseite zurückgegriffen.\bigskip
+            Mit der Option kann eine eigene Titelseite übergeben werden. Die Option \opt{thesis type} wird dabei ignoriert. Falls die angegeben Datei nicht gefunden wird, wird auf die Standardtitleseite zurückgegriffen.\medskip
             
             \Option{declaration}\WithValues{\meta{filename}}\AndDefault{dhbw-declaration.def}
-            Mit der Option kann eine eigene Eigenständigkeitserklärung übergeben werden. In der derzeitigen Version wird nur eine deutsche Variante bereitgestellt.\bigskip
+            Mit der Option kann eine eigene Eigenständigkeitserklärung übergeben werden. In der derzeitigen Version wird nur eine deutsche Variante bereitgestellt.\medskip
             
             \Option{thesis type}\WithValues{SA, BA, PA}
             Die Option gibt die Art der Arbeit an. Die Abkürzungen sind wie folgt zu verstehen:
@@ -170,19 +180,34 @@
             
     \section{Beispiele und Anwendungen}
         \subsection{Eigene Titelseite definieren}
-            \blindtext
+            Es kann vorkommen, dass man die Klasse verwenden möchte, jedoch die vordefinierten Titelseiten einem nicht gefallen oder modifizieren möchte. Hierzu stehen einem zwei Varianten zur Verfügung.
+            
+            \minisec{Titelseite mit \cs{maketitle}}
+            Dabei wird auf das herkömmliche Macro \verb|\maketitle| zurückgegriffen. Allerdings ist es dann notwendig, dass die Attribute selbstständig gesetzt werden.
+            \begin{verbatim}
+\title{Die DHBW ist toll}
+\author{Max Mustermann}
+\date{\today}
+...
+\maketitle
+            \end{verbatim}
+            
+            \minisec{Titelseite mit der Umgebung \env{titlepage}}
+            Diese Variante bietet eine größere gestalterische Freiheit. Das Grundgerüst kann den beiliegenden Templates entnommen werden. Anschließend kann dann über die Option \opt{titlepage} = \meta{filename} die eigene Titelseite angegeben werden. Die Dateiendung kann bei Angabe des \meta{filename} weggelassen werden.
             
         \section{Eigene Erklärung definieren}
-            \blindtext
+            Eine eigene (Eigenständigkeits-) Erklärung kann über die Option \opt{declaration} = \meta{filename} übergeben werden. Auf die Angabe der Dateiendung kann verzichtet werden.
             
-        \section{Abstract hinzufügen}
-            \blindtext
+%        \section{Abstract hinzufügen}
+%            \blindtext
             
     \section{Installation}
-        \blindtext
+        Das Bundle kann manuell aus dem Git-Repository heruntergeladen werden. Die Klasse und das Paket kann entweder im jeweiligen Ordner gespeichert werden oder in Abhängigkeit der verwendeten \LaTeX - Distribution installiert werden.
+        
+        Das Bundle wird ebenfalls über CTAN zur Verfügung gestellt und kann deshalb über die offiziellen Paketquellen heruntergeladen und installiert werden. Diese Variante ist zu bevorzugen.
 
-    \section{Bekannte Probleme}
-        \blindtext
+%    \section{Bekannte Probleme}
+%        \blindtext
 
     \PrintChanges
     \PrintIndex
