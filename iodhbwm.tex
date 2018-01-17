@@ -150,40 +150,40 @@ Diese Option ist nur in Verbindung mit \opt{add-bibliography} wirksam.\medskip
             \end{verbatim}
             
         \subsection{Allgemeine Makros}
-            \DescribeMacro\dhbwsetup{\meta{key}=\meta{value}}
+            \DescribeMacro\dhbwsetup{\meta{key}=\meta{value}} Das Makro ermöglicht die Angabe aller hier aufgelisteten Optionen einzustellen. Dabei werden die Option als \meta{key} angegeben und der einzustellende Wert als \meta{value}.
             
-            \DescribeMacro\dhbwtitlepage
+            \DescribeMacro\dhbwtitlepage Das Makro erstellt eine Titelseite. Dabei wird bei den vordefinierten Titelseiten (s.~\opt{thesis type}) auf die \textbf{zuvor} gesetzt Optionen zurück gegriffen. Eine eigene Definition einer Titelseite kann durch die Option \opt{titlepage} angegeben werden.
             
-            \DescribeMacro\dhbwdeclaration
+            \DescribeMacro\dhbwdeclaration Für das Setzen einer allgemeinen vordefinierten Selbstständigkeitserklärung (Eigenerklärung) ist das Makro zu verwenden. Eine eigene Definition kann mittels der Option \opt{declaration} übergeben werden.
             
-            \DescribeMacro\getAuthor
+            \DescribeMacro\getAuthor Abfrage des Autor, welcher durch \opt{author} übergeben wurde.
             
-            \DescribeMacro\getDate
+            \DescribeMacro\getDate Abfrage des Datum, welches durch \opt{date} übergeben wurde. Falls kein Datum angegeben wurde, wird \verb|\today| als Standard verwendet.
             
-            \DescribeMacro\getThesisTitle
+            \DescribeMacro\getThesisTitle Abfrage des Titel der Arbeit, welcher durch \opt{thesis title} übergeben wurde.
             
-            \DescribeMacro\getThesisSecondTitle
+            \DescribeMacro\getThesisSecondTitle Abfrage des zweiten Titels, welcher durch \opt{thesis second title} übergeben wurde.
             
-            \DescribeMacro\getLocation
+            \DescribeMacro\getLocation Abfrage des Orts, welcher durch \opt{location} übergeben wurde.
             
-            \DescribeMacro\getSupervisor
+            \DescribeMacro\getSupervisor Abfrage des Betreuer, welcher durch \opt{supervisor} übergeben wurde.
             
-            \DescribeMacro\getCourse
+            \DescribeMacro\getCourse Abfrage des Kurses, welcher durch \opt{course} übergeben wurde.
             
-            \DescribeMacro\getStudentId
+            \DescribeMacro\getStudentId Abfrage der Matrikelnummer, welche durch \opt{student id} übergeben wurde.
             
-            \DescribeMacro\getInstitute
+            \DescribeMacro\getInstitute Abfrage des Firmenname, welcher durch \opt{institute} übergeben wurde.
             
-            \DescribeMacro\getInstituteSection
+            \DescribeMacro\getInstituteSection Abfrage der Abteilung, welche durch \opt{institute section} übergeben wurde.
             
-            \DescribeMacro\getProcessingPeriod
+            \DescribeMacro\getProcessingPeriod Abfrage des Bearbeitungszeitraum, welcher durch \opt{author} übergeben wurde.
             
     \section{Beispiele und Anwendungen}
         \subsection{Eigene Titelseite definieren}
             Es kann vorkommen, dass man die Klasse verwenden möchte, jedoch die vordefinierten Titelseiten einem nicht gefallen oder modifizieren möchte. Hierzu stehen einem zwei Varianten zur Verfügung.
             
             \minisec{Titelseite mit \cs{maketitle}}
-            Dabei wird auf das herkömmliche Macro \verb|\maketitle| zurückgegriffen. Allerdings ist es dann notwendig, dass die Attribute selbstständig gesetzt werden.
+            Dabei wird auf das herkömmliche Makro \verb|\maketitle| zurückgegriffen. Allerdings ist es dann notwendig, dass die Attribute selbstständig gesetzt werden.
             \begin{verbatim}
 \title{Die DHBW ist toll}
 \author{Max Mustermann}
@@ -202,9 +202,11 @@ Diese Option ist nur in Verbindung mit \opt{add-bibliography} wirksam.\medskip
 %            \blindtext
             
     \section{Installation}
-        Das Bundle kann manuell aus dem Git-Repository heruntergeladen werden. Die Klasse und das Paket kann entweder im jeweiligen Ordner gespeichert werden oder in Abhängigkeit der verwendeten \LaTeX - Distribution installiert werden.
+        \subsection{Lokale Installation}
+            Eine eigene Installation des Paket kann in einem lokalen texmf Ordner (lokales Repository) erfolgen. Das Bundle kann manuell aus dem Git-Repository heruntergeladen werden.
         
-        Das Bundle wird ebenfalls über CTAN zur Verfügung gestellt und kann deshalb über die offiziellen Paketquellen heruntergeladen und installiert werden. Diese Variante ist zu bevorzugen.
+        \subsection{CTAN}
+            Das Bundle wird ebenfalls über CTAN (mit Release der Version v0.1) zur Verfügung gestellt und kann deshalb über die offiziellen Paketquellen heruntergeladen und installiert werden. Diese Variante ist zu bevorzugen.
 
 %    \section{Bekannte Probleme}
 %        \blindtext
