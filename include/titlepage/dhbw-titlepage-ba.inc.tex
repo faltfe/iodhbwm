@@ -1,42 +1,26 @@
 \begin{titlepage}
-    \begin{minipage}[c]{.30\textwidth}
+    \centering
+    \ifcsempty{iodhbwm@institute@logo}{%
         \includegraphics[height=1.7cm]{dhbw-logo}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{.30\textwidth}
-        \centering
-        \includegraphics[height=1.7cm]{example-image}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{.30\textwidth}
-        \raggedleft
-        \includegraphics[height=1.7cm]{example-image}
-    \end{minipage}
-    
-    \begin{center}
+    }{%
+        \begin{minipage}[c]{.30\textwidth}
+            \includegraphics[height=1.7cm]{dhbw-logo}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[c]{.30\textwidth}
+            \centering
+            \includegraphics[height=1.7cm]{\getInstituteLogo}
+        \end{minipage}
+    }
     \Large\textsc{Bachelorarbeit}
     
     \normalsize
     des Studiengangs Informationstechnik\par
     der Dualen Hochschule Baden-Württemberg Mannheim
-    \end{center}
     
     \rule{\textwidth}{.5mm}\bigskip
-    %    \begin{minipage}[t]{.45\textwidth}
-    %        \centering\textsc{Thema A}
-    %        
-    %        \bfseries\large \dots
-    %    \hfill
-    %    \begin{minipage}[t]{.45\textwidth}
-    %        \centering\textsc{Thema B}
-    %        
-    %        \tikz{\node (1) [draw, rounded rectangle] {Kolloquium};}\par
-    %        
-    %        \bfseries\large \dots
-    %    \end{minipage}
-    %    \\[1em]
     
-    \centering\textsc{\large Thema \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
+    \textsc{\large Thema \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
     
     {\bfseries \getThesisTitle}\bigskip
     
@@ -50,24 +34,22 @@
     
     \vfill
     
-    \begin{center}
     von\par
-    \centering{\bfseries\large \getAuthor}\par
+    {\bfseries\large \getAuthor}\par
     \today
-    \end{center}
     
     \vfill
     
     \small{%
-    \begin{tabularx}{\textwidth}{@{}lX@{}}
-    \toprule
-    Bearbeitungszeitraum: & \getProcessingPeriod\\
-    Matrikelnummer, Kurs: & \getStudentId\\
-    Abteilung: & \getInstituteSection\\
-    Ausbildungsfirma: & \getInstitute\\
-    Betreuer: & \getSupervisor\\
-    Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
-    \end{tabularx}
+        \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \toprule
+        Bearbeitungszeitraum: & \getProcessingPeriod\\
+        Matrikelnummer, Kurs: & \getStudentId\\
+        Abteilung: & \getInstituteSection\\
+        Ausbildungsfirma: & \getInstitute\\
+        Betreuer: & \getSupervisor\\
+        Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
+        \end{tabularx}
     }
     \cleardoublepage
 \end{titlepage}
