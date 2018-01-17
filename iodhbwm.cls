@@ -5,7 +5,7 @@
 %   theses with the given requirements
 % ----------------------------------------------------------
 % Felix Faltin
-% E-Mail:
+% E-Mail: ffaltin91@gmail.com
 % ----------------------------------------------------------
 % Copyright 2017 Felix Faltin
 %

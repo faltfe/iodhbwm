@@ -3,7 +3,7 @@
     load-preamble = true,
     load-dhbw-templates,
     add-bibliography,
-%    bib-file = biblatex-examples.bib,
+    bib-file = biblatex-examples.bib,
     add-tocs-to-toc,
     debug,
     ngerman
@@ -15,14 +15,15 @@
     author              = Max Mustermann,
     thesis type         = SA,
     thesis title        = Überprüfung von Bausteinen,
-%    thesis second title = Zweiter Titel,
+    thesis second title = Zweiter Titel,
     student id          = 12345,
     location            = Musterstadt,
     institute           = Musterwerke GmbH,
     institute section   = Planabteilung,
+    institute logo      = dhbw-logo,
     course              = Txxxx,
     supervisor          = Gott,
-    processing period   = {01.01.17 -- 31.01.17} 
+    processing period   = {01.01.17 -- 31.01.17}
 }
 
 \begin{document}
@@ -39,10 +40,7 @@
         \section{Test Section}\label{sec:test-sec}
             \blindtext
             
-            Verweis auf \Cref{chap:test-chap} und auf mich selbst \Cref{sec:test-sec}.
+            Verweis auf \Cref{chap:test-chap} und auf mich selbst \Cref{sec:test-sec}~\cite{glashow}.
             
             \lipsum
-            
-            Ich bin eine Quelle \cite{Helmke2007}
-    \chapter{Test}
 \end{document}
