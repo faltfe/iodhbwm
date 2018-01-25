@@ -14,3 +14,7 @@
 !*.cls
 !*.sty
 !*.png
+!*.travis.yml
+!*.profile
+!*.sh
+!*.makefile
