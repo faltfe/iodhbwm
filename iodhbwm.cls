@@ -174,7 +174,7 @@
         }%
     }{%
         \IfFileExists{\iodhbwm@bib@file}{}{%
-            \ClassWarning{iodhbwm}{Couldn't find passed bib file}
+            \ClassWarning{iodhbwm}{Couldn't find passed bib file \iodhbwm@bib@file}
         }%
     }%
     \addbibresource{\iodhbwm@bib@file}%

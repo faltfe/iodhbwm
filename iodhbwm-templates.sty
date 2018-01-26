@@ -26,8 +26,9 @@
 \newcommand*{\iodhbwm@pkg@version}{v0.1-alpha}
 \newcommand*{\iodhbwm@pkg@date}{2017-11-14}
 \newcommand*{\iodhbwm@pkg@info}{Inoffical DHBW Mannheim thesis package}
+\newcommand*{\iodhbwm@pkg@name}{iodhbwm-templates}
 
-\ProvidesPackage{iodhbwm-templates}[%
+\ProvidesPackage{\iodhbwm@pkg@name}[%
     \iodhbwm@pkg@date\space
     \iodhbwm@pkg@version\space
     \iodhbwm@pkg@info]
@@ -65,38 +66,128 @@
             thesis type/SA/.style = {/dhbw/titlepage = dhbw-titlepage-sa.inc},
             thesis type/PA/.style = {/dhbw/titlepage = dhbw-titlepage-pa.inc},
         thesis title/.store in = \iodhbwm@thesis@title,
+        thesis title = {},
         thesis second title/.store in = \iodhbwm@thesis@second@title,
         thesis second title = {},
         author/.store in = \iodhbwm@author,
+        author = {},
         date/.store in = \iodhbwm@date,
         date = \today,
         location/.store in = \iodhbwm@location,
+        location = {},
         institute/.store in = \iodhbwm@institute,
         institute section/.store in = \iodhbwm@institute@section,
+        institute section = {},
         institute logo/.store in = \iodhbwm@institute@logo,
         institute logo = {},
         student id/.store in = \iodhbwm@student@id,
+        student id = {},
         course/.store in = \iodhbwm@course,
+        course = {},
         supervisor/.store in = \iodhbwm@supervisor,
+        supervisor = {},
         processing period/.store in = \iodhbwm@processing@period,
+        processing period = {}
 }
 
 \newrobustcmd\dhbwsetup[1]{\pgfqkeys{/dhbw}{#1}}
 
 \ProcessPgfOptions{/dhbw}
 
-\newcommand{\getAuthor}{\iodhbwm@author}
-\newcommand{\getDate}{\iodhbwm@date}
-\newcommand{\getThesisTitle}{\iodhbwm@thesis@title}
+% Some of these commands are required to print
+% predefined titlepages.
+% required
+\newcommand{\getAuthor}{%
+    \ifdefempty{\iodhbwm@author}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option author required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+            \space\space author = {Your name}\MessageBreak
+            }}{See documentation for more information}%
+    }{\iodhbwm@author}%
+}
+% required
+\newcommand{\getThesisTitle}{%
+    \ifdefempty{\iodhbwm@thesis@title}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option thesis title required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+            \space\space thesis title = {Your title}\MessageBreak
+            }}{See documentation for more information}%
+    }{\iodhbwm@thesis@title}%
+}
+% optional
 \newcommand{\getThesisSecondTitle}{\iodhbwm@thesis@second@title}
-\newcommand{\getLocation}{\iodhbwm@location}
-\newcommand{\getSupervisor}{\iodhbwm@supervisor}
-\newcommand{\getCourse}{\iodhbwm@course}
-\newcommand{\getStudentId}{\iodhbwm@student@id}
-\newcommand{\getInstitute}{\iodhbwm@institute}
-\newcommand{\getInstituteSection}{\iodhbwm@institute@section}
+
+% required
+\newcommand{\getLocation}{%
+    \ifdefempty{\iodhbwm@location}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option location required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space location = {Your location}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@location}%
+}
+% required
+\newcommand{\getCourse}{%
+    \ifdefempty{\iodhbwm@course}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option course required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space course = {Your course}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@course}%
+}
+% required
+\newcommand{\getStudentId}{%
+    \ifdefempty{\iodhbwm@student@id}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option student id required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space student id = {Your student id}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@student@id}%
+}
+% optional
 \newcommand{\getInstituteLogo}{\iodhbwm@institute@logo}
-\newcommand{\getProcessingPeriod}{\iodhbwm@processing@period}
+\newcommand{\getInstitute}{%
+    \ifdefempty{\iodhbwm@institute}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option institute required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space institute = {Your institute}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@institute}%
+}
+\newcommand{\getInstituteSection}{%
+    \ifdefempty{\iodhbwm@institute@section}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option institute section required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space institute section = {Your institute section}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@institute@section}%
+}
+\newcommand{\getSupervisor}{%
+    \ifdefempty{\iodhbwm@supervisor}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option supervisor required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space supervisor = {Your supervisor}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@supervisor}%
+}
+\newcommand{\getProcessingPeriod}{%
+    \ifdefempty{\iodhbwm@processing@period}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option supervisor required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space processing period = {Your processing period}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@processing@period}%
+}
+\newcommand{\getDate}{\iodhbwm@date}
 
 % ----------------------------------------------------------
 % Defining package commands
