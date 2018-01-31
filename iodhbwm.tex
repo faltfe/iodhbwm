@@ -204,7 +204,31 @@ Diese Option ist nur in Verbindung mit \opt{add-bibliography} wirksam.\medskip
     \section{Installation}
         \subsection{Lokale Installation}
             Eine eigene Installation des Paket kann in einem lokalen texmf Ordner (lokales Repository) erfolgen. Das Bundle kann manuell aus dem Git-Repository heruntergeladen werden.
-        
+            
+            \subsubsection{MiKTeX}
+                \begin{enumerate}
+                    \item Lokales Repository anlegen, welches der \href{http://tug.ctan.org/tds/tds.html}{Verzeichnisstruktur für \LaTeX Dateien} entspricht. Die Verzeichnisstruktur könnte wie folgt aussehen:\par \verb|C:\Users\<username>\localtexmf\tex\latex\iodhbwm|
+                    \item MiKTeX Settings öffnen
+                    \item Unter dem Reiter ,,Roots'' das Verzeichnis hinzufügen\par \verb|C:\Users\<username>\localtexmf|
+                    \item Anschließend unter ,,General'' auf den Button Refresh FNDB klicken
+                \end{enumerate}
+            
+                Der letzte Schritt muss immer wieder ausgeführt werden, wenn ein neues Release heruntergeladen wurde.
+                
+                Eine ausführliche Beschreibung befindet sich auf \url{https://tex.stackexchange.com/a/69484/142408}.
+            
+            \subsubsection{TeXlive}
+                \Warning{Die Installationsanweisung für TeXlive wurde nicht getestet!}
+                
+                \begin{enumerate}
+                    \item \verb|kpsewhich -var-value TEXMFHOME| zum Auffinden des Ordner
+                    \item ~/texmf/tex/latex/ (ggf. neu anlegen)
+                    \item  Ordner iodhbwm nach kopieren ~/texmf/tex/latex/ (Ordner muss zwingend iodhbwm heißen)
+                    \item texhash ~/texmf ausführen
+                \end{enumerate}
+            
+                Eine ausführliche Beschreibung befindet sich auf \url{https://tex.stackexchange.com/a/73017/142408}.
+                
         \subsection{CTAN}
             Das Bundle wird ebenfalls über CTAN (mit Release der Version v0.1) zur Verfügung gestellt und kann deshalb über die offiziellen Paketquellen heruntergeladen und installiert werden. Diese Variante ist zu bevorzugen.
 
