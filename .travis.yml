@@ -11,5 +11,7 @@ cache:
     - $HOME/.texlive
 script:
 # Prefix command with travis_wait x so it times out after 3 mins
-- travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error ./examples/iodhbwm-example.tex
-- travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error ./examples/iodhbwm-example.tex
+# Run basic example
+- travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error ./examples/basic-usage/iodhbwm-example
+- travis_wait 3 biblatex ./examples/basic-usage/iodhbwm-example
+- travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error ./examples/basic-usage/iodhbwm-example
