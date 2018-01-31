@@ -3,6 +3,8 @@
 
 # Don't ignore directories, so we can recurse into them
 !*/
+/release
+/tmp
 
 # Don't ignore
 !.gitignore
