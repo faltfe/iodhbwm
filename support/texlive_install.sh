@@ -80,9 +80,8 @@ tlmgr install   \
   paratype sourcecodepro ly1 mweights opensans slantsc \
   microtype enumitem blindtext \
   pgf pgfopts xpatch setspace siunitx mathtools tcolorbox \
-  tabularx booktabs biblatex\
-  environ trimspaces multirow logreq lipsum blindtext \
-  cleveref
+  booktabs biblatex biber cleveref \
+  environ trimspaces multirow logreq lipsum blindtext
   
 texhash
 
