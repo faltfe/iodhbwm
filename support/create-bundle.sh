@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 shopt -s extglob
 
@@ -19,7 +19,12 @@ mkdir -p tmp/$latestTag/iodhbwm
 # Copy all files except of files needed only
 # for development
 echo "Copy files into tmp/iodhbwm"
-cp -r !(.|..|.gitignore|.travis.yml|.git|$0|support|tmp|release) tmp/$latestTag/iodhbwm
+cp -r include tmp/$latestTag/iodhbwm
+cp -r examples tmp/$latestTag/iodhbwm
+cp dhbw-logo.png tmp/$latestTag/iodhbwm
+cp iodhbwm* tmp/$latestTag/iodhbwm
+cp README* tmp/$latestTag/iodhbwm
+cp LICENCE* tmp/$latestTag/iodhbwm
 
 mkdir -p release
 #cd tmp
