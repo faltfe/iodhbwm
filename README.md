@@ -15,5 +15,3 @@ Das Paket ermöglicht das Einbinden DHBW spezifischer Formulierung, Darstellunge
 
 # Kontakt
 Das iodhbwm Bundle besitzt nach LPPL den Maintenance Status `maintained`. Feature Requests, Bugs oder Fragen sind über den [Issue-Tracker](https://github.com/faltfe/iodhbwm/issues) zu erstellen.
-
-# Changelog
