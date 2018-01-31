@@ -1,0 +1,28 @@
+
+branches:
+  only:
+    - master
+    - develop
+install:
+ - source ./support/texlive_install.sh
+cache:
+  directories:
+    - /tmp/texlive
+    - $HOME/.texlive
+before_script:
+# install iodhbwm bundle
+  - source support/create-bundle.sh
+  - mkdir -p ~/texmf/tex/latex
+  - latestTag=$(git describe --tags)
+  - yes | cp -rf release/$latestTag/* ~/texmf/tex/latex
+  - mktexlsr ~/texmf
+script:
+# Prefix command with travis_wait x so it times out after 3 mins
+# Run basic example
+  - cd examples/basic-usage
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-example
+  - travis_wait 3 biber iodhbwm-example
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-example
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-example
+after_script:
+  - rm -r ~texmf/tex/latex/*

@@ -3,6 +3,8 @@
 
 # Don't ignore directories, so we can recurse into them
 !*/
+/release
+/tmp
 
 # Don't ignore
 !.gitignore
@@ -13,3 +15,8 @@
 !*.def
 !*.cls
 !*.sty
+!*.png
+!*.travis.yml
+!*.profile
+!*.sh
+!*.makefile

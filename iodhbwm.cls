@@ -23,8 +23,8 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@cls@version}{v0.1-alpha}
-\newcommand*{\iodhbwm@cls@date}{2017-11-14}
+\newcommand*{\iodhbwm@cls@version}{v0.2-alpha}
+\newcommand*{\iodhbwm@cls@date}{2018-01-31}
 \newcommand*{\iodhbwm@cls@info}{Inoffical DHBW Mannheim thesis class}
 
 \ProvidesClass{iodhbwm}[%
@@ -174,7 +174,7 @@
         }%
     }{%
         \IfFileExists{\iodhbwm@bib@file}{}{%
-            \ClassWarning{iodhbwm}{Couldn't find passed bib file}
+            \ClassWarning{iodhbwm}{Couldn't find passed bib file \iodhbwm@bib@file}
         }%
     }%
     \addbibresource{\iodhbwm@bib@file}%
