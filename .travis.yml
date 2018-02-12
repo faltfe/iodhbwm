@@ -31,15 +31,15 @@ script:
 # Run reference example
   - cd ../references
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references
-  - travis_wait 3 biber iodhbwm-example
+  - travis_wait 3 biber iodhbwm-references
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-custom-style
-  - travis_wait 3 biber iodhbwm-example
+  - travis_wait 3 biber iodhbwm-references-custom-style
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-custom-style
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-custom-style
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-footcite
-  - travis_wait 3 biber iodhbwm-example
+  - travis_wait 3 biber iodhbwm-references-footcite
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-footcite
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-footcite
 after_script:
