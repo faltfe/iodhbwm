@@ -28,10 +28,10 @@
 \newcommand*{\iodhbwm@cls@info}{Inoffical DHBW Mannheim thesis class}
 
 \ProvidesClass{iodhbwm}[%
-    \iodhbwm@cls@date\space
-    \iodhbwm@cls@version\space
-    \iodhbwm@cls@info]
-    
+\iodhbwm@cls@date\space
+\iodhbwm@cls@version\space
+\iodhbwm@cls@info]
+
 \RequirePackage{etoolbox, pgfopts, scrlfile}
 
 
@@ -53,23 +53,23 @@
 % ----------------------------------------------------------
 \pgfkeys{
     iodhbwm/.cd,
-        load-preamble/.is if        = iodhbwm@cls@if@preamble,
-        load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
-%        add-toc/.is if              = iodhbwm@cls@if@toc,
-        add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
-        add-bibliography/.is if     = iodhbwm@cls@if@bib,
-        bib-file/.store in          = \iodhbwm@bib@file,
-        bib-file = {},
-        debug/.is if                = iodhbwm@cls@if@isdebug,
-        unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
+    load-preamble/.is if        = iodhbwm@cls@if@preamble,
+    load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
+    %        add-toc/.is if              = iodhbwm@cls@if@toc,
+    add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
+    add-bibliography/.is if     = iodhbwm@cls@if@bib,
+    bib-file/.store in          = \iodhbwm@bib@file,
+    bib-file = {},
+    debug/.is if                = iodhbwm@cls@if@isdebug,
+    unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
 }
 
 \ProcessPgfOptions{/iodhbwm}
 
 \PassOptionsToClass{%
-        fontsize=12pt,
-        a4paper,
-        parskip=half-
+    fontsize=12pt,
+    a4paper,
+    parskip=half-
 }{\iodhbwm@cls@baseclass}
 
 \LoadClass[\iodhbwm@cls@baseclass@options]{\iodhbwm@cls@baseclass}
@@ -87,11 +87,11 @@
     \RequirePackage{babel}
     \RequirePackage{setspace}
     \RequirePackage[%
-        headsepline,
-        footsepline,
-        plainfootsepline,
-        clines,
-        automark,
+    headsepline,
+    footsepline,
+    plainfootsepline,
+    clines,
+    automark,
     ]{scrlayer-scrpage}
     \RequirePackage{geometry}
     \RequirePackage{siunitx}
@@ -106,6 +106,8 @@
     \RequirePackage{tabularx}
     \RequirePackage{booktabs}
     \RequirePackage{multirow}
+    \RequirePackage{listings}
+    \RequirePackage{caption}
 }{}
 
 % Package settings
@@ -141,6 +143,10 @@
     \cfoot[-~\pagemark~-]{-~\pagemark~-}            % Fußzeile mitte: Seitenzahl
 }{}
 
+% Load biblatex if option add-bibliography is set
+% The bibliography is printed at the end of the document. If the option bib-file is set then
+% the class is searching for the given file. Otherwise it try to load dhbw-source.bib.
+% If no file is found a warning is thrown.
 \ifbool{iodhbwm@cls@if@bib}{%
     \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
     \AtEndDocument{%
@@ -152,19 +158,19 @@
         }%
     }%
     \RequirePackage[%
-        backend      = biber,           % bibtex oder biber [default]
-        style        = numeric-comp,    % Zitierstil
-        %            bibstyle     = authortitle,
-        %            citestyle    = authoryear,
-        sorting      = nty,             % Sortierung (Name, Titel, Jahr)
-        natbib       = true,            % Kompatibilität mit Natbib-Bibliothek
-        block        = space,           % kleiner horizontaler Platz zwischen den Feldern
-        backrefstyle = three+,          % fasst Seiten zusammen, z.B. S. 2f, 6ff, 7-10
-        date         = short,           % Datumsformat
-        bibwarn      = true,
-        texencoding  = auto,            % auto-detect the input encoding
-        bibencoding  = auto,            % (auto (equal to tex), <encoding>)
-        isbn         = false
+    backend      = biber,           % bibtex oder biber [default]
+    style        = numeric-comp,    % Zitierstil
+    % bibstyle     = authortitle,
+    % citestyle    = authoryear,
+    sorting      = nty,             % Sortierung (Name, Titel, Jahr)
+    natbib       = true,            % Kompatibilität mit Natbib-Bibliothek
+    block        = space,           % kleiner horizontaler Platz zwischen den Feldern
+    backrefstyle = three+,          % fasst Seiten zusammen, z.B. S. 2f, 6ff, 7-10
+    date         = short,           % Datumsformat
+    bibwarn      = true,
+    texencoding  = auto,            % auto-detect the input encoding
+    bibencoding  = auto,            % (auto (equal to tex), <encoding>)
+    isbn         = false
     ]{biblatex}%
     \ifdefempty{\iodhbwm@bib@file}{%
         \IfFileExists{dhbw-source.bib}{%
@@ -188,12 +194,14 @@
     \RequirePackage{blindtext, lipsum}
 }{}
 
+% Load cleveref after hyperref package
 \AfterPackage!{hyperref}{%
     \RequirePackage[%
-        noabbrev,
-        nameinlink
+    noabbrev,
+    nameinlink
     ]{cleveref}
 }
+% Load hyperref always at the end of the preambel
 \AtEndPreamble{%
     \RequirePackage{hyperref}
     \hypersetup{
@@ -209,8 +217,61 @@
     }
 }
 
-\endinput
+% ----------------------------------------------------------
+% Defining custom colors
+% ----------------------------------------------------------
+\definecolor{DHBW-red}{HTML}{e2001a}
+\definecolor{DHBW-blue}{HTML}{026f93}
+\definecolor{DHBW-darkblue}{HTML}{23527c}
+\definecolor{DHBW-light}{HTML}{ffffff}
+\definecolor{DHBW-font}{HTML}{5c6971}
+\definecolor{DHBW-dark-font}{HTML}{333333}
 
 % ----------------------------------------------------------
-% CHANCELOG
+% Generial design settings
 % ----------------------------------------------------------
+
+% All captions
+\captionsetup{%
+    format=hang,
+    % singlelinecheck=false,
+    font=small,
+    labelfont=bf
+}
+
+% Listing format
+\DeclareCaptionFont{DHBWwhite}{\color{DHBW-light}}
+\DeclareCaptionFormat{listing}{%
+    \colorbox{DHBW-red}{%
+        \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
+    }%
+}
+
+\captionsetup[lstlisting]{%
+    format=listing,
+    singlelinecheck=false,
+    margin=0pt,
+    font={DHBWwhite,sf},
+    % labelsep=space,
+}
+
+\lstset{
+    basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
+    backgroundcolor=\color{DHBW-light},
+    rulecolor=\color{DHBW-red},
+    commentstyle=\color{DHBW-font},
+    keywordstyle=\color{DHBW-darkblue},
+    numberstyle=\scriptsize\color{DHBW-font},
+    stringstyle=\color{purple},
+    %    identifierstyle=\color{red},
+    numbers=left,
+    captionpos=t,
+    showstringspaces=false,
+    tabsize=2,
+    frame=b,
+    breaklines=true,
+    xleftmargin=17pt,
+    framexleftmargin=17pt,
+}
+
+\endinput

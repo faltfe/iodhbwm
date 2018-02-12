@@ -1,0 +1,61 @@
+%\listfiles
+\documentclass[
+    load-preamble,
+    load-dhbw-templates,
+    debug,
+    ngerman
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{showframe}
+
+\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+\renewcommand{\lstlistingname}{Quellcode}
+
+
+\begin{document}
+    
+    \lstlistoflistings
+    
+    \chapter{Einfache Beispiele}
+        \section{Simple example}
+            \blindtext
+            \begin{lstlisting}[caption={Simple Java method},label=lst:whatever,language=Java]
+/*
+ * This is a test class doing nothing
+ */
+public class TestClass() {
+  public static void main(String args[]) {
+    // A simple line comment
+    system.out.println("Hello world");
+  }
+}
+            \end{lstlisting}
+        
+        \section{Advanced floating}
+            \begin{lstlisting}[language={[Sharp]C},float,caption={Simple C\# method},label=lst:whatever-2]
+// If have no idea what I'm doing here
+public void Testfunc(string msg) {
+    for (var i = 0; i <= 10; i++) {
+        Console.WriteLine($"String: {msg}{i}");
+    }
+}
+            \end{lstlisting}
+            \blindtext
+            
+        \section{Advanced styling}
+            \lstset{
+                captionpos=b,
+                frame=t
+            }
+            \begin{lstlisting}[language={[Sharp]C},float=htb,caption={Caption below code},label=lst:whatever-3]
+// If have no idea what I'm doing here
+ public void Testfunc(string msg) {
+    for (var i = 0; i <= 10; i++) {
+        Console.WriteLine($"String: {msg}{i}");
+    }
+}
+            \end{lstlisting}
+            \blindtext
+
+\end{document}
