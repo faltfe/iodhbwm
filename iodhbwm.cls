@@ -43,8 +43,8 @@
 % ----------------------------------------------------------
 \newbool{iodhbwm@cls@if@preamble}\booltrue{iodhbwm@cls@if@preamble}
 \newbool{iodhbwm@cls@if@templates}
-%\newbool{iodhbwm@cls@if@toc}
 \newbool{iodhbwm@cls@if@bib}
+\newbool{iodhbwm@cls@if@print@bib}\booltrue{iodhbwm@cls@if@print@bib}
 \newbool{iodhbwm@cls@if@tocstotoc}
 \newbool{iodhbwm@cls@if@isdebug}
 
@@ -55,9 +55,12 @@
     iodhbwm/.cd,
     load-preamble/.is if        = iodhbwm@cls@if@preamble,
     load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
-    %        add-toc/.is if              = iodhbwm@cls@if@toc,
     add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
     add-bibliography/.is if     = iodhbwm@cls@if@bib,
+    add-bibliography-/.code     = {%
+                                    \boolfalse{iodhbwm@cls@if@print@bib}%
+                                    \booltrue{iodhbwm@cls@if@bib}%
+                                  },
     bib-file/.store in          = \iodhbwm@bib@file,
     bib-file = {},
     debug/.is if                = iodhbwm@cls@if@isdebug,
@@ -151,17 +154,19 @@
     \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
     \AtEndDocument{%
         \singlespacing%
-        \ifbool{iodhbwm@cls@if@tocstotoc}{%
+        \ifboolexpr{bool {iodhbwm@cls@if@tocstotoc} and bool {iodhbwm@cls@if@print@bib}}{%
             \printbibliography[heading=bibintoc]%
         }{%
-            \printbibliography%
+            \ifbool{iodhbwm@cls@if@print@bib}{%
+                \printbibliography%
+            }{}%
         }%
     }%
     \RequirePackage[%
     backend      = biber,           % bibtex oder biber [default]
     style        = numeric-comp,    % Zitierstil
-    % bibstyle     = authortitle,
-    % citestyle    = authoryear,
+%    bibstyle     = authortitle,
+%    citestyle    = alphabetic,
     sorting      = nty,             % Sortierung (Name, Titel, Jahr)
     natbib       = true,            % Kompatibilität mit Natbib-Bibliothek
     block        = space,           % kleiner horizontaler Platz zwischen den Feldern
