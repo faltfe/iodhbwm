@@ -57,12 +57,16 @@
     load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
     add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
     add-bibliography/.is if     = iodhbwm@cls@if@bib,
-    add-bibliography-/.code     = {%
-                                    \boolfalse{iodhbwm@cls@if@print@bib}%
-                                    \booltrue{iodhbwm@cls@if@bib}%
-                                  },
+    add-bibliography-/.code    = {%
+        \booltrue{iodhbwm@cls@if@bib}%
+        \boolfalse{iodhbwm@cls@if@print@bib}%
+    },
     bib-file/.store in          = \iodhbwm@bib@file,
     bib-file = {},
+    biblatex/bibstyle/.store in  = \iodhbwm@bib@bibstyle@opt,
+    biblatex/citestyle/.store in = \iodhbwm@bib@citestyle@opt,
+    biblatex/style/.style       = {biblatex/bibstyle=#1,biblatex/citestyle=#1},
+    biblatex/style = numeric-comp,
     debug/.is if                = iodhbwm@cls@if@isdebug,
     unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
 }
@@ -154,6 +158,7 @@
     \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
     \AtEndDocument{%
         \singlespacing%
+        
         \ifboolexpr{bool {iodhbwm@cls@if@tocstotoc} and bool {iodhbwm@cls@if@print@bib}}{%
             \printbibliography[heading=bibintoc]%
         }{%
@@ -162,11 +167,12 @@
             }{}%
         }%
     }%
+
     \RequirePackage[%
     backend      = biber,           % bibtex oder biber [default]
-    style        = numeric-comp,    % Zitierstil
-%    bibstyle     = authortitle,
-%    citestyle    = alphabetic,
+%    style        = \ifcsdef{iodhbwm@bib@style@opt}{\iodhbwm@bib@style@opt}{numeric-comp},    % Zitierstil
+    bibstyle     = \iodhbwm@bib@bibstyle@opt,
+    citestyle    = \iodhbwm@bib@citestyle@opt,
     sorting      = nty,             % Sortierung (Name, Titel, Jahr)
     natbib       = true,            % Kompatibilität mit Natbib-Bibliothek
     block        = space,           % kleiner horizontaler Platz zwischen den Feldern
@@ -189,7 +195,7 @@
         }%
     }%
     \addbibresource{\iodhbwm@bib@file}%
-}{}%
+}{\AtEndDocument{}}%
 
 \ifbool{iodhbwm@cls@if@templates}{%
     \RequirePackage{iodhbwm-templates}
