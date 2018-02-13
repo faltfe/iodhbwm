@@ -32,11 +32,12 @@
 \iodhbwm@cls@version\space
 \iodhbwm@cls@info]
 
-\RequirePackage{etoolbox, pgfopts, scrlfile}
-
+\RequirePackage{etoolbox, pgfopts, scrlfile, xstring}
 
 \providecommand*{\iodhbwm@cls@baseclass}{scrreprt}
 \newcommand*{\iodhbwm@cls@baseclass@options}{}
+\let\iodhbwm@languages\@empty
+\let\iodhbwm@main@languages\@empty
 
 % ----------------------------------------------------------
 % Define booleans
@@ -53,6 +54,11 @@
 % ----------------------------------------------------------
 \pgfkeys{
     iodhbwm/.cd,
+    language/.code              = \appto{\iodhbwm@languages}{#1,},
+    mainlanguage/.code          = {%
+        \appto{\iodhbwm@languages}{main=#1,}%
+        \def\iodhbwm@main@languages{#1}%
+    },
     load-preamble/.is if        = iodhbwm@cls@if@preamble,
     load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
     add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
@@ -91,14 +97,13 @@
     \RequirePackage{lmodern}
     \RequirePackage{microtype}
     \RequirePackage{scrhack}
-    \RequirePackage{babel}
     \RequirePackage{setspace}
     \RequirePackage[%
-    headsepline,
-    footsepline,
-    plainfootsepline,
-    clines,
-    automark,
+        headsepline,
+        footsepline,
+        plainfootsepline,
+        clines,
+        automark,
     ]{scrlayer-scrpage}
     \RequirePackage{geometry}
     \RequirePackage{siunitx}
@@ -116,6 +121,27 @@
     \RequirePackage{listings}
     \RequirePackage{caption}
 }{}
+
+% Pass language to package
+\ifcsempty{iodhbwm@languages}{}{%
+    % Delete trailing comma
+    \IfEndWith{\iodhbwm@languages}{,}{%
+        \StrGobbleRight{\iodhbwm@languages}{1}[\iodhbwm@languages@list]
+    }{\let\iodhbwm@languages@list\iodhbwm@languages}
+
+    % If no main language was set use last language
+    % as main language
+    \ifundef{\iodhbwm@main@languages}{%
+        \StrCount{\iodhbwm@languages@list}{,}[\numofelem]
+        \ifnum\numofelem>0\relax
+            \StrBehind[\numofelem]{\iodhbwm@languages@list}{,}[\iodhbwm@main@languages]%
+        \else
+            \let\iodhbwm@main@languages\iodhbwm@languages@list%
+        \fi
+    }{}
+    \RequirePackage[\iodhbwm@languages@list]{babel}
+    \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
+}
 
 % Package settings
 \@ifpackageloaded{geometry}{%
@@ -155,7 +181,6 @@
 % the class is searching for the given file. Otherwise it try to load dhbw-source.bib.
 % If no file is found a warning is thrown.
 \ifbool{iodhbwm@cls@if@bib}{%
-    \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
     \AtEndDocument{%
         \singlespacing%
         
@@ -169,19 +194,18 @@
     }%
 
     \RequirePackage[%
-    backend      = biber,           % bibtex oder biber [default]
-%    style        = \ifcsdef{iodhbwm@bib@style@opt}{\iodhbwm@bib@style@opt}{numeric-comp},    % Zitierstil
-    bibstyle     = \iodhbwm@bib@bibstyle@opt,
-    citestyle    = \iodhbwm@bib@citestyle@opt,
-    sorting      = nty,             % Sortierung (Name, Titel, Jahr)
-    natbib       = true,            % Kompatibilität mit Natbib-Bibliothek
-    block        = space,           % kleiner horizontaler Platz zwischen den Feldern
-    backrefstyle = three+,          % fasst Seiten zusammen, z.B. S. 2f, 6ff, 7-10
-    date         = short,           % Datumsformat
-    bibwarn      = true,
-    texencoding  = auto,            % auto-detect the input encoding
-    bibencoding  = auto,            % (auto (equal to tex), <encoding>)
-    isbn         = false
+        backend      = biber,           % bibtex oder biber [default]
+        bibstyle     = \iodhbwm@bib@bibstyle@opt,
+        citestyle    = \iodhbwm@bib@citestyle@opt,
+        sorting      = nty,             % Sortierung (Name, Titel, Jahr)
+        natbib       = true,            % Kompatibilität mit Natbib-Bibliothek
+        block        = space,           % kleiner horizontaler Platz zwischen den Feldern
+        backrefstyle = three+,          % fasst Seiten zusammen, z.B. S. 2f, 6ff, 7-10
+        date         = short,           % Datumsformat
+        bibwarn      = true,
+        texencoding  = auto,            % auto-detect the input encoding
+        bibencoding  = auto,            % (auto (equal to tex), <encoding>)
+        isbn         = false
     ]{biblatex}%
     \ifdefempty{\iodhbwm@bib@file}{%
         \IfFileExists{dhbw-source.bib}{%
@@ -207,10 +231,14 @@
 
 % Load cleveref after hyperref package
 \AfterPackage!{hyperref}{%
+    \ifdef{\iodhbwm@main@languages}{%
+        \PassOptionsToPackage{\iodhbwm@main@languages}{cleveref}
+    }{}
     \RequirePackage[%
-    noabbrev,
-    nameinlink
+        noabbrev,
+        nameinlink
     ]{cleveref}
+    
 }
 % Load hyperref always at the end of the preambel
 \AtEndPreamble{%
@@ -250,39 +278,42 @@
     labelfont=bf
 }
 
-% Listing format
-\DeclareCaptionFont{DHBWwhite}{\color{DHBW-light}}
-\DeclareCaptionFormat{listing}{%
-    \colorbox{DHBW-red}{%
-        \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
-    }%
-}
+\ifbool{iodhbwm@cls@if@templates}{%
+    % Listing format
+    \DeclareCaptionFont{DHBWwhite}{\color{DHBW-light}}
+    \DeclareCaptionFormat{listing}{%
+        \colorbox{DHBW-red}{%
+            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
+        }%
+    }
+    
+    \captionsetup[lstlisting]{%
+        format=listing,
+        singlelinecheck=false,
+        margin=0pt,
+        font={DHBWwhite,sf},
+%        labelsep=space,
+    }
+    
+    \lstset{
+        basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
+        backgroundcolor=\color{DHBW-light},
+        rulecolor=\color{DHBW-red},
+        commentstyle=\color{DHBW-font},
+        keywordstyle=\color{DHBW-darkblue},
+        numberstyle=\scriptsize\color{DHBW-font},
+        stringstyle=\color{purple},
+%        identifierstyle=\color{red},
+        numbers=left,
+        captionpos=t,
+        showstringspaces=false,
+        tabsize=2,
+        frame=b,
+        breaklines=true,
+        xleftmargin=17pt,
+        framexleftmargin=17pt,
+    }
+}{}
 
-\captionsetup[lstlisting]{%
-    format=listing,
-    singlelinecheck=false,
-    margin=0pt,
-    font={DHBWwhite,sf},
-    % labelsep=space,
-}
-
-\lstset{
-    basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
-    backgroundcolor=\color{DHBW-light},
-    rulecolor=\color{DHBW-red},
-    commentstyle=\color{DHBW-font},
-    keywordstyle=\color{DHBW-darkblue},
-    numberstyle=\scriptsize\color{DHBW-font},
-    stringstyle=\color{purple},
-    %    identifierstyle=\color{red},
-    numbers=left,
-    captionpos=t,
-    showstringspaces=false,
-    tabsize=2,
-    frame=b,
-    breaklines=true,
-    xleftmargin=17pt,
-    framexleftmargin=17pt,
-}
 
 \endinput
