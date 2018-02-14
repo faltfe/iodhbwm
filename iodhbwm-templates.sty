@@ -48,7 +48,9 @@
 %---------------------------------------------------
 % Defining package options
 %---------------------------------------------------
-\newbool{iodhbwm@if@hasSecondTopic}\boolfalse{iodhbwm@if@hasSecondTopic}
+\newbool{iodhbwm@if@hasSecondTopic}
+\newbool{iodhbwm@if@customtitlepage}
+\newbool{iodhbwm@if@customdeclaration}
 
 \def\iodhbwm@titlepage@folder{include/titlepage/}
 \def\iodhbwm@declaration@folder{include/declaration/}
@@ -56,15 +58,15 @@
 \pgfkeys{
     /dhbw/.cd,
         titlepage/.store in = \@iodhbwm@file@titlepage,
-        titlepage/.default = dhbw-titlepage.inc,
-        titlepage = ./include/titlepage/dhbw-titlepage.inc,
+        titlepage/.default = \iodhbwm@titlepage@folder dhbw-titlepage.inc,
+        titlepage = \iodhbwm@titlepage@folder dhbw-titlepage.inc,
         declaration/.store in = \@iodhbwm@file@declaration,
-        declaration/.default = dhbw-declaration.inc,
-        declaration = dhbw-declaration.inc,
+        declaration/.default = \iodhbwm@declaration@folder dhbw-declaration.inc,
+        declaration = \iodhbwm@declaration@folder dhbw-declaration.inc,
         thesis type/.is choice,
-            thesis type/BA/.style = {/dhbw/titlepage = dhbw-titlepage-ba.inc},
-            thesis type/SA/.style = {/dhbw/titlepage = dhbw-titlepage-sa.inc},
-            thesis type/PA/.style = {/dhbw/titlepage = dhbw-titlepage-pa.inc},
+            thesis type/BA/.estyle = {/dhbw/titlepage = \iodhbwm@titlepage@folder dhbw-titlepage-ba.inc},
+            thesis type/SA/.estyle = {/dhbw/titlepage = \iodhbwm@titlepage@folder dhbw-titlepage-sa.inc},
+            thesis type/PA/.estyle = {/dhbw/titlepage = \iodhbwm@titlepage@folder dhbw-titlepage-pa.inc},
         thesis title/.store in = \iodhbwm@thesis@title,
         thesis title = {},
         thesis second title/.store in = \iodhbwm@thesis@second@title,
@@ -195,22 +197,18 @@
 
 % Makro zum Einfügen einer Titelseite
 \newcommand{\dhbwtitlepage}{%
-    \InputIfFileExists{\iodhbwm@titlepage@folder\@iodhbwm@file@titlepage}{}{%
-        \input{\iodhbwm@titlepage@folder\pgfkeysvalueof{/dhbw/titlepage/.@def}}%
-        \PackageWarning{iodhbwm}{The passed titlepage file `\@iodhbwm@file@titlepage` was not found. Used default instead.}
+    \InputIfFileExists{\@iodhbwm@file@titlepage}{}{%
+        \input{\pgfkeysvalueof{/dhbw/titlepage/.@def}}%
+        \PackageWarning{\iodhbwm@pkg@name}{The passed file `\@iodhbwm@file@titlepage` was not found.\MessageBreak Used default titlepage instead.}
     }%
 }
 
 % Makro zum Einfügen der Selbsterklärung
 \newcommand{\dhbwdeclaration}{%
-    \InputIfFileExists{\iodhbwm@declaration@folder\@iodhbwm@file@declaration}{}{%
-        \input{\iodhbwm@declaration@folder\pgfkeysvalueof{/dhbw/declaration/.@def}}%
-        \PackageWarning{iodhbwm}{The passed declaration file `\@iodhbwm@file@declaration` is unknown. Used default instead.}
+    \InputIfFileExists{\@iodhbwm@file@declaration}{}{%
+        \input{\pgfkeysvalueof{/dhbw/declaration/.@def}}%
+        \PackageWarning{\iodhbwm@pkg@name}{The passed declaration `\@iodhbwm@file@declaration` is unknown.\MessageBreak Used default declaration instead.}
     }%
 }
 
 \endinput
-
-% ----------------------------------------------------------
-% CHANCELOG
-% ----------------------------------------------------------

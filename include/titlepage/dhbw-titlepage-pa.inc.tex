@@ -1,17 +1,19 @@
 \begin{titlepage}
     \centering
     \ifcsempty{iodhbwm@institute@logo}{%
-        \includegraphics[height=1.7cm]{dhbw-logo}
+        \includegraphics[height=1.5cm]{dhbw-logo}
     }{%
         \begin{minipage}[c]{.30\textwidth}
-            \includegraphics[height=1.7cm]{dhbw-logo}
+            \includegraphics[height=1.5cm]{dhbw-logo}
         \end{minipage}
         \hfill
         \begin{minipage}[c]{.30\textwidth}
-            \centering
-            \includegraphics[height=1.7cm]{\getInstituteLogo}
+            \raggedleft
+            \includegraphics[width=\linewidth,keepaspectratio]{\getInstituteLogo}
         \end{minipage}
     }
+
+    \bigskip
     
     \Large\textsc{Projektarbeit}
     
@@ -45,7 +47,7 @@
         \begin{tabularx}{\textwidth}{@{}lX@{}}
         \toprule
         Bearbeitungszeitraum: & \getProcessingPeriod\\
-        Matrikelnummer, Kurs: & \getStudentId\\
+        Matrikelnummer, Kurs: & \getStudentId, \getCourse\\
         Abteilung: & \getInstituteSection\\
         Ausbildungsfirma: & \getInstitute\\
         Betreuer: & \getSupervisor\\

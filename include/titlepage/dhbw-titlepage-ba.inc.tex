@@ -9,26 +9,28 @@
         \hfill
         \begin{minipage}[c]{.30\textwidth}
             \centering
-            \includegraphics[height=1.7cm]{\getInstituteLogo}
+            \includegraphics[width=\linewidth,keepaspectratio]{\getInstituteLogo}
         \end{minipage}
     }
-    \Large\textsc{Bachelorarbeit}
+
+    \bigskip
+
+    \textsc{\Large Bachelorarbeit}
     
-    \normalsize
+    \bigskip
+    für die Prüfung zum
+    
+    \textsc{\large Bachelor of Engineering}
+    
+    \bigskip
     des Studiengangs Informationstechnik\par
     der Dualen Hochschule Baden-Württemberg Mannheim
     
     \rule{\textwidth}{.5mm}\bigskip
     
-    \textsc{\large Thema \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
+    \textsc{\large Thema }
     
     {\bfseries \getThesisTitle}\bigskip
-    
-    \ifcsempty{iodhbwm@thesis@second@title}{}{%
-        \textsc{\large Thema B}\par
-        %\tikz{\node (1) [draw, rounded rectangle] {Kolloquium};}
-        {\bfseries \getThesisSecondTitle}
-    }{}
     
     \rule{\textwidth}{.5mm}
     
@@ -44,11 +46,11 @@
         \begin{tabularx}{\textwidth}{@{}lX@{}}
         \toprule
         Bearbeitungszeitraum: & \getProcessingPeriod\\
-        Matrikelnummer, Kurs: & \getStudentId\\
+        Matrikelnummer, Kurs: & \getStudentId, \getCourse\\
         Abteilung: & \getInstituteSection\\
         Ausbildungsfirma: & \getInstitute\\
-        Betreuer: & \getSupervisor\\
-        Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
+        Betreuer der Ausbildungsfirma: & \getSupervisor\\
+%        Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
         \end{tabularx}
     }
     \cleardoublepage
