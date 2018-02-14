@@ -23,28 +23,29 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@cls@version}{v0.2-alpha}
-\newcommand*{\iodhbwm@cls@date}{2018-01-31}
+\newcommand*{\iodhbwm@cls@version}{v0.3-alpha}
+\newcommand*{\iodhbwm@cls@date}{2018-02-14}
 \newcommand*{\iodhbwm@cls@info}{Inoffical DHBW Mannheim thesis class}
 
 \ProvidesClass{iodhbwm}[%
-    \iodhbwm@cls@date\space
-    \iodhbwm@cls@version\space
-    \iodhbwm@cls@info]
-    
-\RequirePackage{etoolbox, pgfopts, scrlfile}
+\iodhbwm@cls@date\space
+\iodhbwm@cls@version\space
+\iodhbwm@cls@info]
 
+\RequirePackage{etoolbox, pgfopts, scrlfile, xstring}
 
 \providecommand*{\iodhbwm@cls@baseclass}{scrreprt}
 \newcommand*{\iodhbwm@cls@baseclass@options}{}
+\let\iodhbwm@languages\@empty
+\let\iodhbwm@main@languages\@empty
 
 % ----------------------------------------------------------
 % Define booleans
 % ----------------------------------------------------------
 \newbool{iodhbwm@cls@if@preamble}\booltrue{iodhbwm@cls@if@preamble}
 \newbool{iodhbwm@cls@if@templates}
-%\newbool{iodhbwm@cls@if@toc}
 \newbool{iodhbwm@cls@if@bib}
+\newbool{iodhbwm@cls@if@print@bib}\booltrue{iodhbwm@cls@if@print@bib}
 \newbool{iodhbwm@cls@if@tocstotoc}
 \newbool{iodhbwm@cls@if@isdebug}
 
@@ -53,23 +54,35 @@
 % ----------------------------------------------------------
 \pgfkeys{
     iodhbwm/.cd,
-        load-preamble/.is if        = iodhbwm@cls@if@preamble,
-        load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
-%        add-toc/.is if              = iodhbwm@cls@if@toc,
-        add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
-        add-bibliography/.is if     = iodhbwm@cls@if@bib,
-        bib-file/.store in          = \iodhbwm@bib@file,
-        bib-file = {},
-        debug/.is if                = iodhbwm@cls@if@isdebug,
-        unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
+    language/.code              = \appto{\iodhbwm@languages}{#1,},
+    mainlanguage/.code          = {%
+        \appto{\iodhbwm@languages}{main=#1,}%
+        \def\iodhbwm@main@languages{#1}%
+    },
+    load-preamble/.is if        = iodhbwm@cls@if@preamble,
+    load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
+    add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
+    add-bibliography/.is if     = iodhbwm@cls@if@bib,
+    add-bibliography-/.code    = {%
+        \booltrue{iodhbwm@cls@if@bib}%
+        \boolfalse{iodhbwm@cls@if@print@bib}%
+    },
+    bib-file/.store in          = \iodhbwm@bib@file,
+    bib-file = {},
+    biblatex/bibstyle/.store in  = \iodhbwm@bib@bibstyle@opt,
+    biblatex/citestyle/.store in = \iodhbwm@bib@citestyle@opt,
+    biblatex/style/.style       = {biblatex/bibstyle=#1,biblatex/citestyle=#1},
+    biblatex/style = numeric-comp,
+    debug/.is if                = iodhbwm@cls@if@isdebug,
+    unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
 }
 
 \ProcessPgfOptions{/iodhbwm}
 
 \PassOptionsToClass{%
-        fontsize=12pt,
-        a4paper,
-        parskip=half-
+    fontsize=12pt,
+    a4paper,
+    parskip=half-
 }{\iodhbwm@cls@baseclass}
 
 \LoadClass[\iodhbwm@cls@baseclass@options]{\iodhbwm@cls@baseclass}
@@ -84,7 +97,6 @@
     \RequirePackage{lmodern}
     \RequirePackage{microtype}
     \RequirePackage{scrhack}
-    \RequirePackage{babel}
     \RequirePackage{setspace}
     \RequirePackage[%
         headsepline,
@@ -106,7 +118,30 @@
     \RequirePackage{tabularx}
     \RequirePackage{booktabs}
     \RequirePackage{multirow}
+    \RequirePackage{listings}
+    \RequirePackage{caption}
 }{}
+
+% Pass language to package
+\ifcsempty{iodhbwm@languages}{}{%
+    % Delete trailing comma
+    \IfEndWith{\iodhbwm@languages}{,}{%
+        \StrGobbleRight{\iodhbwm@languages}{1}[\iodhbwm@languages@list]
+    }{\let\iodhbwm@languages@list\iodhbwm@languages}
+
+    % If no main language was set use last language
+    % as main language
+    \ifundef{\iodhbwm@main@languages}{%
+        \StrCount{\iodhbwm@languages@list}{,}[\numofelem]
+        \ifnum\numofelem>0\relax
+            \StrBehind[\numofelem]{\iodhbwm@languages@list}{,}[\iodhbwm@main@languages]%
+        \else
+            \let\iodhbwm@main@languages\iodhbwm@languages@list%
+        \fi
+    }{}
+    \RequirePackage[\iodhbwm@languages@list]{babel}
+    \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
+}
 
 % Package settings
 \@ifpackageloaded{geometry}{%
@@ -141,21 +176,27 @@
     \cfoot[-~\pagemark~-]{-~\pagemark~-}            % Fußzeile mitte: Seitenzahl
 }{}
 
+% Load biblatex if option add-bibliography is set
+% The bibliography is printed at the end of the document. If the option bib-file is set then
+% the class is searching for the given file. Otherwise it try to load dhbw-source.bib.
+% If no file is found a warning is thrown.
 \ifbool{iodhbwm@cls@if@bib}{%
-    \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
     \AtEndDocument{%
         \singlespacing%
-        \ifbool{iodhbwm@cls@if@tocstotoc}{%
+        
+        \ifboolexpr{bool {iodhbwm@cls@if@tocstotoc} and bool {iodhbwm@cls@if@print@bib}}{%
             \printbibliography[heading=bibintoc]%
         }{%
-            \printbibliography%
+            \ifbool{iodhbwm@cls@if@print@bib}{%
+                \printbibliography%
+            }{}%
         }%
     }%
+
     \RequirePackage[%
         backend      = biber,           % bibtex oder biber [default]
-        style        = numeric-comp,    % Zitierstil
-        %            bibstyle     = authortitle,
-        %            citestyle    = authoryear,
+        bibstyle     = \iodhbwm@bib@bibstyle@opt,
+        citestyle    = \iodhbwm@bib@citestyle@opt,
         sorting      = nty,             % Sortierung (Name, Titel, Jahr)
         natbib       = true,            % Kompatibilität mit Natbib-Bibliothek
         block        = space,           % kleiner horizontaler Platz zwischen den Feldern
@@ -178,7 +219,7 @@
         }%
     }%
     \addbibresource{\iodhbwm@bib@file}%
-}{}%
+}{\AtEndDocument{}}%
 
 \ifbool{iodhbwm@cls@if@templates}{%
     \RequirePackage{iodhbwm-templates}
@@ -188,12 +229,18 @@
     \RequirePackage{blindtext, lipsum}
 }{}
 
+% Load cleveref after hyperref package
 \AfterPackage!{hyperref}{%
+    \ifdef{\iodhbwm@main@languages}{%
+        \PassOptionsToPackage{\iodhbwm@main@languages}{cleveref}
+    }{}
     \RequirePackage[%
         noabbrev,
         nameinlink
     ]{cleveref}
+    
 }
+% Load hyperref always at the end of the preambel
 \AtEndPreamble{%
     \RequirePackage{hyperref}
     \hypersetup{
@@ -209,8 +256,64 @@
     }
 }
 
-\endinput
+% ----------------------------------------------------------
+% Defining custom colors
+% ----------------------------------------------------------
+\definecolor{DHBW-red}{HTML}{e2001a}
+\definecolor{DHBW-blue}{HTML}{026f93}
+\definecolor{DHBW-darkblue}{HTML}{23527c}
+\definecolor{DHBW-light}{HTML}{ffffff}
+\definecolor{DHBW-font}{HTML}{5c6971}
+\definecolor{DHBW-dark-font}{HTML}{333333}
 
 % ----------------------------------------------------------
-% CHANCELOG
+% Generial design settings
 % ----------------------------------------------------------
+
+% All captions
+\captionsetup{%
+    format=hang,
+    % singlelinecheck=false,
+    font=small,
+    labelfont=bf
+}
+
+\ifbool{iodhbwm@cls@if@templates}{%
+    % Listing format
+    \DeclareCaptionFont{DHBWwhite}{\color{DHBW-light}}
+    \DeclareCaptionFormat{listing}{%
+        \colorbox{DHBW-red}{%
+            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
+        }%
+    }
+    
+    \captionsetup[lstlisting]{%
+        format=listing,
+        singlelinecheck=false,
+        margin=0pt,
+        font={DHBWwhite,sf},
+%        labelsep=space,
+    }
+    
+    \lstset{
+        basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
+        backgroundcolor=\color{DHBW-light},
+        rulecolor=\color{DHBW-red},
+        commentstyle=\color{DHBW-font},
+        keywordstyle=\color{DHBW-darkblue},
+        numberstyle=\scriptsize\color{DHBW-font},
+        stringstyle=\color{purple},
+%        identifierstyle=\color{red},
+        numbers=left,
+        captionpos=t,
+        showstringspaces=false,
+        tabsize=2,
+        frame=b,
+        breaklines=true,
+        xleftmargin=17pt,
+        framexleftmargin=17pt,
+    }
+}{}
+
+
+\endinput

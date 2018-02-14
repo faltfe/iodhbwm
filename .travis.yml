@@ -24,5 +24,27 @@ script:
   - travis_wait 3 biber iodhbwm-example
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-example
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-example
+# Run listings example
+  - cd ../listings
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
+# Run titlepage example
+  - cd ../titlepages
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-custom-titlepage
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-titlepage-logo
+# Run reference example
+  - cd ../references
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references
+  - travis_wait 3 biber iodhbwm-references
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-custom-style
+  - travis_wait 3 biber iodhbwm-references-custom-style
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-custom-style
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-custom-style
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-footcite
+  - travis_wait 3 biber iodhbwm-references-footcite
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-footcite
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-footcite
 after_script:
-  - rm -r ~texmf/tex/latex/*
+  - rm -r ~/texmf/tex/latex/*

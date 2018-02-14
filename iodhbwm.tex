@@ -5,7 +5,7 @@
 \usepackage{enumitem}
 
 \package[ctan=iodhbwm, vcs=https://github.com/faltfe/iodhbwm]{iodhbwm}
-\version{0.2-alpha}
+\version{0.3-alpha}
 
 \title{iodhbwm bundle}
 \author{Felix Faltin}
@@ -14,11 +14,10 @@
 
 \usepackage{geometry}
 \geometry{left=6cm, right=1.5cm}
-\usepackage{blindtext}
 
 %\KOMAoptions{parskip=half-}
-\let\oldblindtext\blindtext
-\renewcommand{\blindtext}{{\color{gray}\oldblindtext}}
+%\let\oldblindtext\blindtext
+%\renewcommand{\blindtext}{{\color{gray}\oldblindtext}}
 
 \begin{document}
     \maketitle
@@ -43,46 +42,88 @@
         Dabei wird auf das \meta{key}=\meta{value} System von \pkg{pgfopts} zurückgegriffen.
         
         \subsection{Optionen}
-        
-            \Option{load-preamble}\WithValues{true, false}\AndDefault{true}
-            Bei Angabe der Option \opt{load-preamble} werden eine Reihe von zusätzlichen Paketen geladen und teilweise vorkonfiguriert. Nachfolgend erfolgt eine Auflistung der geladenen Pakete:
-            \begin{description}[itemsep=1pt, style=multiline, leftmargin=3cm]
-                \item [\pkg{lmodern}] Verwendung von Latin Modern anstatt Computer Modern
-                \item [\pkg{microtype}] Verbesserungen des Schriftsatzes durch Änderungen der Abstände zwischen einzelnen Buchstaben und Wörtern
-                \item [\pkg{babel}] Ermöglicht Sprachumschaltungen. Die Sprache kann als Option bei \verb|documenclass[language]{iodhbwm}| mitgeben werden.
-                \item [\pkg{setspace}] Umschaltung zwischen einzeilig und anderthalbzeilig
-                \item [\pkg{scrlayer-srcpage}] Zusätzlich werden grundlegende Konfiguration zur Darstellung der Kopf- und Fußzeilen vorgenommen.
-                \item [\pkg{geometry}] Die Seitenränder werden entsprechend der Richtlinien der DHBW voreingestellt.
-                \item [\pkg{siunitx}] Paket zum Schreiben von mathematischen Einheiten unter Beachtung der korrekten Schreibweise.
-                \item [\pkg{mathtools}] Erweiterung des Standard zur Darstellung von mathematischen Ausdrücken
-                \item [\pkg{graphicx}] Möglichkeit zur Einbindung von Bildern.
-                \item [\pkg{tcolobox}] Dieses Paket lädt implizit \pkg{tikz} und \pkg{xcolor}. Dem Paket \pkg{xcolor} werden die Optionen \opt{table} und \opt{dvipsnames} übergeben.
-                \item [\pkg{tabularx}] Erweiterung der Tabellenumgebung
-                \item [\pkg{booktabs}] Möglichkeit zur Darstellung horizontaler Linien in Tabellen zur besseren Gestaltung
-                \item [\pkg{multirow}] Paket zur vertikalen Verbinden von einzelnen Zellen in einer Tabelle
-            \end{description}
-
-            \Option{load-dhbw-templates}\WithValues{true, false}\AndDefault{false}
-            Bei Angabe der Option wird das Paket \pkg{iodhbwm-templates} geladen. Die dadurch bereitgestellten zusätzlichen Funktionen werden im Abschnitt~\ref{pkg:iodhbwm-templates} beschrieben.\medskip
-
-            \Option{add-bibliography}\WithValues{true, false}\AndDefault{false}
-            Bei Aktivierung der Option wird versucht, ein Literaturverzeichnis zu erstellen. Dabei wenn die Option \opt{bib-file} nicht gesetzt ist, wird automatisch nach der Datei \file{dhbw-source.bib} gesucht.
+            \subsubsection{Allgemeine}
+                \Option{load-preamble}\WithValues{true, false}\AndDefault{true}
+                Bei Angabe der Option \opt{load-preamble} werden eine Reihe von zusätzlichen Paketen geladen und teilweise vorkonfiguriert. Nachfolgend erfolgt eine Auflistung der geladenen Pakete:
+                \begin{description}[itemsep=1pt, style=multiline, leftmargin=3cm]
+                    \item [\pkg{lmodern}] Verwendung von Latin Modern anstatt Computer Modern
+                    \item [\pkg{microtype}] Verbesserungen des Schriftsatzes durch Änderungen der Abstände zwischen einzelnen Buchstaben und Wörtern
+                    \item [\pkg{setspace}] Umschaltung zwischen einzeilig und anderthalbzeilig
+                    \item [\pkg{scrlayer-srcpage}] Zusätzlich werden grundlegende Konfiguration zur Darstellung der Kopf- und Fußzeilen vorgenommen.
+                    \item [\pkg{geometry}] Die Seitenränder werden entsprechend der Richtlinien der DHBW voreingestellt.
+                    \item [\pkg{siunitx}] Paket zum Schreiben von mathematischen Einheiten unter Beachtung der korrekten Schreibweise.
+                    \item [\pkg{mathtools}] Erweiterung des Standard zur Darstellung von mathematischen Ausdrücken
+                    \item [\pkg{graphicx}] Möglichkeit zur Einbindung von Bildern.
+                    \item [\pkg{tcolobox}] Dieses Paket lädt implizit \pkg{tikz} und \pkg{xcolor}. Dem Paket \pkg{xcolor} werden die Optionen \opt{table} und \opt{dvipsnames} übergeben.
+                    \item [\pkg{tabularx}] Erweiterung der Tabellenumgebung
+                    \item [\pkg{booktabs}] Möglichkeit zur Darstellung horizontaler Linien in Tabellen zur besseren Gestaltung
+                    \item [\pkg{multirow}] Paket zur vertikalen Verbinden von einzelnen Zellen in einer Tabelle
+                    \item [\pkg{listings}] Darstellung von Quellcode unterschiedlicher Sprachen. Bei Aktivierung von \opt{load-dhbw-templates} wird ein Design vorgeladen.
+                \end{description}
+                
+                \Option{load-dhbw-templates}\WithValues{true, false}\AndDefault{false}
+                Bei Angabe der Option wird das Paket \pkg{iodhbwm-templates} geladen. Die dadurch bereitgestellten zusätzlichen Funktionen werden im Abschnitt~\ref{pkg:iodhbwm-templates} beschrieben.\medskip
+                
+                \Option{add-tocs-to-toc}\WithValues{true, false}\AndDefault{false}
+                bei Aktivierung der Option werden alle Verzeichnisse (Tabellen-, Abbildungs- und Literaturverzeichnis) in das Inhaltsverzeichnis übernommen. Es ist ein zusätzlicher Lauf von pdf\LaTeX notwendig, damit das Literaturverzeichnis im Inhaltsverzeichnis erscheint.
+                \medskip
+                
+                \Option{language}\WithValues{babel language}\AndDefault{empty}
+                Sprachen, welche im Dokument verwendet werden soll, sind über diese Option anzugeben. Als Hauptsprache wird die letzte angegebene Sprache verwendet. Alternativ kann die Option \opt{mainlanguage} genutzt werden.
+                
+                \begin{verbatim}
+\documentclass[%
+    language = english,
+    language = ngerman
+]{iodhbwm}
+                \end{verbatim}
+                Im Beispiel werden die Sprachen Englisch und Deutsch (neue Deutsche Rechtschreibung) geladen, wobei Deutsch automatisch als Hauptsprache verwendet wird.
+                
+                Die Sprachen werden als Option an alle notwendigen Pakete (\pkg{babel}, \pkg{cleveref}) weiter gereicht.\medskip
+                
+                \Option{mainlanguage}\WithValues{babel language}\AndDefault{}\medskip
+                Im Gegensatz zu \opt{language} wird mit der Option ausschließlich die Hauptsprache gesetzt.
+                
+                \begin{verbatim}
+\documentclass[%
+    language = english,
+    mainlanguage = ngerman
+]{iodhbwm}
+                \end{verbatim}
+                Die Angaben der Sprache ist äquivalent zum vorherigen Beispiel.\medskip
             
-            Das Literaturverzeichnis wird mittel \pkg{biblatex} und biber erstellt. Es ist darauf zu achten, dass die Einstellungen in der IDE gegebenenfalls anzupassen sind!\medskip
-
-            \Option{bib-file}\WithValues{\meta{filename}}
-            Der Option kann als \meta{key} eine Datei mitgegeben werden, welche die Einträge für das Inhaltsverzeichnis beinhalten. Es ist darauf zu achten, dass die Datei einschließlich Dateiendung übergeben wird.
-            \begin{verbatim}
+            \subsubsection{Bibliographie}
+                \Option{add-bibliography}\WithValues{true, false}\AndDefault{false}
+                Bei Aktivierung der Option wird versucht, ein Literaturverzeichnis zu erstellen, welches automatisch am Ende des Dokuments ausgegeben werden soll. Wenn die Option \opt{bib-file} nicht gesetzt ist, wird automatisch nach der Datei \file{dhbw-source.bib} gesucht.
+                
+                Das Literaturverzeichnis wird mittel \pkg{biblatex} und biber erstellt. Es ist darauf zu achten, dass die Einstellungen in der IDE gegebenenfalls anzupassen sind!\medskip
+                
+                \Option{add-bibliography-}\WithValues{true, false}\AndDefault{false}
+                Die Option verhält sich ähnlich wie \opt{add-bibliography} mit dem Unterschied, dass am Ende des Dokuments kein Literaturverzeichnis abgebildet wird. Diese Option ist gut geeignet, wenn Fußnoten für Zitate verwendet werden sollen.\medskip
+                
+                \Option{bib-file}\WithValues{\meta{filename}}
+                Der Option kann als \meta{key} eine Datei mitgegeben werden, welche die Einträge für das Inhaltsverzeichnis beinhalten. Es ist darauf zu achten, dass die Datei einschließlich Dateiendung übergeben wird.
+                \begin{verbatim}
 \documentclass[%
     add-bibliography = true,
     bib-file = my-source.bib
 ]{iodhbwm}
-            \end{verbatim}
-Diese Option ist nur in Verbindung mit \opt{add-bibliography} wirksam.\medskip
-
-            \Option{debug}\WithValues{true, false}\AndDefault{false}
-            Bei Angabe der Option werden die Pakete \pkg{blindtext} und \pkg{lipsum} geladen.
+                \end{verbatim}
+                Diese Option ist nur in Verbindung mit \opt{add-bibliography} oder \opt{add-bibliography-} wirksam.\medskip
+                
+                \Option{biblatex/style}\WithValues{\meta{citation style}}\AndDefault{numeric-comp}
+                Biblatex bietet unterschiedliche Zitierweisen an. Diese Option erlaubt die Angabe der gewünschten Zitierweise. Wenn der Option ein Stil übergeben wird, überschreibt dieser die Optionen \opt{biblatex/bibstyle} und \opt{biblatex/citestyle}, wenn diese zuvor definiert wurden.\medskip
+                
+                \Option{biblatex/bibstyle}\WithValues{\meta{citation style}}
+                Wenn sich die Zitierweise im Literaturverzeichnis von jener im Text unterscheiden soll, kann ein abweichender Stil mit dieser Option definiert werden. Es ist darauf zu achten, dass die Option zwingend nach \opt{biblatex/style} zu setzen ist, falls diese verwendet wird.\medskip
+                
+                \Option{biblatex/citestyle}\WithValues{\meta{citation style}}
+                Wenn sich die Zitierweise im Dokument von jener im Literaturverzeichnis unterscheiden soll, kann ein abweichender Stil mit dieser Option definiert werden. Es ist darauf zu achten, dass die Option zwingend nach \opt{biblatex/style} zu setzen ist, falls diese verwendet wird.\medskip
             
+            \subsubsection{Entwickler und Debug}
+                \Option{debug}\WithValues{true, false}\AndDefault{false}
+                Bei Angabe der Option werden die Pakete \pkg{blindtext} und \pkg{lipsum} geladen.
+
         \subsection{Allgemeine Makros}
             Derzeit stellt die Klasse keine Makros zur Verfügung.
             
@@ -94,7 +135,11 @@ Diese Option ist nur in Verbindung mit \opt{add-bibliography} wirksam.\medskip
             Das Paket stellt das Makro \Macro\dhbwsetup{\meta{key}=\meta{value}} bereit, über welches alle Einstellungen (Optionen) angepasst werden können. Hierfür sind eine Reihe von \meta{key} Variablen vordefiniert.\medskip
             
             \Option{titlepage}\WithValues{\meta{filename}}\AndDefault{dhbw-titlepage.def}
-            Mit der Option kann eine eigene Titelseite übergeben werden. Die Option \opt{thesis type} wird dabei ignoriert. Falls die angegeben Datei nicht gefunden wird, wird auf die Standardtitleseite zurückgegriffen.\medskip
+            Mit der Option kann eine eigene Titelseite übergeben werden. Falls die angegeben Datei nicht gefunden wird, wird auf die Standardtitelseite zurückgegriffen.
+            
+            Es gilt zu beachten, dass die Option \opt{thesis type} eine höhere Priorität besitzt. Das bedeutet, dass bei der Angabe eines \opt{thesis type} die Option \opt{titlepage} überschrieben wird und stattdessen die gewählte Vorlage geladen wird.
+            
+            Bei gleichzeitiger Verwendung von \cs{dhbwdeclaration} ist es notwendig, dass die Option \opt{location} gesetzt wird. Alle anderen Optionen sind in Abhängigkeit der verwendeten Macros (s.~Abschnitt~\ref{subsec:macro}) zu setzen.\medskip
             
             \Option{declaration}\WithValues{\meta{filename}}\AndDefault{dhbw-declaration.def}
             Mit der Option kann eine eigene Eigenständigkeitserklärung übergeben werden. In der derzeitigen Version wird nur eine deutsche Variante bereitgestellt.\medskip
@@ -149,7 +194,7 @@ Diese Option ist nur in Verbindung mit \opt{add-bibliography} wirksam.\medskip
 }
             \end{verbatim}
             
-        \subsection{Allgemeine Makros}
+        \subsection{Allgemeine Makros}\label{subsec:macro}
             \DescribeMacro\dhbwsetup{\meta{key}=\meta{value}} Das Makro ermöglicht die Angabe aller hier aufgelisteten Optionen einzustellen. Dabei werden die Option als \meta{key} angegeben und der einzustellende Wert als \meta{value}.
             
             \DescribeMacro\dhbwtitlepage Das Makro erstellt eine Titelseite. Dabei wird bei den vordefinierten Titelseiten (s.~\opt{thesis type}) auf die \textbf{zuvor} gesetzt Optionen zurück gegriffen. Eine eigene Definition einer Titelseite kann durch die Option \opt{titlepage} angegeben werden.
@@ -198,8 +243,6 @@ Diese Option ist nur in Verbindung mit \opt{add-bibliography} wirksam.\medskip
         \section{Eigene Erklärung definieren}
             Eine eigene (Eigenständigkeits-) Erklärung kann über die Option \opt{declaration} = \meta{filename} übergeben werden. Auf die Angabe der Dateiendung kann verzichtet werden.
             
-%        \section{Abstract hinzufügen}
-%            \blindtext
             
     \section{Installation}
         \subsection{Lokale Installation}
@@ -232,10 +275,6 @@ Diese Option ist nur in Verbindung mit \opt{add-bibliography} wirksam.\medskip
         \subsection{CTAN}
             Das Bundle wird ebenfalls über CTAN (mit Release der Version v0.1) zur Verfügung gestellt und kann deshalb über die offiziellen Paketquellen heruntergeladen und installiert werden. Diese Variante ist zu bevorzugen.
 
-%    \section{Bekannte Probleme}
-%        \blindtext
-
-    \PrintChanges
     \PrintIndex
 
 \end{document}

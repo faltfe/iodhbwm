@@ -1,0 +1,27 @@
+\documentclass[
+    add-bibliography,
+    add-tocs-to-toc,
+    bib-file = biblatex-examples.bib,
+%    biblatex/style = authoryear,
+    biblatex/bibstyle = authortitle,
+    biblatex/citestyle = numeric,
+    language = ngerman,
+    debug
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Umbennen des Literaturverzeichnis
+\DefineBibliographyStrings{ngerman}{%
+    bibliography = {Literaturverzeichnis},
+    references = {Literaturverzeichnis},
+}
+
+\begin{document}
+    \tableofcontents
+    \chapter{Einfaches Zitat}
+        \blindtext \cite{bertram}
+    
+    \chapter{Zitat als Fußnote}
+        \blindtext \footfullcite{doody}
+\end{document}
