@@ -176,6 +176,37 @@
     \cfoot[-~\pagemark~-]{-~\pagemark~-}            % Fußzeile mitte: Seitenzahl
 }{}
 
+% Load cleveref after hyperref package
+\AfterPackage!{hyperref}{%
+    \ifdef{\iodhbwm@main@languages}{%
+        \PassOptionsToPackage{\iodhbwm@main@languages}{cleveref}
+    }{}
+    \RequirePackage[%
+    noabbrev,
+    nameinlink
+    ]{cleveref}
+    
+}
+% Load hyperref always at the end of the preambel
+% To avoid a race condition with biblatex
+% hyperref have to be placed before biblatex
+% when \AtEndPreamble is used
+% https://tex.stackexchange.com/questions/417556/hyperref-doesnt-highlight-cites
+\AtEndPreamble{%
+    \RequirePackage{hyperref}
+    \hypersetup{
+        pdftitle       = {\ifdef{\getTitel}{\getTitel}{undefined}},
+        pdfsubject     = {\ifdef{\getTitel}{\getTitel}{undefined}},
+        pdfauthor      = {\ifdef{\getAuthor}{\getAuthor}{undefined}},
+        pdfcreator     = {pdf\LaTeX},
+        pdfproducer    = {pdf\LaTeX},
+        pdftoolbar     = true,
+        pdfmenubar     = false,
+        bookmarksopen  = false,                 % bookmarksopen ODER bookmarksopenlevel!
+        colorlinks
+    }
+}
+
 % Load biblatex if option add-bibliography is set
 % The bibliography is printed at the end of the document. If the option bib-file is set then
 % the class is searching for the given file. Otherwise it try to load dhbw-source.bib.
@@ -228,33 +259,6 @@
 \ifbool{iodhbwm@cls@if@isdebug}{%
     \RequirePackage{blindtext, lipsum}
 }{}
-
-% Load cleveref after hyperref package
-\AfterPackage!{hyperref}{%
-    \ifdef{\iodhbwm@main@languages}{%
-        \PassOptionsToPackage{\iodhbwm@main@languages}{cleveref}
-    }{}
-    \RequirePackage[%
-        noabbrev,
-        nameinlink
-    ]{cleveref}
-    
-}
-% Load hyperref always at the end of the preambel
-\AtEndPreamble{%
-    \RequirePackage{hyperref}
-    \hypersetup{
-        pdftitle       = {\ifdef{\getTitel}{\getTitel}{undefined}},
-        pdfsubject     = {\ifdef{\getTitel}{\getTitel}{undefined}},
-        pdfauthor      = {\ifdef{\getAuthor}{\getAuthor}{undefined}},
-        pdfcreator     = {pdf\LaTeX},
-        pdfproducer    = {pdf\LaTeX},
-        pdftoolbar     = true,
-        pdfmenubar     = false,
-        bookmarksopen  = false,                 % bookmarksopen ODER bookmarksopenlevel!
-        colorlinks
-    }
-}
 
 % ----------------------------------------------------------
 % Defining custom colors
