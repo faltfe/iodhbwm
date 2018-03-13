@@ -261,13 +261,16 @@
                 Eine ausführliche Beschreibung befindet sich auf \url{https://tex.stackexchange.com/a/69484/142408}.
             
             \subsubsection{TeXlive}
-                \Warning{Die Installationsanweisung für TeXlive wurde nicht getestet!}
+                \Info{Manche dieser Schritte können villeicht übersprungen werden!}
                 
                 \begin{enumerate}
                     \item \verb|kpsewhich -var-value TEXMFHOME| zum Auffinden des Ordner
-                    \item ~/texmf/tex/latex/ (ggf. neu anlegen)
-                    \item  Ordner iodhbwm nach kopieren ~/texmf/tex/latex/ (Ordner muss zwingend iodhbwm heißen)
+                    \item ~/.texmf-config/tex/latex/ (ggf. neu anlegen)
+                    \item Ordner iodhbwm nach ~/.texmf-config/tex/latex/ kopieren (Ordner muss zwingend iodhbwm heißen)
+                    \item kpsepath -n latex tex ausführen
+                    \item mktexlsr ~/.texmf-config ausführen
                     \item texhash ~/texmf ausführen
+                    \item Unter umständen müssen zusätzlich noch fehlende Pakete wie z.B. lmodern nachinstalliert werden.
                 \end{enumerate}
             
                 Eine ausführliche Beschreibung befindet sich auf \url{https://tex.stackexchange.com/a/73017/142408}.
