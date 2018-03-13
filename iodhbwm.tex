@@ -261,13 +261,12 @@
                 Eine ausführliche Beschreibung befindet sich auf \url{https://tex.stackexchange.com/a/69484/142408}.
             
             \subsubsection{TeXlive}
-                \Warning{Die Installationsanweisung für TeXlive wurde nicht getestet!}
                 
                 \begin{enumerate}
-                    \item \verb|kpsewhich -var-value TEXMFHOME| zum Auffinden des Ordner
-                    \item ~/texmf/tex/latex/ (ggf. neu anlegen)
-                    \item  Ordner iodhbwm nach kopieren ~/texmf/tex/latex/ (Ordner muss zwingend iodhbwm heißen)
-                    \item texhash ~/texmf ausführen
+                    \item \verb|path=$(kpsewhich -var-value TEXMFHOME)| Abfrage, welcher Ordner standardmäßig hinterlegt ist. \verb|$path| entspricht vermutlich dem Pfad\\ \verb|/home/<user>/texmf/|
+                    \item \verb|mkdir -p $path/tex/latex| anlegen des Ordners. Es kann auch ein beliebiger Ordner gewählt werden, solange dieser eine gültige TEXMF-Struktur aufweist
+                    \item \verb|cp -R iodhbwm $path/tex/latex| Kopieren des heruntergeladenen Verzeichnis
+                    \item \verb|texhash $path| ausführen, um das Verzeichnis zu aktualisieren
                 \end{enumerate}
             
                 Eine ausführliche Beschreibung befindet sich auf \url{https://tex.stackexchange.com/a/73017/142408}.
