@@ -262,6 +262,8 @@
 % ----------------------------------------------------------
 % Defining custom colors
 % ----------------------------------------------------------
+%https://tex.stackexchange.com/questions/419842/compile-error-illegal-unit-only-with-texlive-2015
+\patchcmd{\@hex@@Hex}{f\else}{F\else}{\typeout{Patching xcolor for TL15}}{}
 \definecolor{DHBW-red}{HTML}{e2001a}
 \definecolor{DHBW-blue}{HTML}{026f93}
 \definecolor{DHBW-darkblue}{HTML}{23527c}
