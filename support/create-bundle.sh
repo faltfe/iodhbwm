@@ -24,7 +24,7 @@ cp -r examples tmp/$latestTag/iodhbwm
 cp dhbw-logo.png tmp/$latestTag/iodhbwm
 cp iodhbwm* tmp/$latestTag/iodhbwm
 cp README* tmp/$latestTag/iodhbwm
-cp LICENCE* tmp/$latestTag/iodhbwm
+cp LICENSE* tmp/$latestTag/iodhbwm
 
 mkdir -p release
 #cd tmp
@@ -34,4 +34,5 @@ mkdir -p release
 echo "Copy directory iodhbwm into release"
 cp -r tmp/* release
 
+echo "Delete tmp directory"
 rm -r tmp
