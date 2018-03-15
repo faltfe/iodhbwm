@@ -1,4 +1,9 @@
 # iodhbwm bundle
+
+[![Latest release](https://img.shields.io/github/release/faltfe/iodhbwm.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/releases)
+[![HitCount](http://hits.dwyl.io/faltfe/iodhbwm.svg)](http://hits.dwyl.io/faltfe/iodhbwm)
+[![Downloads](https://img.shields.io/github/downloads/faltfe/iodhbwm/total.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/releases)
+
 Stable: [![Build Status](https://travis-ci.org/faltfe/iodhbwm.svg?branch=master)](https://travis-ci.org/faltfe/iodhbwm) Develop: [![Build Status](https://travis-ci.org/faltfe/iodhbwm.svg?branch=develop)](https://travis-ci.org/faltfe/iodhbwm)
 
 Das Projekt stellt eine _inoffizelle_ Vorlage der [DHBW Mannheim](http://www.dhbw-mannheim.de) für die Erstellung einer Bachelorarbeit, Studienarbeit oder Projektarbeit bereit. Das Bundle ist unterteilt in eine Klasse und ein Paket. Eine unabhängige Benutzung ist möglich, wird jedoch **nicht** empfohlen.
