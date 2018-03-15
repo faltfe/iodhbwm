@@ -37,7 +37,6 @@
 \providecommand*{\iodhbwm@cls@baseclass}{scrreprt}
 \newcommand*{\iodhbwm@cls@baseclass@options}{}
 \let\iodhbwm@languages\@empty
-\let\iodhbwm@main@languages\@empty
 
 % ----------------------------------------------------------
 % Define booleans
@@ -57,7 +56,7 @@
     language/.code              = \appto{\iodhbwm@languages}{#1,},
     mainlanguage/.code          = {%
         \appto{\iodhbwm@languages}{main=#1,}%
-        \def\iodhbwm@main@languages{#1}%
+        \def\iodhbwm@main@language{#1}%
     },
     load-preamble/.is if        = iodhbwm@cls@if@preamble,
     load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
@@ -131,12 +130,12 @@
 
     % If no main language was set use last language
     % as main language
-    \ifundef{\iodhbwm@main@languages}{%
+    \ifundef{\iodhbwm@main@language}{%
         \StrCount{\iodhbwm@languages@list}{,}[\numofelem]
         \ifnum\numofelem>0\relax
-            \StrBehind[\numofelem]{\iodhbwm@languages@list}{,}[\iodhbwm@main@languages]%
+            \StrBehind[\numofelem]{\iodhbwm@languages@list}{,}[\iodhbwm@main@language]%
         \else
-            \let\iodhbwm@main@languages\iodhbwm@languages@list%
+            \let\iodhbwm@main@language\iodhbwm@languages@list%
         \fi
     }{}
     \RequirePackage[\iodhbwm@languages@list]{babel}
@@ -178,8 +177,8 @@
 
 % Load cleveref after hyperref package
 \AfterPackage!{hyperref}{%
-    \ifdef{\iodhbwm@main@languages}{%
-        \PassOptionsToPackage{\iodhbwm@main@languages}{cleveref}
+    \ifdef{\iodhbwm@main@language}{%
+        \PassOptionsToPackage{\iodhbwm@main@language}{cleveref}
     }{}
     \RequirePackage[%
     noabbrev,
