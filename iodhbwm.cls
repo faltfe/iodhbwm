@@ -194,8 +194,8 @@
 \AtEndPreamble{%
     \RequirePackage{hyperref}
     \hypersetup{
-        pdftitle       = {\ifdef{\getTitel}{\getTitel}{undefined}},
-        pdfsubject     = {\ifdef{\getTitel}{\getTitel}{undefined}},
+        pdftitle       = {\ifdef{\getThesisTitle}{\getThesisTitle}{undefined}},
+        pdfsubject     = {\ifdef{\getThesisTitle}{\getThesisTitle}{undefined}},
         pdfauthor      = {\ifdef{\getAuthor}{\getAuthor}{undefined}},
         pdfcreator     = {pdf\LaTeX},
         pdfproducer    = {pdf\LaTeX},
