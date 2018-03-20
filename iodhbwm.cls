@@ -23,8 +23,8 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@cls@version}{v0.3-alpha}
-\newcommand*{\iodhbwm@cls@date}{2018-02-14}
+\newcommand*{\iodhbwm@cls@version}{v0.3.1-alpha}
+\newcommand*{\iodhbwm@cls@date}{2018-03-20}
 \newcommand*{\iodhbwm@cls@info}{Inoffical DHBW Mannheim thesis class}
 
 \ProvidesClass{iodhbwm}[%
@@ -37,7 +37,6 @@
 \providecommand*{\iodhbwm@cls@baseclass}{scrreprt}
 \newcommand*{\iodhbwm@cls@baseclass@options}{}
 \let\iodhbwm@languages\@empty
-\let\iodhbwm@main@languages\@empty
 
 % ----------------------------------------------------------
 % Define booleans
@@ -57,7 +56,7 @@
     language/.code              = \appto{\iodhbwm@languages}{#1,},
     mainlanguage/.code          = {%
         \appto{\iodhbwm@languages}{main=#1,}%
-        \def\iodhbwm@main@languages{#1}%
+        \def\iodhbwm@main@language{#1}%
     },
     load-preamble/.is if        = iodhbwm@cls@if@preamble,
     load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
@@ -131,12 +130,12 @@
 
     % If no main language was set use last language
     % as main language
-    \ifundef{\iodhbwm@main@languages}{%
+    \ifundef{\iodhbwm@main@language}{%
         \StrCount{\iodhbwm@languages@list}{,}[\numofelem]
         \ifnum\numofelem>0\relax
-            \StrBehind[\numofelem]{\iodhbwm@languages@list}{,}[\iodhbwm@main@languages]%
+            \StrBehind[\numofelem]{\iodhbwm@languages@list}{,}[\iodhbwm@main@language]%
         \else
-            \let\iodhbwm@main@languages\iodhbwm@languages@list%
+            \let\iodhbwm@main@language\iodhbwm@languages@list%
         \fi
     }{}
     \RequirePackage[\iodhbwm@languages@list]{babel}
@@ -175,6 +174,37 @@
     \ihead{\headmark}                               % Kopfzeile innen: chapter und section Titel
     \cfoot[-~\pagemark~-]{-~\pagemark~-}            % Fußzeile mitte: Seitenzahl
 }{}
+
+% Load cleveref after hyperref package
+\AfterPackage!{hyperref}{%
+    \ifdef{\iodhbwm@main@language}{%
+        \PassOptionsToPackage{\iodhbwm@main@language}{cleveref}
+    }{}
+    \RequirePackage[%
+    noabbrev,
+    nameinlink
+    ]{cleveref}
+    
+}
+% Load hyperref always at the end of the preambel
+% To avoid a race condition with biblatex
+% hyperref have to be placed before biblatex
+% when \AtEndPreamble is used
+% https://tex.stackexchange.com/questions/417556/hyperref-doesnt-highlight-cites
+\AtEndPreamble{%
+    \RequirePackage{hyperref}
+    \hypersetup{
+        pdftitle       = {\ifdef{\getThesisTitle}{\getThesisTitle}{undefined}},
+        pdfsubject     = {\ifdef{\getThesisTitle}{\getThesisTitle}{undefined}},
+        pdfauthor      = {\ifdef{\getAuthor}{\getAuthor}{undefined}},
+        pdfcreator     = {pdf\LaTeX},
+        pdfproducer    = {pdf\LaTeX},
+        pdftoolbar     = true,
+        pdfmenubar     = false,
+        bookmarksopen  = false,                 % bookmarksopen ODER bookmarksopenlevel!
+        colorlinks
+    }
+}
 
 % Load biblatex if option add-bibliography is set
 % The bibliography is printed at the end of the document. If the option bib-file is set then
@@ -229,36 +259,11 @@
     \RequirePackage{blindtext, lipsum}
 }{}
 
-% Load cleveref after hyperref package
-\AfterPackage!{hyperref}{%
-    \ifdef{\iodhbwm@main@languages}{%
-        \PassOptionsToPackage{\iodhbwm@main@languages}{cleveref}
-    }{}
-    \RequirePackage[%
-        noabbrev,
-        nameinlink
-    ]{cleveref}
-    
-}
-% Load hyperref always at the end of the preambel
-\AtEndPreamble{%
-    \RequirePackage{hyperref}
-    \hypersetup{
-        pdftitle       = {\ifdef{\getTitel}{\getTitel}{undefined}},
-        pdfsubject     = {\ifdef{\getTitel}{\getTitel}{undefined}},
-        pdfauthor      = {\ifdef{\getAuthor}{\getAuthor}{undefined}},
-        pdfcreator     = {pdf\LaTeX},
-        pdfproducer    = {pdf\LaTeX},
-        pdftoolbar     = true,
-        pdfmenubar     = false,
-        bookmarksopen  = false,                 % bookmarksopen ODER bookmarksopenlevel!
-        colorlinks
-    }
-}
-
 % ----------------------------------------------------------
 % Defining custom colors
 % ----------------------------------------------------------
+%https://tex.stackexchange.com/questions/419842/compile-error-illegal-unit-only-with-texlive-2015
+\patchcmd{\@hex@@Hex}{f\else}{F\else}{\typeout{Patching xcolor for TL15}}{}
 \definecolor{DHBW-red}{HTML}{e2001a}
 \definecolor{DHBW-blue}{HTML}{026f93}
 \definecolor{DHBW-darkblue}{HTML}{23527c}
