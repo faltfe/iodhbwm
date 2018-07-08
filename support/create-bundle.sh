@@ -14,17 +14,15 @@ fi
 
 echo "Create directory"
 
-mkdir -p tmp/$latestTag/iodhbwm
+mkdir -p tmp/$latestTag/iodhbwm/doc
+mkdir -p tmp/$latestTag/iodhbwm/tex
 
 # Copy all files except of files needed only
 # for development
 echo "Copy files into tmp/iodhbwm"
-cp -r include tmp/$latestTag/iodhbwm
-cp -r examples tmp/$latestTag/iodhbwm
-cp dhbw-logo.png tmp/$latestTag/iodhbwm
-cp iodhbwm* tmp/$latestTag/iodhbwm
-cp README* tmp/$latestTag/iodhbwm
-cp LICENSE* tmp/$latestTag/iodhbwm
+cp -r source/* tmp/$latestTag/iodhbwm/tex
+cp -r doc/* tmp/$latestTag/iodhbwm/doc
+cp doc/README* tmp/$latestTag/iodhbwm
 
 mkdir -p release
 #cd tmp
