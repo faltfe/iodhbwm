@@ -29,9 +29,9 @@
 \newcommand*{\iodhbwm@pkg@name}{iodhbwm-templates}
 
 \ProvidesPackage{\iodhbwm@pkg@name}[%
-    \iodhbwm@pkg@date\space
-    \iodhbwm@pkg@version\space
-    \iodhbwm@pkg@info]
+\iodhbwm@pkg@date\space
+\iodhbwm@pkg@version\space
+\iodhbwm@pkg@info]
 \RequirePackage{etoolbox, pgfopts}
 
 %---------------------------------------------------
@@ -52,44 +52,52 @@
 \newbool{iodhbwm@if@customtitlepage}
 \newbool{iodhbwm@if@customdeclaration}
 
-\def\iodhbwm@titlepage@folder{include/titlepage/}
-\def\iodhbwm@declaration@folder{include/declaration/}
+%\def\iodhbwm@titlepage@folder{include/titlepage/}
+%\def\iodhbwm@declaration@folder{include/declaration/}
+
+\newcommand*{\iodhbwm@file@prefix}{dhbw}
+\newcommand*{\iodhbwm@file@ending}{.def}
+\edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@ba{\iodhbwm@file@prefix-titlepage-ba\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@sa{\iodhbwm@file@prefix-titlepage-sa\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@pa{\iodhbwm@file@prefix-titlepage-pa\iodhbwm@file@ending}
+\edef\iodhbwm@file@declaration@default{\iodhbwm@file@prefix-declaration\iodhbwm@file@ending}
 
 \pgfkeys{
     /dhbw/.cd,
-        titlepage/.store in = \@iodhbwm@file@titlepage,
-        titlepage/.default = \iodhbwm@titlepage@folder dhbw-titlepage.inc,
-        titlepage = \iodhbwm@titlepage@folder dhbw-titlepage.inc,
-        declaration/.store in = \@iodhbwm@file@declaration,
-        declaration/.default = \iodhbwm@declaration@folder dhbw-declaration.inc,
-        declaration = \iodhbwm@declaration@folder dhbw-declaration.inc,
-        thesis type/.is choice,
-            thesis type/BA/.estyle = {/dhbw/titlepage = \iodhbwm@titlepage@folder dhbw-titlepage-ba.inc},
-            thesis type/SA/.estyle = {/dhbw/titlepage = \iodhbwm@titlepage@folder dhbw-titlepage-sa.inc},
-            thesis type/PA/.estyle = {/dhbw/titlepage = \iodhbwm@titlepage@folder dhbw-titlepage-pa.inc},
-        thesis title/.store in = \iodhbwm@thesis@title,
-        thesis title = {},
-        thesis second title/.store in = \iodhbwm@thesis@second@title,
-        thesis second title = {},
-        author/.store in = \iodhbwm@author,
-        author = {},
-        date/.store in = \iodhbwm@date,
-        date = \today,
-        location/.store in = \iodhbwm@location,
-        location = {},
-        institute/.store in = \iodhbwm@institute,
-        institute section/.store in = \iodhbwm@institute@section,
-        institute section = {},
-        institute logo/.store in = \iodhbwm@institute@logo,
-        institute logo = {},
-        student id/.store in = \iodhbwm@student@id,
-        student id = {},
-        course/.store in = \iodhbwm@course,
-        course = {},
-        supervisor/.store in = \iodhbwm@supervisor,
-        supervisor = {},
-        processing period/.store in = \iodhbwm@processing@period,
-        processing period = {}
+    titlepage/.store in = \@iodhbwm@file@titlepage,
+    titlepage/.default = \iodhbwm@file@titlepage@default,
+    titlepage = \iodhbwm@file@titlepage@default,
+    declaration/.store in = \@iodhbwm@file@declaration,
+    declaration/.default = \iodhbwm@file@declaration@default,
+    declaration = \iodhbwm@file@declaration@default,
+    thesis type/.is choice,
+    thesis type/BA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@ba},
+    thesis type/SA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@sa},
+    thesis type/PA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@pa},
+    thesis title/.store in = \iodhbwm@thesis@title,
+    thesis title = {},
+    thesis second title/.store in = \iodhbwm@thesis@second@title,
+    thesis second title = {},
+    author/.store in = \iodhbwm@author,
+    author = {},
+    date/.store in = \iodhbwm@date,
+    date = \today,
+    location/.store in = \iodhbwm@location,
+    location = {},
+    institute/.store in = \iodhbwm@institute,
+    institute section/.store in = \iodhbwm@institute@section,
+    institute section = {},
+    institute logo/.store in = \iodhbwm@institute@logo,
+    institute logo = {},
+    student id/.store in = \iodhbwm@student@id,
+    student id = {},
+    course/.store in = \iodhbwm@course,
+    course = {},
+    supervisor/.store in = \iodhbwm@supervisor,
+    supervisor = {},
+    processing period/.store in = \iodhbwm@processing@period,
+    processing period = {}
 }
 
 \newrobustcmd\dhbwsetup[1]{\pgfqkeys{/dhbw}{#1}}
@@ -104,8 +112,8 @@
         \PackageError{\iodhbwm@pkg@name}{%
             Option author required!\MessageBreak
             Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
-            \space\space author = {Your name}\MessageBreak
-            }}{See documentation for more information}%
+                \space\space author = {Your name}\MessageBreak
+        }}{See documentation for more information}%
     }{\iodhbwm@author}%
 }
 % required
@@ -114,8 +122,8 @@
         \PackageError{\iodhbwm@pkg@name}{%
             Option thesis title required!\MessageBreak
             Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
-            \space\space thesis title = {Your title}\MessageBreak
-            }}{See documentation for more information}%
+                \space\space thesis title = {Your title}\MessageBreak
+        }}{See documentation for more information}%
     }{\iodhbwm@thesis@title}%
 }
 % optional
