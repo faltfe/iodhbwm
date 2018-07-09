@@ -38,15 +38,23 @@
 \newcommand*{\iodhbwm@cls@baseclass@options}{}
 \let\iodhbwm@languages\@empty
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                    OPTIONS AND FLAGS                      %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % ----------------------------------------------------------
 % Define booleans
 % ----------------------------------------------------------
 \newbool{iodhbwm@cls@if@preamble}\booltrue{iodhbwm@cls@if@preamble}
 \newbool{iodhbwm@cls@if@templates}
 \newbool{iodhbwm@cls@if@bib}
-\newbool{iodhbwm@cls@if@print@bib}\booltrue{iodhbwm@cls@if@print@bib}
+\newbool{iodhbwm@cls@if@bib@print}\booltrue{iodhbwm@cls@if@bib@print}
 \newbool{iodhbwm@cls@if@tocstotoc}
 \newbool{iodhbwm@cls@if@isdebug}
+\newbool{iodhbwm@cls@if@print@minus}
+\newbool{iodhbwm@cls@if@print}
 
 % ----------------------------------------------------------
 % Define available options
@@ -62,50 +70,55 @@
     load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
     add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
     add-bibliography/.is if     = iodhbwm@cls@if@bib,
-    add-bibliography-/.code    = {%
+    add-bibliography-/.code     = {%
         \booltrue{iodhbwm@cls@if@bib}%
-        \boolfalse{iodhbwm@cls@if@print@bib}%
+        \boolfalse{iodhbwm@cls@if@bib@print}%
     },
     bib-file/.store in          = \iodhbwm@bib@file,
     bib-file = {},
-    biblatex/bibstyle/.store in  = \iodhbwm@bib@bibstyle@opt,
+    biblatex/bibstyle/.store in = \iodhbwm@bib@bibstyle@opt,
     biblatex/citestyle/.store in = \iodhbwm@bib@citestyle@opt,
     biblatex/style/.style       = {biblatex/bibstyle=#1,biblatex/citestyle=#1},
     biblatex/style = numeric-comp,
     debug/.is if                = iodhbwm@cls@if@isdebug,
+    print-/.is if               = iodhbwm@cls@if@print@minus,
+    print/.code                 = {%
+        \booltrue{iodhbwm@cls@if@print}%
+        \booltrue{iodhbwm@cls@if@print@minus}%
+    },
     unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
 }
 
 \ProcessPgfOptions{/iodhbwm}
 
+% ----------------------------------------------------------
+% Default class option
+% ----------------------------------------------------------
 \PassOptionsToClass{%
     fontsize=12pt,
-    a4paper,
+%    a4paper,
     parskip=half-
 }{\iodhbwm@cls@baseclass}
 
 \LoadClass[\iodhbwm@cls@baseclass@options]{\iodhbwm@cls@baseclass}
 
+% ----------------------------------------------------------
+% Define booleans
+% ----------------------------------------------------------
 \ifbool{iodhbwm@cls@if@tocstotoc}{%
     \KOMAoptions{%
         listof  = totoc
     }%
 }{}
 
+% ----------------------------------------------------------
+% Load default packages
+% ----------------------------------------------------------
 \ifbool{iodhbwm@cls@if@preamble}{%
     \RequirePackage{lmodern}
     \RequirePackage{microtype}
     \RequirePackage{scrhack}
     \RequirePackage{setspace}
-    \RequirePackage[%
-        headsepline,
-        footsepline,
-        plainfootsepline,
-        clines,
-        automark,
-    ]{scrlayer-scrpage}
-    \RequirePackage{geometry}
-    \RequirePackage{siunitx}
     \PassOptionsToPackage{intlimits}{amsmath}
     \RequirePackage{mathtools}
     \PassOptionsToPackage{
@@ -116,12 +129,213 @@
     \RequirePackage[most]{tcolorbox}
     \RequirePackage{tabularx}
     \RequirePackage{booktabs}
-    \RequirePackage{multirow}
-    \RequirePackage{listings}
-    \RequirePackage{caption}
+%    \RequirePackage{multirow}
 }{}
 
-% Pass language to package
+\ifbool{iodhbwm@cls@if@templates}{%
+    \RequirePackage{iodhbwm-templates}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                           DESIGN                          %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ----------------------------------------------------------
+% Defining custom colors
+% ----------------------------------------------------------
+\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
+
+%https://tex.stackexchange.com/questions/419842/compile-error-illegal-unit-only-with-texlive-2015
+\patchcmd{\@hex@@Hex}{f\else}{F\else}{\typeout{Patching xcolor for TL15}}{}
+\definecolor{DHBW-red}{HTML}{e2001a}
+\definecolor{DHBW-blue}{HTML}{026f93}
+\definecolor{DHBW-darkblue}{HTML}{23527c}
+\definecolor{DHBW-light}{HTML}{ffffff}
+\definecolor{DHBW-font}{HTML}{5c6971}
+\definecolor{DHBW-dark-font}{HTML}{333333}
+
+% ----------------------------------------------------------
+% Page settings
+% ----------------------------------------------------------
+\@ifpackageloaded{geometry}{}{\RequirePackage{geometry}}
+\geometry{%
+    top           = 3cm,    % Seitenabstand oben
+    right         = 2.5cm,  % Seitenabstand recht
+    bottom        = 3cm,    % Seitenabstand unten
+    left          = 2.5cm,  % Seitenabstand links
+    bindingoffset = 1cm,    % Bindekorrektur
+    includeheadfoot
+}
+
+% ----------------------------------------------------------
+% Header and Footer
+% ----------------------------------------------------------
+\@ifpackageloaded{scrlayer-scrpage}{}{%
+    \RequirePackage[%
+        headsepline,
+        footsepline,
+        plainfootsepline,
+        clines,
+        automark,
+    ]{scrlayer-scrpage}
+}%
+\automark[section]{chapter}
+\automark*{section}
+\clearpairofpagestyles                          % Leeren von Kopf- und Fußzeile
+%\ohead{\pagemark}                              % Kopfzeile außen: Seitenzahl
+\ihead{\headmark}                               % Kopfzeile innen: chapter und section Titel
+\cfoot[-~\pagemark~-]{-~\pagemark~-}            % Fußzeile mitte: Seitenzahl
+
+% ----------------------------------------------------------
+% Numbers and units
+% ----------------------------------------------------------
+\ifbool{iodhbwm@cls@if@preamble}{%
+    \@ifpackageloaded{siunitx}{}{\RequirePackage{siunitx}}%
+    \sisetup{%
+        %    mode = math, % text is printed using a math font
+        detect-all,
+        separate-uncertainty = true,
+        locale               = DE,
+        per-mode             = fraction,
+        range-phrase= -,
+        range-units=single
+    }%
+}{}%
+
+% ----------------------------------------------------------
+% Enable references and links
+% ----------------------------------------------------------
+\AfterPackage!{hyperref}{%
+    \ifdef{\iodhbwm@main@language}{%
+        \PassOptionsToPackage{\iodhbwm@main@language}{cleveref}
+    }{}
+    \RequirePackage[%
+    noabbrev,
+    nameinlink
+    ]{cleveref}
+}
+% Load hyperref always at the end of the preambel
+% To avoid a race condition with biblatex
+% hyperref have to be placed before biblatex
+% when \AtEndPreamble is used
+% https://tex.stackexchange.com/questions/417556/hyperref-doesnt-highlight-cites
+\AtEndPreamble{%
+    \RequirePackage{hyperref}
+    \hypersetup{
+        pdftitle       = {\ifdef{\getThesisTitle}{\getThesisTitle}{undefined}},
+        pdfsubject     = {\ifdef{\getThesisTitle}{\getThesisTitle}{undefined}},
+        pdfauthor      = {\ifdef{\getAuthor}{\getAuthor}{undefined}},
+        pdfcreator     = {pdf\LaTeX},
+        pdfproducer    = {pdf\LaTeX},
+        pdftoolbar     = true,
+        pdfmenubar     = false,
+        bookmarksopen  = false,                 % bookmarksopen ODER bookmarksopenlevel!
+    }%
+    \ifbool{iodhbwm@cls@if@print@minus}{%
+        \hypersetup{hidelinks}
+    }{%
+        \hypersetup{%
+            colorlinks,
+            allcolors=DHBW-red,
+            urlcolor=DHBW-blue%
+        }%
+    }%
+}
+
+\@ifpackageloaded{caption}{}{\RequirePackage{caption}}
+% All captions
+\captionsetup{%
+    format=hang,
+    % singlelinecheck=false,
+    font=small,
+    labelfont=bf
+}
+
+\ifbool{iodhbwm@cls@if@templates}{%
+    \@ifpackageloaded{listings}{}{\RequirePackage{listings}}
+    % Default settings, color depend on options
+    \lstset{
+        numbers=left,
+        showstringspaces=false,
+        tabsize=2,
+        breaklines=true,
+        xleftmargin=17pt,
+        framexleftmargin=17pt,
+    }
+
+    \DeclareCaptionFont{DHBWwhite}{\color{DHBW-light}}
+    \DeclareCaptionFont{print}{\color{black}}
+    \DeclareCaptionFormat{listing}{%
+        \colorbox{DHBW-red}{%
+            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
+        }%
+    }
+
+    \DeclareCaptionFormat{listingprint}{%
+        \colorbox{white}{%
+            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
+        }%
+    }
+
+    \captionsetup[lstlisting]{%
+        format=listing,
+        singlelinecheck=false,
+        margin=0pt
+    }%
+    
+    \ifbool{iodhbwm@cls@if@print}{%
+        \captionsetup[lstlisting]{%
+            format=listingprint,
+            singlelinecheck=false,
+            margin=0pt,
+            font={print,sf},
+        }%
+    
+        \lstset{
+            basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
+            backgroundcolor=\color{DHBW-light},
+            rulecolor=\color{black},
+            commentstyle=\color{DHBW-font},
+            keywordstyle=\color{DHBW-darkblue},
+            numberstyle=\scriptsize\color{DHBW-font},
+            stringstyle=\color{purple},
+            frame=tb,
+            captionpos=b,
+            aboveskip=\baselineskip
+        }%
+    }{%
+        \captionsetup[lstlisting]{%
+            format=listing,
+            singlelinecheck=false,
+            margin=0pt,
+            font={DHBWwhite,sf},
+        }%
+        
+        \lstset{
+            basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
+            backgroundcolor=\color{DHBW-light},
+            rulecolor=\color{DHBW-red},
+            commentstyle=\color{DHBW-font},
+            keywordstyle=\color{DHBW-darkblue},
+            numberstyle=\scriptsize\color{DHBW-font},
+            stringstyle=\color{purple},
+            frame=b,
+            captionpos=t,
+        }
+    }
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                          LANGUAGE                         %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ----------------------------------------------------------
+% Defining language
+% ----------------------------------------------------------
 \ifcsempty{iodhbwm@languages}{}{%
     % Delete trailing comma
     \IfEndWith{\iodhbwm@languages}{,}{%
@@ -142,69 +356,11 @@
     \RequirePackage[autostyle]{csquotes}
 }
 
-% Package settings
-\@ifpackageloaded{geometry}{%
-    \geometry{%
-        top           = 3cm,    % Seitenabstand oben
-        right         = 2.5cm,  % Seitenabstand recht
-        bottom        = 3cm,    % Seitenabstand unten
-        left          = 2.5cm,  % Seitenabstand links
-        bindingoffset = 1cm,    % Bindekorrektur
-        includeheadfoot
-    }
-}{}
-
-\@ifpackageloaded{siunitx}{%
-    \sisetup{
-        %    mode = math, % text is printed using a math font
-        detect-all,
-        separate-uncertainty = true,
-        locale               = DE,
-        per-mode             = fraction,
-        range-phrase= -,
-        range-units=single
-    }
-}{}
-
-\@ifpackageloaded{scrlayer-scrpage}{%
-    \automark[section]{chapter}
-    \automark*{section}
-    \clearpairofpagestyles                          % Leeren von Kopf- und Fußzeile
-    %\ohead{\pagemark}                              % Kopfzeile außen: Seitenzahl
-    \ihead{\headmark}                               % Kopfzeile innen: chapter und section Titel
-    \cfoot[-~\pagemark~-]{-~\pagemark~-}            % Fußzeile mitte: Seitenzahl
-}{}
-
-% Load cleveref after hyperref package
-\AfterPackage!{hyperref}{%
-    \ifdef{\iodhbwm@main@language}{%
-        \PassOptionsToPackage{\iodhbwm@main@language}{cleveref}
-    }{}
-    \RequirePackage[%
-    noabbrev,
-    nameinlink
-    ]{cleveref}
-    
-}
-% Load hyperref always at the end of the preambel
-% To avoid a race condition with biblatex
-% hyperref have to be placed before biblatex
-% when \AtEndPreamble is used
-% https://tex.stackexchange.com/questions/417556/hyperref-doesnt-highlight-cites
-\AtEndPreamble{%
-    \RequirePackage{hyperref}
-    \hypersetup{
-        pdftitle       = {\ifdef{\getThesisTitle}{\getThesisTitle}{undefined}},
-        pdfsubject     = {\ifdef{\getThesisTitle}{\getThesisTitle}{undefined}},
-        pdfauthor      = {\ifdef{\getAuthor}{\getAuthor}{undefined}},
-        pdfcreator     = {pdf\LaTeX},
-        pdfproducer    = {pdf\LaTeX},
-        pdftoolbar     = true,
-        pdfmenubar     = false,
-        bookmarksopen  = false,                 % bookmarksopen ODER bookmarksopenlevel!
-        colorlinks
-    }
-}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                        BIBLIOGRAPHY                       %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Load biblatex if option add-bibliography is set
 % The bibliography is printed at the end of the document. If the option bib-file is set then
@@ -214,10 +370,10 @@
     \AtEndDocument{%
         \singlespacing%
         
-        \ifboolexpr{bool {iodhbwm@cls@if@tocstotoc} and bool {iodhbwm@cls@if@print@bib}}{%
+        \ifboolexpr{bool {iodhbwm@cls@if@tocstotoc} and bool {iodhbwm@cls@if@bib@print}}{%
             \printbibliography[heading=bibintoc]%
         }{%
-            \ifbool{iodhbwm@cls@if@print@bib}{%
+            \ifbool{iodhbwm@cls@if@bib@print}{%
                 \printbibliography%
             }{}%
         }%
@@ -250,74 +406,14 @@
     \addbibresource{\iodhbwm@bib@file}%
 }{\AtEndDocument{}}%
 
-\ifbool{iodhbwm@cls@if@templates}{%
-    \RequirePackage{iodhbwm-templates}
-}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                            DEBUG                          %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifbool{iodhbwm@cls@if@isdebug}{%
     \RequirePackage{blindtext, lipsum}
 }{}
-
-% ----------------------------------------------------------
-% Defining custom colors
-% ----------------------------------------------------------
-%https://tex.stackexchange.com/questions/419842/compile-error-illegal-unit-only-with-texlive-2015
-\patchcmd{\@hex@@Hex}{f\else}{F\else}{\typeout{Patching xcolor for TL15}}{}
-\definecolor{DHBW-red}{HTML}{e2001a}
-\definecolor{DHBW-blue}{HTML}{026f93}
-\definecolor{DHBW-darkblue}{HTML}{23527c}
-\definecolor{DHBW-light}{HTML}{ffffff}
-\definecolor{DHBW-font}{HTML}{5c6971}
-\definecolor{DHBW-dark-font}{HTML}{333333}
-
-% ----------------------------------------------------------
-% Generial design settings
-% ----------------------------------------------------------
-
-% All captions
-\captionsetup{%
-    format=hang,
-    % singlelinecheck=false,
-    font=small,
-    labelfont=bf
-}
-
-\ifbool{iodhbwm@cls@if@templates}{%
-    % Listing format
-    \DeclareCaptionFont{DHBWwhite}{\color{DHBW-light}}
-    \DeclareCaptionFormat{listing}{%
-        \colorbox{DHBW-red}{%
-            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
-        }%
-    }
-    
-    \captionsetup[lstlisting]{%
-        format=listing,
-        singlelinecheck=false,
-        margin=0pt,
-        font={DHBWwhite,sf},
-%        labelsep=space,
-    }
-    
-    \lstset{
-        basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
-        backgroundcolor=\color{DHBW-light},
-        rulecolor=\color{DHBW-red},
-        commentstyle=\color{DHBW-font},
-        keywordstyle=\color{DHBW-darkblue},
-        numberstyle=\scriptsize\color{DHBW-font},
-        stringstyle=\color{purple},
-%        identifierstyle=\color{red},
-        numbers=left,
-        captionpos=t,
-        showstringspaces=false,
-        tabsize=2,
-        frame=b,
-        breaklines=true,
-        xleftmargin=17pt,
-        framexleftmargin=17pt,
-    }
-}{}
-
 
 \endinput
