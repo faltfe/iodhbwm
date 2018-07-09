@@ -5,7 +5,7 @@
     \Large\textsc{Studienarbeit}
     
     \normalsize
-    des Studiengangs Informationstechnik\par
+    des Studiengangs \getCourseName\par
     der Dualen Hochschule Baden-Württemberg Mannheim
     
     \rule{\textwidth}{.5mm}\bigskip
@@ -34,7 +34,7 @@
         \begin{tabularx}{\textwidth}{@{}lX@{}}
         \toprule
         Bearbeitungszeitraum: & \getProcessingPeriod\\
-        Matrikelnummer, Kurs: & \getStudentId, \getCourse\\
+        Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
 %        Abteilung: & \getInstituteSection\\
         Ausbildungsfirma: & \getInstitute\\
         Betreuer: & \getSupervisor\\

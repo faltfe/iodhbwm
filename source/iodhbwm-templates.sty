@@ -60,6 +60,10 @@
 \edef\iodhbwm@file@titlepage@pa{\iodhbwm@file@prefix-titlepage-pa\iodhbwm@file@ending}
 \edef\iodhbwm@file@declaration@default{\iodhbwm@file@prefix-declaration\iodhbwm@file@ending}
 
+\def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
+\def\iodhbwm@bachelor@type@bos{Bachelor of Science}
+\def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
+
 \pgfkeys{
     /dhbw/.cd,
     titlepage/.store in             = \@iodhbwm@file@titlepage,
@@ -68,6 +72,13 @@
     declaration/.store in           = \@iodhbwm@file@declaration,
     declaration/.default            = \iodhbwm@file@declaration@default,
     declaration                     = \iodhbwm@file@declaration@default,
+    bachelor degree type/.store in  = \iodhbwm@bachelor@degree,
+    bachelor degree type/.default   = \iodhbwm@bachelor@type@boe,
+    bachelor degree type            = \iodhbwm@bachelor@type@boe,
+    bachelor degree/.is choice,
+    bachelor degree/BoE/.estyle = {/dhbw/bachelor degree type = \iodhbwm@bachelor@type@boe},
+    bachelor degree/BoS/.estyle = {/dhbw/bachelor degree type = \iodhbwm@bachelor@type@bos},
+    bachelor degree/BoA/.estyle = {/dhbw/bachelor degree type = \iodhbwm@bachelor@type@boa},
     thesis type/.is choice,
     thesis type/BA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@ba},
     thesis type/SA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@sa},
@@ -89,8 +100,10 @@
     institute logo                  = {},
     student id/.store in            = \iodhbwm@student@id,
     student id                      = {},
-    course/.store in                = \iodhbwm@course,
-    course                          = {},
+    course/name/.store in           = \iodhbwm@course@name,
+    course/name                     = {Informationstechnik},
+    course/id/.store in             = \iodhbwm@course@id,
+    course/id                       = {},
     supervisor/.store in            = \iodhbwm@supervisor,
     supervisor                      = {},
     processing period/.store in     = \iodhbwm@processing@period,
@@ -139,14 +152,23 @@
     }{\iodhbwm@location}%
 }
 % required
-\newcommand{\getCourse}{%
-    \ifdefempty{\iodhbwm@course}{%
+\newcommand{\getCourseName}{%
+    \ifdefempty{\iodhbwm@course@name}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option course/name required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space course/name = {Your course name}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@course@name}%
+}
+\newcommand{\getCourseId}{%
+    \ifdefempty{\iodhbwm@course@id}{%
         \PackageError{\iodhbwm@pkg@name}{%
             Option course required!\MessageBreak
             Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
-                \space\space course = {Your course}\MessageBreak
+                \space\space course/id = {Your course id}\MessageBreak
         }}{See documentation for more information}%
-    }{\iodhbwm@course}%
+    }{\iodhbwm@course@id}%
 }
 % required
 \newcommand{\getStudentId}{%
@@ -205,6 +227,15 @@
                 \space\space reviewer = {Your reviewer}\MessageBreak
         }}{See documentation for more information}%
     }{\iodhbwm@reviewer}%
+}
+\newcommand{\getBachelorDegree}{%
+    \ifdefempty{\iodhbwm@bachelorDegree}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option bachelor degree required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space bachelor degree = BoE | BoS | BoA\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@bachelor@degree}%
 }
 
 % ----------------------------------------------------------

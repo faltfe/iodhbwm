@@ -3,42 +3,41 @@
     \ifcsempty{iodhbwm@institute@logo}{%
         \includegraphics[height=1.7cm]{dhbw-logo}
     }{%
-        \begin{minipage}[c]{.30\textwidth}
-            \includegraphics[height=1.7cm]{dhbw-logo}
+        \begin{minipage}[c]{.25\textwidth}
+            \includegraphics[width=\linewidth,keepaspectratio]{dhbw-logo}
         \end{minipage}
         \hfill
-        \begin{minipage}[c]{.30\textwidth}
+        \begin{minipage}[c]{.25\textwidth}
             \centering
             \includegraphics[width=\linewidth,keepaspectratio]{\getInstituteLogo}
         \end{minipage}
     }
 
     \bigskip
+    
+    \rule{\textwidth}{.5mm}\bigskip
+    
+    {\bfseries \getThesisTitle}\smallskip
+    
+    \rule{\textwidth}{.5mm}\bigskip
 
     \textsc{\Large Bachelorarbeit}
     
     \bigskip
     für die Prüfung zum
     
-    \textsc{\large Bachelor of Engineering}
+    \textsc{\large \getBachelorDegree}
     
     \bigskip
-    des Studiengangs Informationstechnik\par
+    des Studiengangs \getCourseName\par
     der Dualen Hochschule Baden-Württemberg Mannheim
-    
-    \rule{\textwidth}{.5mm}\bigskip
-    
-    \textsc{\large Thema }
-    
-    {\bfseries \getThesisTitle}\bigskip
-    
-    \rule{\textwidth}{.5mm}
     
     \vfill
     
     von\par
-    {\bfseries\large \getAuthor}\par
-    \today
+    {\bfseries\large \getAuthor}\bigskip
+    
+    Abgabe am \getDate
     
     \vfill
     
@@ -46,7 +45,7 @@
         \begin{tabularx}{\textwidth}{@{}lX@{}}
         \toprule
         Bearbeitungszeitraum: & \getProcessingPeriod\\
-        Matrikelnummer, Kurs: & \getStudentId, \getCourse\\
+        Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
         \ifcsempty{iodhbwm@institute@section}{}{Abteilung: & \getInstituteSection\\}%
         Ausbildungsfirma: & \getInstitute\\
         Betreuer der Ausbildungsfirma: & \getSupervisor\\

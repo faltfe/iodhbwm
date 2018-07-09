@@ -1,5 +1,4 @@
 \documentclass[
-%    load-preamble = true,
     load-dhbw-templates,
     add-bibliography,
     bib-file = biblatex-examples.bib,
@@ -8,7 +7,7 @@
     language = ngerman
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}    % UTF-8 is default at the latest release
 
 \dhbwsetup{%
     author              = Max Mustermann,
@@ -20,7 +19,7 @@
     institute           = Musterwerke GmbH,
     institute section   = Planabteilung,
     institute logo      = dhbw-logo,
-    course              = Txxxx,
+    course/id           = Txxxx,
     supervisor          = Gott,
     processing period   = {01.01.17 -- 31.01.17}
 }
