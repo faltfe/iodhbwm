@@ -4,7 +4,7 @@ shopt -s extglob
 latestTag=$(git describe --tags)
 
 echo "Run create-bundle.sh script"
-sh support/create-bundle.sh
+source support/create-bundle.sh
 
 echo "Start creating fake tds structure"
 if [ -d release/$latestTag ]
@@ -21,6 +21,8 @@ fi
 echo "Start copying files"
 cp -r $latestTag/iodhbwm/tex/* $latestTag-tds/tex/latex/iodhbwm
 cp -r $latestTag/iodhbwm/doc/*.pdf $latestTag-tds/doc/latex/iodhbwm
+
+cd ..
 
 echo "Finish copying files"
 
