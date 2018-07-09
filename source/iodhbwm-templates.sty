@@ -52,9 +52,6 @@
 \newbool{iodhbwm@if@customtitlepage}
 \newbool{iodhbwm@if@customdeclaration}
 
-%\def\iodhbwm@titlepage@folder{include/titlepage/}
-%\def\iodhbwm@declaration@folder{include/declaration/}
-
 \newcommand*{\iodhbwm@file@prefix}{dhbw}
 \newcommand*{\iodhbwm@file@ending}{.def}
 \edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
@@ -65,39 +62,41 @@
 
 \pgfkeys{
     /dhbw/.cd,
-    titlepage/.store in = \@iodhbwm@file@titlepage,
-    titlepage/.default = \iodhbwm@file@titlepage@default,
-    titlepage = \iodhbwm@file@titlepage@default,
-    declaration/.store in = \@iodhbwm@file@declaration,
-    declaration/.default = \iodhbwm@file@declaration@default,
-    declaration = \iodhbwm@file@declaration@default,
+    titlepage/.store in             = \@iodhbwm@file@titlepage,
+    titlepage/.default              = \iodhbwm@file@titlepage@default,
+    titlepage                       = \iodhbwm@file@titlepage@default,
+    declaration/.store in           = \@iodhbwm@file@declaration,
+    declaration/.default            = \iodhbwm@file@declaration@default,
+    declaration                     = \iodhbwm@file@declaration@default,
     thesis type/.is choice,
     thesis type/BA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@ba},
     thesis type/SA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@sa},
     thesis type/PA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@pa},
     thesis title/.store in = \iodhbwm@thesis@title,
-    thesis title = {},
-    thesis second title/.store in = \iodhbwm@thesis@second@title,
-    thesis second title = {},
-    author/.store in = \iodhbwm@author,
-    author = {},
-    date/.store in = \iodhbwm@date,
-    date = \today,
-    location/.store in = \iodhbwm@location,
-    location = {},
-    institute/.store in = \iodhbwm@institute,
-    institute section/.store in = \iodhbwm@institute@section,
-    institute section = {},
-    institute logo/.store in = \iodhbwm@institute@logo,
-    institute logo = {},
-    student id/.store in = \iodhbwm@student@id,
-    student id = {},
-    course/.store in = \iodhbwm@course,
-    course = {},
-    supervisor/.store in = \iodhbwm@supervisor,
-    supervisor = {},
-    processing period/.store in = \iodhbwm@processing@period,
-    processing period = {}
+    thesis title                    = {},
+    thesis second title/.store in   = \iodhbwm@thesis@second@title,
+    thesis second title             = {},
+    author/.store in                = \iodhbwm@author,
+    author                          = {},
+    date/.store in                  = \iodhbwm@date,
+    date                            = \today,
+    location/.store in              = \iodhbwm@location,
+    location                        = {},
+    institute/.store in             = \iodhbwm@institute,
+    institute section/.store in     = \iodhbwm@institute@section,
+    institute section               = {},
+    institute logo/.store in        = \iodhbwm@institute@logo,
+    institute logo                  = {},
+    student id/.store in            = \iodhbwm@student@id,
+    student id                      = {},
+    course/.store in                = \iodhbwm@course,
+    course                          = {},
+    supervisor/.store in            = \iodhbwm@supervisor,
+    supervisor                      = {},
+    processing period/.store in     = \iodhbwm@processing@period,
+    processing period               = {},
+    reviewer/.store in              = \iodhbwm@reviewer,
+    reviewer                        = {}
 }
 
 \newrobustcmd\dhbwsetup[1]{\pgfqkeys{/dhbw}{#1}}
@@ -198,6 +197,15 @@
     }{\iodhbwm@processing@period}%
 }
 \newcommand{\getDate}{\iodhbwm@date}
+\newcommand{\getReviewer}{%
+    \ifdefempty{\iodhbwm@reviewer}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option reviewer required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space reviewer = {Your reviewer}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@reviewer}%
+}
 
 % ----------------------------------------------------------
 % Defining package commands

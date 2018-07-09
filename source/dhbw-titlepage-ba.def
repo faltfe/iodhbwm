@@ -47,10 +47,10 @@
         \toprule
         Bearbeitungszeitraum: & \getProcessingPeriod\\
         Matrikelnummer, Kurs: & \getStudentId, \getCourse\\
-        Abteilung: & \getInstituteSection\\
+        \ifcsempty{iodhbwm@institute@section}{}{Abteilung: & \getInstituteSection\\}%
         Ausbildungsfirma: & \getInstitute\\
         Betreuer der Ausbildungsfirma: & \getSupervisor\\
-%        Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
+        Gutachter der Dualen Hochschule: & \getReviewer\\
         \end{tabularx}
     }
     \cleardoublepage

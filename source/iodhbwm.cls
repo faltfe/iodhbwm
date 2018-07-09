@@ -139,7 +139,7 @@
         \fi
     }{}
     \RequirePackage[\iodhbwm@languages@list]{babel}
-    \AfterPackage{inputenc}{\RequirePackage[autostyle]{csquotes}}%
+    \RequirePackage[autostyle]{csquotes}
 }
 
 % Package settings
@@ -222,7 +222,6 @@
             }{}%
         }%
     }%
-
     \RequirePackage[%
         backend      = biber,           % bibtex oder biber [default]
         bibstyle     = \iodhbwm@bib@bibstyle@opt,
