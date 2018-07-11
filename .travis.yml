@@ -11,15 +11,15 @@ cache:
     - $HOME/.texlive
 before_script:
 # install iodhbwm bundle
-  - source support/create-bundle.sh
-  - mkdir -p ~/texmf/tex/latex
+  - source support/create-fake-tds.sh
+  - mkdir -p ~/texmf/
   - latestTag=$(git describe --tags)
-  - yes | cp -rf release/$latestTag/* ~/texmf/tex/latex
+  - yes | cp -rf release/$latestTag-tds/* ~/texmf/
   - mktexlsr ~/texmf
 script:
 # Prefix command with travis_wait x so it times out after 3 mins
 # Run basic example
-  - cd examples/basic-usage
+  - cd doc/examples/basic-usage
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-example
   - travis_wait 3 biber iodhbwm-example
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-example

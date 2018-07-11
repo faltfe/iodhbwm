@@ -1,28 +1,15 @@
 \begin{titlepage}
     \centering
-    \ifcsempty{iodhbwm@institute@logo}{%
-        \includegraphics[height=1.5cm]{dhbw-logo}
-    }{%
-        \begin{minipage}[c]{.30\textwidth}
-            \includegraphics[height=1.5cm]{dhbw-logo}
-        \end{minipage}
-        \hfill
-        \begin{minipage}[c]{.30\textwidth}
-            \raggedleft
-            \includegraphics[width=\linewidth,keepaspectratio]{\getInstituteLogo}
-        \end{minipage}
-    }
+    \includegraphics[height=1.7cm]{dhbw-logo}
 
-    \bigskip
-    
-    \Large\textsc{Projektarbeit}
+    \Large\textsc{Studienarbeit}
     
     \normalsize
-    des Studiengangs Informationstechnik\par
+    des Studiengangs \getCourseName\par
     der Dualen Hochschule Baden-Württemberg Mannheim
     
     \rule{\textwidth}{.5mm}\bigskip
-    
+
     \textsc{\large Thema \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
     
     {\bfseries \getThesisTitle}\bigskip
@@ -37,7 +24,7 @@
     
     \vfill
     
-    \par
+    von\par
     {\bfseries\large \getAuthor}\par
     \today
     
@@ -47,11 +34,11 @@
         \begin{tabularx}{\textwidth}{@{}lX@{}}
         \toprule
         Bearbeitungszeitraum: & \getProcessingPeriod\\
-        Matrikelnummer, Kurs: & \getStudentId, \getCourse\\
-        Abteilung: & \getInstituteSection\\
+        Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
+%        Abteilung: & \getInstituteSection\\
         Ausbildungsfirma: & \getInstitute\\
         Betreuer: & \getSupervisor\\
-        Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
+%        Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
         \end{tabularx}
     }
     \cleardoublepage

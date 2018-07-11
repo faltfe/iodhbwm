@@ -1,19 +1,17 @@
 \documentclass[
-    load-preamble,
-    add-bibliography,
+    add-bibliography-, % Literaturverzechnis soll nicht gedruckt werden
     add-tocs-to-toc,
     bib-file = biblatex-examples.bib,
     language = ngerman,
     debug
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}    % UTF-8 is default at the latest release
 
 \begin{document}
     \tableofcontents
-    \chapter{Einfaches Zitat}
-        \blindtext \cite{bertram}
     
     \chapter{Zitat als Fußnote}
-        \blindtext \cite{doody}
+        \blindtext \footfullcite{doody}
+        
 \end{document}
