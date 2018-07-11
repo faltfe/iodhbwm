@@ -55,6 +55,9 @@
 \newbool{iodhbwm@cls@if@isdebug}
 \newbool{iodhbwm@cls@if@print@minus}
 \newbool{iodhbwm@cls@if@print}
+\newbool{iodhbwm@cls@if@auto@intro@custom}
+\newbool{iodhbwm@cls@if@auto@intro@default}
+\newbool{iodhbwm@cls@if@auto@intro@all}
 
 % ----------------------------------------------------------
 % Define available options
@@ -86,6 +89,9 @@
         \booltrue{iodhbwm@cls@if@print}%
         \booltrue{iodhbwm@cls@if@print@minus}%
     },
+    auto-intro-pages-/.is if = iodhbwm@cls@if@auto@intro@custom,
+    auto-intro-pages/.is if = iodhbwm@cls@if@auto@intro@default,
+    auto-intro-pages+/.is if = iodhbwm@cls@if@auto@intro@all,
     unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
 }
 
@@ -244,6 +250,10 @@
     }%
 }
 
+% ----------------------------------------------------------
+% Format captions and listings
+% ----------------------------------------------------------
+
 \@ifpackageloaded{caption}{}{\RequirePackage{caption}}
 % All captions
 \captionsetup{%
@@ -325,6 +335,24 @@
             captionpos=t,
         }
     }
+}{}
+
+% ----------------------------------------------------------
+% Auto import titlepage, tocs, ...
+% ----------------------------------------------------------
+\ifboolexpr{bool {iodhbwm@cls@if@templates} and (bool {iodhbwm@cls@if@auto@intro@custom} or bool {iodhbwm@cls@if@auto@intro@default} or bool {iodhbwm@cls@if@auto@intro@all})}{%
+    \ifbool{iodhbwm@cls@if@auto@intro@default}{%
+        \dhbwsetup{%
+            intro/print all,
+            intro/print abstract = false
+        }%
+    }{}
+    \ifbool{iodhbwm@cls@if@auto@intro@all}{%
+        \dhbwsetup{intro/print all}%
+    }{}
+    \AfterEndPreamble{%
+        \dhbwprintintro%
+    }%
 }{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -415,5 +443,6 @@
 \ifbool{iodhbwm@cls@if@isdebug}{%
     \RequirePackage{blindtext, lipsum}
 }{}
+
 
 \endinput
