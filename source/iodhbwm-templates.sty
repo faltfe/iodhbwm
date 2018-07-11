@@ -41,6 +41,7 @@
     \PackageWarningNoLine{iodhbwm}{This package is designed to work with KOMA-Script. Please use either `scrartcl`, `scrreprt` or `scrbook`}
 }{}
 \RequirePackage[figure,table]{totalcount}
+\RequirePackage{xpatch}
 
 %\PassOptionsToPackage{table}{xcolor}
 %\RequirePackage{graphicx, tikz}         % Required inside titlepage templates
@@ -311,19 +312,31 @@
 
 \newcommand{\dhbwprintintro}{%
     \dhbwfrontmatter
+    % https://tex.stackexchange.com/questions/440188/remove-page-numbers-of-lof-lot-in-toc
+    \DeclareTOCStyleEntry[
+        level=\chaptertocdepth,
+        indent=0pt,
+        numwidth=1.5em,
+        pagenumberformat=\gobblepagenumber
+    ]{chapter}{listchapter}
+    \newcommand\gobblepagenumber[1]{}
+    
+    \BeforeTOCHead{%
+        \xpatchcmd{\addchaptertocentry}{chapter}{listchapter}{}{\addchapPatchFailed}%
+    }
 %
     \ifbool{iodhbwm@if@print@titlepage}{\dhbwtitlepage}{}
     \ifbool{iodhbwm@if@print@declaration}{\dhbwdeclaration}{}
     \ifbool{iodhbwm@if@print@abstract}{\dhbwabstract}{}
     \ifbool{iodhbwm@if@print@toc}{\tableofcontents}{}
+    \ifbool{iodhbwm@if@print@lof}{%
+        \iftotalfigures
+        \listoffigures
+        \fi
+    }{}
     \ifbool{iodhbwm@if@print@lot}{%
         \iftotaltables
             \listoftables
-        \fi
-    }{}
-    \ifbool{iodhbwm@if@print@lof}{%
-        \iftotalfigures
-            \listoffigures
         \fi
     }{}
     \ifcsempty{iodhbwm@custom@list}{}{\iodhbwm@custom@list}

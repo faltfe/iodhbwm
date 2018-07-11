@@ -64,35 +64,37 @@
 % ----------------------------------------------------------
 \pgfkeys{
     iodhbwm/.cd,
-    language/.code              = \appto{\iodhbwm@languages}{#1,},
-    mainlanguage/.code          = {%
+    language/.code                  = \appto{\iodhbwm@languages}{#1,},
+    mainlanguage/.code              = {%
         \appto{\iodhbwm@languages}{main=#1,}%
         \def\iodhbwm@main@language{#1}%
     },
-    load-preamble/.is if        = iodhbwm@cls@if@preamble,
-    load-dhbw-templates/.is if  = iodhbwm@cls@if@templates,
-    add-tocs-to-toc/.is if      = iodhbwm@cls@if@tocstotoc,
-    add-bibliography/.is if     = iodhbwm@cls@if@bib,
-    add-bibliography-/.code     = {%
+    load-preamble/.is if            = iodhbwm@cls@if@preamble,
+    load-dhbw-templates/.is if      = iodhbwm@cls@if@templates,
+    add-tocs-to-toc/.is if          = iodhbwm@cls@if@tocstotoc,
+    add-bibliography/.is if         = iodhbwm@cls@if@bib,
+    add-bibliography-/.code         = {%
         \booltrue{iodhbwm@cls@if@bib}%
         \boolfalse{iodhbwm@cls@if@bib@print}%
     },
-    bib-file/.store in          = \iodhbwm@bib@file,
-    bib-file = {},
-    biblatex/bibstyle/.store in = \iodhbwm@bib@bibstyle@opt,
-    biblatex/citestyle/.store in = \iodhbwm@bib@citestyle@opt,
-    biblatex/style/.style       = {biblatex/bibstyle=#1,biblatex/citestyle=#1},
-    biblatex/style = numeric-comp,
-    debug/.is if                = iodhbwm@cls@if@isdebug,
-    print-/.is if               = iodhbwm@cls@if@print@minus,
-    print/.code                 = {%
+    bib-file/.store in              = \iodhbwm@bib@file,
+    bib-file                        = {},
+    biblatex/bibstyle/.store in     = \iodhbwm@bib@bibstyle@opt,
+    biblatex/citestyle/.store in    = \iodhbwm@bib@citestyle@opt,
+    biblatex/style/.style           = {biblatex/bibstyle=#1,biblatex/citestyle=#1},
+    biblatex/style                  = numeric-comp,
+    debug/.is if                    = iodhbwm@cls@if@isdebug,
+    print-/.is if                   = iodhbwm@cls@if@print@minus,
+    print/.code                     = {%
         \booltrue{iodhbwm@cls@if@print}%
         \booltrue{iodhbwm@cls@if@print@minus}%
     },
-    auto-intro-pages-/.is if = iodhbwm@cls@if@auto@intro@custom,
-    auto-intro-pages/.is if = iodhbwm@cls@if@auto@intro@default,
-    auto-intro-pages+/.is if = iodhbwm@cls@if@auto@intro@all,
-    unknown/.code               = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
+    auto-intro-pages/.is choice,
+    auto-intro-page/none/.code      = {},
+    auto-intro-pages/custom/.is if  = iodhbwm@cls@if@auto@intro@custom,
+    auto-intro-pages/default/.is if = iodhbwm@cls@if@auto@intro@default,
+    auto-intro-pages/all/.is if     = iodhbwm@cls@if@auto@intro@all,
+    unknown/.code                   = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
 }
 
 \ProcessPgfOptions{/iodhbwm}
