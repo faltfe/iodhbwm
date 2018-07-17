@@ -1,0 +1,65 @@
+\documentclass[
+    load-dhbw-templates,
+    auto-intro-pages    = all, % none, custom, default, all v0.4-alpha
+    add-tocs-to-toc,
+    add-bibliography,
+    biblatex/style      = alphabetic,            % v0.3.1-alpha
+    bib-file            = biblatex-examples.bib, % Bereitgestelltes Literaturverzeichnis
+    debug,
+    language            = ngerman, english
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+\usepackage{duckuments}
+
+\dhbwsetup{%
+    abstract                = my-abstract.inc,      % Sucht nach my-abstact.inc.tex v0.4-alpha
+    author                  = Max Mustermann,
+    thesis type             = BA,
+    thesis title            = Überprüfung von Bausteinen,
+    student id              = 1337,
+    location                = Transsilvanien,
+    institute               = Lebkuchenhaus,
+    institute logo          = example-image-duck,
+    course/id               = Txxxx,
+    supervisor              = Schneewittchen,
+    processing period       = {01.01.17 -- 31.01.17},
+    reviewer                = Frau Holle und die sieben Zwerge,
+    course/name             = {Trolltechnik},
+    bachelor degree type    = {Troll of the universe},
+%    bachelor degree         = BoS % Bachelor of Science
+}
+
+\begin{document}
+
+    \chapter{Tabellen}
+        \blindtext
+
+        \begin{table}[htb]
+            \centering
+            \begin{tabular}{@{}ll@{}}
+                \toprule
+                Linke Spalte & Rechte Spalte\\\midrule
+                \dots & \dots\\
+                &\\
+                &\\\bottomrule
+            \end{tabular}
+            \caption{Leere Tabelle}
+        \end{table}
+
+        \blindtext
+
+    \chapter{Abbildungen}
+        \blindtext
+
+        \begin{figure}[htb]
+            \centering
+            \includegraphics[width=.5\linewidth]{example-image-duck}
+            \caption{Random duck image}
+        \end{figure}
+
+        \blindtext
+        
+        \Blinddocument
+
+    \nocite{*}
+\end{document}

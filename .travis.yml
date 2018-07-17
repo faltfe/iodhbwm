@@ -24,6 +24,13 @@ script:
   - travis_wait 3 biber iodhbwm-example
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-example
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-example
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-print
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-auto-sections
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-auto-sections
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-auto-sections-with-abstract
+  - travis_wait 3 biber iodhbwm-auto-sections-with-abstract
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-auto-sections-with-abstract
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-auto-sections-with-abstract
 # Run listings example
   - cd ../listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
