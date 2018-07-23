@@ -296,10 +296,20 @@
     }%
 }
 
+\RedeclareSectionCommand[
+    tocpagenumberformat=\tocchapterpagenumberformat
+]{chapter}
+
+\newbool{iodhbwm@if@toc@unnumbered}
+\newcommand*{\tocchapterpagenumberformat}[1]{%
+    {\ifbool{iodhbwm@if@toc@unnumbered}{}{\usekomafont{chapterentrypagenumber}#1}}%
+}
+
 \newcommand{\dhbwfrontmatter}{%
     \pagestyle{empty}
     \renewcommand*{\chapterpagestyle}{empty}
     \hypersetup{pageanchor=false}
+    \addtocontents{toc}{\booltrue{iodhbwm@if@toc@unnumbered}}
 }
 
 \newcommand{\dhbwmainmatter}{%
@@ -309,32 +319,23 @@
     \hypersetup{pageanchor=true}
     \pagenumbering{arabic}
     \onehalfspacing
+    \addtocontents{toc}{\boolfalse{iodhbwm@if@toc@unnumbered}}
 }
 
 \newcommand{\dhbwprintintro}{%
     \dhbwfrontmatter
-    % https://tex.stackexchange.com/questions/440188/remove-page-numbers-of-lof-lot-in-toc
-    \DeclareTOCStyleEntry[
-        level=\chaptertocdepth,
-        indent=0pt,
-        numwidth=1.5em,
-        pagenumberformat=\gobblepagenumber
-    ]{chapter}{listchapter}
-    \newcommand\gobblepagenumber[1]{}
-    
-    \BeforeTOCHead{%
-        \xpatchcmd{\addchaptertocentry}{chapter}{listchapter}{}{\addchapPatchFailed}%
-    }
-%
+
     \ifbool{iodhbwm@if@print@titlepage}{\dhbwtitlepage}{}
     \ifbool{iodhbwm@if@print@declaration}{\dhbwdeclaration}{}
     \ifbool{iodhbwm@if@print@abstract}{\dhbwabstract}{}
     \ifbool{iodhbwm@if@print@toc}{\tableofcontents}{}
+    % Print lof only if at least one figure is available
     \ifbool{iodhbwm@if@print@lof}{%
         \iftotalfigures
         \listoffigures
         \fi
     }{}
+    % Print lot only if at least one table is available
     \ifbool{iodhbwm@if@print@lot}{%
         \iftotaltables
             \listoftables
