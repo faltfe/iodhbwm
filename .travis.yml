@@ -35,12 +35,18 @@ script:
   - cd ../listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
+# Run acronym example
+- cd ../acronyms
+- travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-acro
+- travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-acro
 # Run titlepage example
   - cd ../titlepages
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-custom-titlepage
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-titlepage-logo
 # Run reference example
   - cd ../references
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-hyperref
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-hyperref
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references
   - travis_wait 3 biber iodhbwm-references
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references

@@ -1,0 +1,34 @@
+\documentclass[
+    add-tocs-to-toc,
+    debug,
+    language = ngerman,
+    auto-intro-pages = custom
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+
+% Eigene Farbe definieren
+\definecolor{DHBW-dark-red}{HTML}{93404A}
+
+% Für das Laden von hyperref werden Ankerpunkte (Hooks) verwendet.
+% Das Setzen der Einstellungen muss NACH dem Laden von hyperref erfolgen,
+% weshalb \AtBeginDocument verwendet werden muss
+\AtBeginDocument{%
+    \hypersetup{%
+        linkcolor=DHBW-dark-red
+    }
+}
+
+% Wenn alle farbigen Einstellungen deaktiviert werden soll,
+% kann dies mit der Option `hidelinks` erfolgen.
+% Die Klasse bietet jedoch die Optionen print und print- an,
+% die sich um die farbige Darstellung kümmern.
+%\AtBeginDocument{%
+%    \hypersetup{%
+%        hidelinks
+%    }
+%}
+
+\begin{document}
+    \tableofcontents
+    \Blinddocument
+\end{document}
