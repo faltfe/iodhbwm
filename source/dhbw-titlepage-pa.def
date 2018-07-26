@@ -48,7 +48,7 @@
         \toprule
         Bearbeitungszeitraum: & \getProcessingPeriod\\
         Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
-        Abteilung: & \getInstituteSection\\
+        \ifcsempty{iodhbwm@institute@section}{}{Abteilung: & \getInstituteSection\\}%
         Ausbildungsfirma: & \getInstitute\\
         Betreuer: & \getSupervisor\\
         Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
