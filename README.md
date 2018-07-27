@@ -70,6 +70,7 @@ Das Paket ermöglicht das Einbinden DHBW spezifischer Formulierung, Darstellunge
 
 - Automatisches Erstellen der Titelseite und Inhaltsverzeichnisse
 - Befehle zur strukturierten Gestaltung
+- Einbindung und Formatieren eines Anhangs einschließlich der Erstellung eines Anhangsverzeichnis
 
 ## Beispiele
 
@@ -89,6 +90,7 @@ Für ein besseres Verständnis, wie das Paket anzuwenden ist, werden mehrere Bei
   1. Setzen des Firmenlogos
   2. Verwenden einer selbst definierten Titelseite
 - [Abkürzungen](doc/examples/acronyms) Einbinden eines Abkürzungsverzeichnis am Beispiel von `acro`
+- [Anhang](doc/examples/appendix) Verwendung eines Anhangs
 
 ## Installationshinweis
 

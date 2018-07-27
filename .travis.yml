@@ -36,9 +36,9 @@ script:
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
 # Run acronym example
-- cd ../acronyms
-- travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-acro
-- travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-acro
+  - cd ../acronyms
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-acro
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-acro
 # Run titlepage example
   - cd ../titlepages
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-custom-titlepage
@@ -59,5 +59,11 @@ script:
   - travis_wait 3 biber iodhbwm-references-footcite
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-footcite
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references-footcite
+# Run appendix example
+  - cd ../appendix
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix-auto
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix-auto
 after_script:
   - rm -r ~/texmf/tex/latex/*

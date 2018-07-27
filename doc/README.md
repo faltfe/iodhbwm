@@ -52,6 +52,9 @@ The iodhbwm package consists of the example files:
    iodhbwm-custom-titlepage.tex, iodhbwm-custom-titlepage.pdf
    iodhbwm-titlepage-logo.tex, iodhbwm-titlepage-logo.pdf
    my-titlepage.tex
+   iodhbwm-appendix.tex, iodhbwm-appendix.pdf,
+   iodhbwm-appendix-auto.tex, iodhbwm-appendix-auto.tex,
+   
 
 --------------------------------------------------------------------------
 If you have any ideas, questions, suggestions or bugs to report, please
