@@ -296,6 +296,7 @@
     }%
 }
 
+%https://tex.stackexchange.com/questions/440188/remove-page-numbers-of-lof-lot-in-toc
 \RedeclareSectionCommand[
     tocpagenumberformat=\tocchapterpagenumberformat
 ]{chapter}
@@ -305,6 +306,8 @@
     {\ifbool{iodhbwm@if@toc@unnumbered}{}{\usekomafont{chapterentrypagenumber}#1}}%
 }
 
+% Switch pagestyle
+% Deactivate page numbers in ToC
 \newcommand{\dhbwfrontmatter}{%
     \pagestyle{empty}
     \renewcommand*{\chapterpagestyle}{empty}
@@ -312,6 +315,10 @@
     \addtocontents{toc}{\booltrue{iodhbwm@if@toc@unnumbered}}
 }
 
+% Switch pagestyle
+% Start page numbering
+% Set linespacing
+% Activate page numbers in ToC
 \newcommand{\dhbwmainmatter}{%
     \cleardoubleoddpage
     \pagestyle{scrheadings}
@@ -322,6 +329,7 @@
     \addtocontents{toc}{\boolfalse{iodhbwm@if@toc@unnumbered}}
 }
 
+% Print default structure
 \newcommand{\dhbwprintintro}{%
     \dhbwfrontmatter
 

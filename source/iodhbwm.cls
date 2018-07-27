@@ -50,7 +50,7 @@
 \newbool{iodhbwm@cls@if@preamble}\booltrue{iodhbwm@cls@if@preamble}
 \newbool{iodhbwm@cls@if@templates}
 \newbool{iodhbwm@cls@if@bib}
-\newbool{iodhbwm@cls@if@bib@print}\booltrue{iodhbwm@cls@if@bib@print}
+\newbool{iodhbwm@cls@if@bib@print}%\booltrue{iodhbwm@cls@if@bib@print}
 \newbool{iodhbwm@cls@if@tocstotoc}
 \newbool{iodhbwm@cls@if@isdebug}
 \newbool{iodhbwm@cls@if@print@minus}
@@ -58,6 +58,7 @@
 \newbool{iodhbwm@cls@if@auto@intro@custom}
 \newbool{iodhbwm@cls@if@auto@intro@default}
 \newbool{iodhbwm@cls@if@auto@intro@all}
+\newbool{iodhbwm@cls@if@appendix}
 
 % ----------------------------------------------------------
 % Define available options
@@ -388,9 +389,33 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                           %
+%                          APPENDIX                         %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pretocmd\appendix{%
+    \booltrue{iodhbwm@cls@if@appendix}%
+    \singlespacing%
+    \ifbool{iodhbwm@cls@if@bib}{\iodhbwm@printbibliography}{}
+}{%
+    \typeout{iodhbwm patched \noexpand\appendix successfully}
+}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
 %                        BIBLIOGRAPHY                       %
 %                                                           %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\iodhbwm@printbibliography}{%
+    \ifboolexpr{bool {iodhbwm@cls@if@tocstotoc} and bool {iodhbwm@cls@if@bib@print}}{%
+        \printbibliography[heading=bibintoc]%
+    }{%
+        \ifbool{iodhbwm@cls@if@bib@print}{%
+            \printbibliography%
+        }{}%
+    }%
+}
 
 % Load biblatex if option add-bibliography is set
 % The bibliography is printed at the end of the document. If the option bib-file is set then
@@ -400,13 +425,12 @@
     \AtEndDocument{%
         \singlespacing%
         
-        \ifboolexpr{bool {iodhbwm@cls@if@tocstotoc} and bool {iodhbwm@cls@if@bib@print}}{%
-            \printbibliography[heading=bibintoc]%
-        }{%
-            \ifbool{iodhbwm@cls@if@bib@print}{%
-                \printbibliography%
-            }{}%
-        }%
+        % Don't print the bibliography again.
+        % The appendix takes care about the printing
+        % The congiguration is still required
+        \ifbool{iodhbwm@cls@if@appendix}{}{%
+            \iodhbwm@printbibliography
+        }
     }%
     \RequirePackage[%
         backend      = biber,           % bibtex oder biber [default]
