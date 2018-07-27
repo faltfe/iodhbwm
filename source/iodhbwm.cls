@@ -50,7 +50,7 @@
 \newbool{iodhbwm@cls@if@preamble}\booltrue{iodhbwm@cls@if@preamble}
 \newbool{iodhbwm@cls@if@templates}
 \newbool{iodhbwm@cls@if@bib}
-\newbool{iodhbwm@cls@if@bib@print}%\booltrue{iodhbwm@cls@if@bib@print}
+\newbool{iodhbwm@cls@if@bib@print}\booltrue{iodhbwm@cls@if@bib@print}
 \newbool{iodhbwm@cls@if@tocstotoc}
 \newbool{iodhbwm@cls@if@isdebug}
 \newbool{iodhbwm@cls@if@print@minus}
@@ -112,7 +112,7 @@
 \LoadClass[\iodhbwm@cls@baseclass@options]{\iodhbwm@cls@baseclass}
 
 % ----------------------------------------------------------
-% Define booleans
+% Set KOMA options
 % ----------------------------------------------------------
 \ifbool{iodhbwm@cls@if@tocstotoc}{%
     \KOMAoptions{%
@@ -386,20 +386,6 @@
     \RequirePackage[\iodhbwm@languages@list]{babel}
     \RequirePackage[autostyle]{csquotes}
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                           %
-%                          APPENDIX                         %
-%                                                           %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pretocmd\appendix{%
-    \booltrue{iodhbwm@cls@if@appendix}%
-    \singlespacing%
-    \ifbool{iodhbwm@cls@if@bib}{\iodhbwm@printbibliography}{}
-}{%
-    \typeout{iodhbwm patched \noexpand\appendix successfully}
-}{}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                           %

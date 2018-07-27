@@ -47,9 +47,15 @@
 %\RequirePackage{graphicx, tikz}         % Required inside titlepage templates
 %\RequirePackage{tabularx, booktabs}     % Required inside titlepage templates
 
-%---------------------------------------------------
-% Defining package options
-%---------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                    OPTIONS AND FLAGS                      %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ----------------------------------------------------------
+% Define booleans
+% ----------------------------------------------------------
 \newbool{iodhbwm@if@hasSecondTopic}
 \newbool{iodhbwm@if@customtitlepage}
 \newbool{iodhbwm@if@customdeclaration}
@@ -60,6 +66,9 @@
 \newbool{iodhbwm@if@print@lot}
 \newbool{iodhbwm@if@print@lof}
 
+% ----------------------------------------------------------
+% Define internal commands
+% ----------------------------------------------------------
 \newcommand*{\iodhbwm@file@prefix}{dhbw}
 \newcommand*{\iodhbwm@file@ending}{.def}
 \edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
@@ -73,6 +82,9 @@
 \def\iodhbwm@bachelor@type@bos{Bachelor of Science}
 \def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
 
+%---------------------------------------------------
+% Defining package options
+%---------------------------------------------------
 \pgfkeys{
     /dhbw/.cd,
     titlepage/.store in             = \@iodhbwm@file@titlepage,
@@ -148,9 +160,18 @@
 
 \ProcessPgfOptions{/dhbw}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                 DEFINE PACKAGE COMMANDS                   %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Some of these commands are required to print
 % predefined titlepages.
 % required
+%---------------------------------------------------
+% GETTER
+%---------------------------------------------------
 \newcommand{\getAuthor}{%
     \ifdefempty{\iodhbwm@author}{%
         \PackageError{\iodhbwm@pkg@name}{%
@@ -271,7 +292,7 @@
 }
 
 % ----------------------------------------------------------
-% Defining package commands
+% Commands for structuring
 % ----------------------------------------------------------
 
 % Makro zum Einfügen einer Titelseite
@@ -290,17 +311,18 @@
     }%
 }
 
+% Input abstract
 \newcommand{\dhbwabstract}{%
     \InputIfFileExists{\@iodhbwm@file@abstract}{}{%
         \PackageInfo{\iodhbwm@pkg@name}{The passed abstract `\@iodhbwm@file@abstract` could not be found.}
     }%
 }
 
+% Remove page number in toc from lof/lot/...loX
 %https://tex.stackexchange.com/questions/440188/remove-page-numbers-of-lof-lot-in-toc
 \RedeclareSectionCommand[
     tocpagenumberformat=\tocchapterpagenumberformat
 ]{chapter}
-
 \newbool{iodhbwm@if@toc@unnumbered}
 \newcommand*{\tocchapterpagenumberformat}[1]{%
     {\ifbool{iodhbwm@if@toc@unnumbered}{}{\usekomafont{chapterentrypagenumber}#1}}%
@@ -352,6 +374,52 @@
     \ifcsempty{iodhbwm@custom@list}{}{\iodhbwm@append@custom@content}
 %
     \dhbwmainmatter
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                          APPENDIX                         %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pretocmd\appendix{%
+    \booltrue{iodhbwm@cls@if@appendix}%
+    \singlespacing%
+    \ifbool{iodhbwm@cls@if@bib}{\iodhbwm@printbibliography}{}
+    % Add all entries from the appendix to the \listofappendices
+    \renewcommand*{\ext@toc}{atoc}%
+    \scr@ifundefinedorrelax{hypersetup}{}{\hypersetup{bookmarkstype=atoc}}%
+}{%
+    \typeout{iodhbwm patched \noexpand\appendix successfully}
+}{}
+
+% Prepend "Anhang" to chapter name
+\KOMAoptions{appendixprefix}
+
+\DeclareNewTOC[%
+    listname = {\appendixname},
+    type = appendix,
+    types = appendices
+]{atoc}
+
+% Prepend "Anhang" inside ToC
+%https://texwelt.de/wissen/fragen/2123/wie-bekomme-ich-anhang-vor-den-buchstaben-im-inhaltsverzeichnis
+\providecommand*\texorpdfstring[2]{#1}% falls hyperref nicht geladen wird
+\providecommand*\appendixmore{}% falls appendixprefix=false
+\newcommand*{\SavedOriginalchaptertocentry}{}
+\appto\appendixmore{%
+    \let\SavedOriginaladdchaptertocentry\addchaptertocentry
+    \renewcommand*{\addchaptertocentry}[2]{%
+        \ifstr{#1}{}{% Eintrag ohne Nummer
+            \SavedOriginalchaptertocentry{#1}{#2}%
+        }{% Eintrag mit Nummer
+            \SavedOriginaladdchaptertocentry{}{%
+                \texorpdfstring{
+                    \string\expandafter\string\MakeUppercase\string\appendixname
+                    ~#1:\string\enskip{}#2
+                }{#2}%
+            }%
+        }%
+    }%
 }
 
 \endinput
