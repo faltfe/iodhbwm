@@ -78,6 +78,7 @@ tlmgr install   \
   csquotes      \
   caption       \
   duckuments    \
+  acro		\
   paratype sourcecodepro ly1 mweights opensans slantsc \
   microtype enumitem blindtext \
   pgf pgfopts xpatch setspace siunitx mathtools tcolorbox \
