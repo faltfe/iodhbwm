@@ -5,15 +5,15 @@
 \usepackage{enumitem}
 
 \package[vcs=https://github.com/faltfe/iodhbwm]{iodhbwm}
-\version{0.4-alpha}
+\version{0.4.1-alpha}
 
-\title{iodhbwm bundle}
+\title{iodhbwm Klasse}
 \author{Felix Faltin}
 \email{ffaltin91@gmail.com}
 \repository{https://github.com/faltfe/iodhbwm}
 
 \usepackage{geometry}
-\geometry{left=6cm, right=1.5cm}
+\geometry{left=6.5cm, right=1cm}
 
 %\KOMAoptions{parskip=half-}
 %\let\oldblindtext\blindtext
@@ -21,8 +21,8 @@
 
 \begin{document}
     \changes{0.4-alpha}{Add print option, auto-intro-pages and some new commands}
-    
-   
+
+
     \maketitle
 
     \begin{abstract}
@@ -45,8 +45,8 @@
         Dabei wird auf das \meta{key}=\meta{value} System von \pkg{pgfopts} zurückgegriffen.
 
         \subsection{Optionen}
-            Die beschriebenen Klassenoptionen müssen direkt beim Laden der Klasse angegeben werden. Eine Änderung im Verlauf des Dokuments ist nicht vorgesehen. 
-        
+            Die beschriebenen Klassenoptionen müssen direkt beim Laden der Klasse angegeben werden. Eine Änderung im Verlauf des Dokuments ist nicht vorgesehen.
+
             \subsubsection{Allgemeine}
                 \Option{load-preamble}\WithValues{true, false}\AndDefault{true}
                 Bei Angabe der Option \opt{load-preamble} werden eine Reihe von zusätzlichen Paketen geladen und teilweise vorkonfiguriert. Nachfolgend erfolgt eine Auflistung der geladenen Pakete:
@@ -65,7 +65,7 @@
                     \item [\pkg{cleveref}] Das Paket erweitert die Möglichkeiten zur Referenzierung von Objekten durch die automatische Angabe dessen Namen.
                     \item [\pkg{listings}] Darstellung von Quellcode unterschiedlicher Sprachen. Bei Aktivierung von \opt{load-dhbw-templates} wird ein Design vorgeladen.
                 \end{description}
-            
+
                 \noindent Für den internen Gebrauch werden weitere Pakete geladen.\medskip
 
                 \Option{load-dhbw-templates}\WithValues{true, false}\AndDefault{false}
@@ -98,24 +98,24 @@
 ]{iodhbwm}
                 \end{verbatim}
                 Die Angaben der Sprache ist äquivalent zum vorherigen Beispiel.\medskip
-                
+
             \subsubsection{Verzeichnisse und Formatierung}\label{subsub:format}
                 Die Klasse nimmt bei Bedarf einige Änderungen an der Formatierung vor. Insbesondere wird eine farbige Darstellung hinzugefügt. Wenn die Arbeit jedoch gedruckt wird, kann ein grau/schwarzer Druck zu unschönen Ergebnissen führen. Die beiden Optionen \opt{print-} und \opt{print} sollen hierbei Abhilfe schaffen.
-            
+
                 \Option{print-}\WithValues{true, false}\AndDefault{false}
                 Bei Aktivierung der Option wird die farbige Darstellung von Links deaktiviert. Dies wird durch \verb|\hypersetup{hidelinks}| erreicht.\medskip
-                
+
                 \Option{print}\WithValues{true, false}\AndDefault{false}
                 Im Gegensatz zu der Option \opt{print-} schaltet die Option zusätzlich noch die Darstellung von Quelltext um. Die farbige Überschrift wird entfernt und durch eine einfache Überschrift ersetzt, welche durch einen Rahmen abgegrenzt ist.\bigskip
-                
+
                 Die DHBW gibt eine gewissen Struktur der Arbeit vor. Um dem Autor die Arbeit etwas zu erleichtern, bietet die Klasse drei Optionen an, welche eine automatisierte Darstellung der Verzeichnisse vornimmt. Alle Optionen sind nur in Kombination mit \opt{load-dhbw-templates} wirksam. Im Abschnitt~\ref{subsub:options-tocs} werden weitere paketseitige Einstellungen beschrieben, mit welchen die zu erstellenden Verzeichnisse angepasst werden können.\medskip
-                
+
                 \Option{auto-intro-pages}\WithValues{custom, default, all}\AndDefault{none}
                 Standardmäßig erfolgt keine automatische Generierung von Verzeichnissen.
-                
+
                 \minisec{custom}
                 Es werden \textbf{keine} automatischen Voreinstellungen für das Setzen von Verzeichnissen vorgenommen. Die Option ist ausschließlich dafür verantwortlich, dass das Kommando \cs{dhbwprintintro} direkt nach dem Beginn des Dokuments ausgeführt wird.\medskip
-                
+
                 \minisec{default}
                 Durch Angabe von \meta{default} werden die folgenden Voreinstellungen gesetzt.
                 \begin{verbatim}
@@ -133,7 +133,7 @@
                     \item Tabellenverzeichnis
                     \item Eigene Verzeichnisse
                 \end{itemize}
-                
+
                 \minisec{all}
                 Es wird zusätzlich zu den genannten Verzeichnissen von \meta{default} ein Abstract vor dem Inhaltsverzeichnis eingefügt. Das Abtract \textbf{muss} als Datei bereitgestellt werden (s.~Option \opt{abstract} \ref{pkg:iodhbwm-templates}).
 
@@ -179,20 +179,20 @@
         \subsection{Optionen}\label{pkg:options}
             \subsubsection{Angabe von Dateinamen}
                 Das Paket stellt das Makro \Macro\dhbwsetup{\meta{key}=\meta{value}} bereit, über welches alle Einstellungen (Optionen) angepasst werden können. Hierfür sind eine Reihe von \meta{key} Variablen vordefiniert.\medskip
-    
+
                 \Option{titlepage}\WithValues{\meta{filename}}\AndDefault{dhbw-titlepage.def}
                 Mit der Option kann eine eigene Titelseite übergeben werden. Falls die angegeben Datei nicht gefunden wird, wird auf die Standardtitelseite zurückgegriffen.
-    
+
                 Es gilt zu beachten, dass die Option \opt{thesis type} eine höhere Priorität besitzt. Das bedeutet, dass bei der Angabe eines \opt{thesis type} die Option \opt{titlepage} überschrieben wird und stattdessen die gewählte Vorlage geladen wird.
-    
+
                 Bei gleichzeitiger Verwendung von \cs{dhbwdeclaration} ist es notwendig, dass die Option \opt{location} gesetzt wird. Alle anderen Optionen sind in Abhängigkeit der verwendeten Macros (s.~Abschnitt~\ref{subsec:macro}) zu setzen.\medskip
-    
+
                 \Option{declaration}\WithValues{\meta{filename}}\AndDefault{dhbw-declaration.def}
                 Mit der Option kann eine eigene Eigenständigkeitserklärung übergeben werden. In der derzeitigen Version wird nur eine deutsche Variante bereitgestellt.\medskip
-                
+
                 \Option{abstract}\WithValues{\meta{filename}}
                 Mit der Option kann ein Abstract übergeben werden. Wenn es sich um eine \TeX Datei handelt, mit der Endung \texttt{.tex} kann diese weggelassen werden.\medskip
-    
+
             \subsubsection{Personalisierte Angaben}
                 \Option{thesis type}\WithValues{SA, BA, PA}
                 Die Option gibt die Art der Arbeit an. Die Abkürzungen sind wie folgt zu verstehen:
@@ -202,7 +202,7 @@
                     \item[PA] Praxisarbeit
                 \end{description}
                 Die Angabe des Typ der Arbeit bestimmt die Gestaltung der Titelseite.\medskip
-    
+
                 \Option{bachelor degree}\WithValues{BoE, BaA, BoS}\AndDefault{BoE}
                 Die Option gibt die Art des Bachelorabschlusses an und muss daher nur bei \opt{thesis type} = \meta{BA} angegeben werden, wenn es sich \textbf{nicht} um einen \textit{Bachelor of Engineering} handelt.
                 \begin{description}[noitemsep,style=multiline,leftmargin=1cm]
@@ -211,46 +211,46 @@
                     \item[BoS] Bachelor of Arts
                 \end{description}
                 Die gewählt Option wird automatisch an \opt{bachelor degree type} übergeben.\medskip
-    
+
                 \Option{bachelor degree type}\WithValues{\meta{value}}\AndDefault{Bachelor of Engineering}
                 Für den Fall, dass eine andere Angabe des Abschlusses gewünscht ist, kann dieser durch diese Option angegeben werden.\medskip
-    
+
                 \Option{thesis title}\WithValues{\meta{value}}
                 Die Option ermöglicht die Angabe des Titel (Thema) der Arbeit.\medskip
-    
+
                 \Option{thesis second title}\WithValues{\meta{value}}
                 Im Fall einer Praxisarbeit \opt{thesis type} = \meta{PA} kann es vorkommen, dass zwei unterschiedliche Themen in einer Arbeit vorkommen. Das zweite Thema kann über diese Option definiert werden.\medskip
-    
+
                 \Option{author}\WithValues{\meta{value}}
                 Mit der Option wird der Autor der Arbeit angegeben. Der Autor wird auf der Titelseite und im der Eigenständigkeitserklärung verwendet.\medskip
-    
+
                 \Option{date}\WithValues{\meta{value}}\AndDefault{\cs{today}}
                 Mit der Option wird das Datum angegeben.\medskip
-    
+
                 \Option{location}\WithValues{\meta{value}}
                 Mit Setzen der Option wird der Ort angegeben, an welchem die Arbeit erstellt wurde.\medskip
-    
+
                 \Option{institute}\WithValues{\meta{value}}
                 Mit Angabe der Option wird der Firmenname angeben.\medskip
-    
+
                 \Option{institute section}\WithValues{\meta{value}}
                 Eine weitere Spezialisierung des Firmennamen kann durch Angabe des Abteilung beschrieben werden. Die Abteilung kann mithilfe dieser Option angegeben werden.\medskip
-    
+
                 \Option{institute logo}\WithValues{\meta{filename}}
                 Ein Firmenlogo kann dieser Option übergeben werden. Dieses wird automatisch auf den voreingestellten Titelseiten verwendet. Der \meta{filename} sollte ohne Dateiendung angegeben werden.\medskip
-    
+
                 \Option{student id}\WithValues{\meta{value}}
                 Mit der Option wird die Matrikelnummer des Studenten angegeben.\medskip
-    
+
                 \Option{course/id}\WithValues{\meta{value}}
                 Mit der Option wird die Kurskennung angegeben.\medskip
-    
+
                 \Option{course/name}\WithValues{\meta{value}}\AndDefault{Informationstechnik}
                 Mit der Option wird die Langform des Studiengangs angegeben.\medskip
-    
+
                 \Option{supervisor}\WithValues{\meta{value}}
                 Mit der Option wird der Betreuer der Arbeit angegeben.\medskip
-    
+
                 \Option{processing period}\WithValues{\meta{value}}
                 Mit der Option wird der Zeitraum der Arbeit angegeben. Bei Arbeiten über zwei Semester kann die Angabe beispielsweise wie folgt erfolgen:
                 \begin{verbatim}
@@ -259,41 +259,69 @@
 }
                 \end{verbatim}
                 \medskip
-                
+
                 \Option{reviewer}\WithValues{\meta{value}}
                 Bei Bachelorarbeiten \meta{thesis type}=\meta{BA} ist es üblich einen Gutachter anzugeben. Dieser wird durch die Angabe eines \meta{reviewer} übergeben.
-                
+
             \subsubsection{Optionen zur automatisierten Erstellung von Verzeichnissen}\label{subsub:options-tocs}
                 Im Abschnitt~\ref{subsub:format} wurde die Option \opt{auto-intro-pages} beschrieben. Durch die nachfolgenden Optionen können weitere Konfigurationen vorgenommen werden. Insbesondere handelt es sich dabei um die Möglichkeit, dass nur bestimmt Verzeichnisse oder Seiten angezeigt werden. Die meisten der Optionen sind selbsterklärend.\medskip
-            
+
                 \Option{intro/print titlepage}\WithValues{true, false}\AndDefault{false}\medskip
-                
+
                 \Option{intro/print declaration}\WithValues{true, false}\AndDefault{false}\medskip
-                
+
                 \Option{intro/print abstract}\WithValues{true, false}\AndDefault{false}\medskip
-                
+
                 \Option{intro/print toc}\WithValues{true, false}\AndDefault{false}
                 Erstellen des Inhaltsverzeichnis (Table of Contents ToC)
                 \medskip
-                
+
                 \Option{intro/print lof}\WithValues{true, false}\AndDefault{false}
                 Erstellen des Abbildungsverzeichnis (List of Figures LoF)
                 \medskip
-                
+
                 \Option{intro/print lot}\WithValues{true, false}\AndDefault{false}
                 Erstellen des Tabellenverzeichnis (List of Tables LoT)
                 \medskip
-                
+
                 \Option{intro/append custom content}\WithValues{\meta{value}}\changes{0.4a-alpha}{Rename \opt{intro/add custom list} into \opt{intro/append custom content}}%
                 In machen Fällen kann es vorkommen, dass eigene Verzeichnisse hinzugefügt werden sollen. Die Option \opt{intro/append custom content} nimmt als Argument gültigen \LaTeX{} Quelltext entgegen und führt diesen aus.\medskip
-                
+
                 \Option{intro/print all lists}\WithValues{true, false}\AndDefault{false}
                 Durch Setzen der Option werden alle Verzeichnisse automatisch generiert. Das Abbildungs- und Tabellenverzeichnis werden jedoch nur dargestellt, wenn diese mindestens einen Eintrag enthalten.
                 \medskip
-                
+
                 \Option{intro/print all}\WithValues{true, false}\AndDefault{false}
                 Durch die Option wird \opt{intro/print all lists} = \meta{true}. Zusätzlich werden alle anderen Seiten aktiviert. Ein Abstract wird nur gedruckt, wenn eine Datei angegeben ist und die Datei existiert.
                 \medskip
+
+        \subsection{Anhang}
+            \changes{v0.4.1-alpha}{Unterstützung eines Anhang wurde hinzugefügt}
+            \LaTeX bietet stellt das Makro \verb|\appendix| bereit, um mit Dokument mitzuteilen, dass anschließend der Anhang folgt. Die DHBW empfiehlt bei der Erstellung die folgenden Dinge zu beachten:
+
+            \begin{enumerate}
+                \item Der Anhang ist das \textit{letzte} Verzeichnis der Arbeit
+                \item Das Literaturverzeichnis sollte noch vor dem Anhang eingefügt werden
+            \end{enumerate}
+
+            Die Klasse ermöglicht die Kompatibilität mit der Option \opt{add-bibliography}. Wenn ein Literaturverzeichnis erstellt werden soll, wird automatisch überprüft, ob ein Anhang mit \verb|appendix| vorhanden ist.
+
+            \DescribeMacro\listofappendices{} Das Makro erstellt ein Verzeichnis mit allen Einträgen, die nach \verb|appendix| folgen. Es wird empfohlen das Anhangsverzeichnis mit der Option \opt{intro/append custom constent} einzubinden.
+
+            \begin{verbatim}
+\dhbwsetup{
+    intro/append custom constent = {\listofappendencies}
+}
+            \end{verbatim}
+
+            Dies erfordert jedoch die Klassenoption \opt{auto-intro-page = default|all} damit das Anhangsverzeichnis automatisch eingebunden wird.
+
+            Der Name des Anhang wird in dem Makro \cs{listappendixname} gespeichert. Wenn anstatt dem Wort \enquote{Anhang} \textit{Anhangsverzeichnis} im Inhaltsverzeichnis stehen soll, kann dies durch eine Umdefinierung erfolgen.
+
+            \begin{verbatim}
+\renewcommand{\listappendixname}{Anhangsverzeichnis}
+            \end{verbatim}
+
 
         \subsection{Allgemeine Makros}\label{subsec:macro}
             \DescribeMacro\dhbwsetup{\meta{key}=\meta{value}} Das Makro ermöglicht die Angabe aller hier aufgelisteten Optionen einzustellen. Dabei werden die Option als \meta{key} angegeben und der einzustellende Wert als \meta{value}.
@@ -301,11 +329,11 @@
             \DescribeMacro\dhbwtitlepage{} Das Makro erstellt eine Titelseite. Dabei wird bei den vordefinierten Titelseiten (s.~\opt{thesis type}) auf die \textbf{zuvor} gesetzt Optionen zurück gegriffen. Eine eigene Definition einer Titelseite kann durch die Option \opt{titlepage} angegeben werden.
 
             \DescribeMacro\dhbwdeclaration{} Für das Setzen einer allgemeinen vordefinierten Selbstständigkeitserklärung (Eigenerklärung) ist das Makro zu verwenden. Eine eigene Definition kann mittels der Option \opt{declaration} übergeben werden.
-            
+
             \DescribeMacro\dhbwfrontmatter{} Der Befehl deaktiviert die Ausgabe einer Seitenzahl. Es erfolgt ein Aufruf durch \cs{dhbwprintintro}. Wenn die Verzeichnisse manuell erstellt werden, kann der Befehl \textit{vor} dem ersten Aufruf von \cs{maketitle} bzw. \cs{tableofcontents} verwendet werden.
-            
+
             \DescribeMacro\dhbwmainmatter{} Das Kommando sorgt als erstes dafür, dass eine neue Seite erstellt wird. Anschließend werden die Seitenzahlen wieder aktiviert. Zusätzlich wird der Zähler für die Seitenzahlen wieder auf \textit{1} gesetzt.
-            
+
             \DescribeMacro\dhbwprintintro{} Sorgt für die Ausgabe der aktivierten Seiten und Verzeichnisse, welche im Abschnitt \ref{subsub:options-tocs} beschrieben wurden. Durch die Option \opt{auto-intro-pages} wird der Befehl automatisch am Beginn des Dokuments aufgerufen.
 
             \DescribeMacro\getAuthor Abfrage des Autor, welcher durch \opt{author} übergeben wurde.
@@ -331,9 +359,9 @@
             \DescribeMacro\getInstituteSection Abfrage der Abteilung, welche durch \opt{institute section} übergeben wurde.
 
             \DescribeMacro\getProcessingPeriod Abfrage des Bearbeitungszeitraum, welcher durch \opt{author} übergeben wurde.
-            
+
             \DescribeMacro\getReviewer Abfrage des Gutachters für eine Bachelorarbeit, welcher durch \opt{reviewer} übergeben wurde.
-            
+
             \DescribeMacro\getBachelorDegree Abfrage des Bearbeitungszeitraum, welcher durch \opt{author} übergeben wurde.
 
     \section{Beispiele und Anwendungen}
@@ -386,7 +414,7 @@
 
         \subsection{CTAN}
             Das Bundle wird ebenfalls über CTAN (mit Release der Version v0.1) zur Verfügung gestellt und kann deshalb über die offiziellen Paketquellen heruntergeladen und installiert werden. Diese Variante ist zu bevorzugen.
-            
+
     \PrintChanges
 
     \PrintIndex

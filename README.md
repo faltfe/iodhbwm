@@ -1,4 +1,4 @@
-# LaTeX _iodhbwm_ Paket
+# LaTeX _iodhbwm_ Klasse
 
 [![Latest release](https://img.shields.io/github/release/faltfe/iodhbwm.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/releases)
 [![Downloads](https://img.shields.io/github/downloads/faltfe/iodhbwm/total.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/releases)
