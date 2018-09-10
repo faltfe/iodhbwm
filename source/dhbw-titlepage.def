@@ -65,6 +65,7 @@
     Matrikelnummer, Kurs: & \getStudentId\\
     Abteilung: & \getInstituteSection\\
     Ausbildungsfirma: & \getInstitute\\
+	Standort: & \getLocation\\
     Betreuer: & \getSupervisor\\
     Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
     \end{tabularx}
