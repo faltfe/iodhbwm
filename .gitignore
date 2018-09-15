@@ -1,22 +1,2 @@
-# Ignore all
-*
-
-# Don't ignore directories, so we can recurse into them
-!*/
-/release
-/tmp
-
-# Don't ignore
-!.gitignore
-!*.md
-!*.tex
-!*.bib
-!*.pdf
-!*.def
-!*.cls
-!*.sty
-!*.png
-!*.travis.yml
-!*.profile
-!*.sh
-!*.makefile
+node_modules
+bower_components
