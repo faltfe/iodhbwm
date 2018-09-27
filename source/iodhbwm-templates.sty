@@ -321,7 +321,7 @@
 % Remove page number in toc from lof/lot/...loX
 %https://tex.stackexchange.com/questions/440188/remove-page-numbers-of-lof-lot-in-toc
 \RedeclareSectionCommand[
-    tocpagenumberformat=\tocchapterpagenumberformat
+	tocpagenumberformat=\tocchapterpagenumberformat
 ]{chapter}
 \newbool{iodhbwm@if@toc@unnumbered}
 \newcommand*{\tocchapterpagenumberformat}[1]{%
@@ -358,17 +358,22 @@
     \ifbool{iodhbwm@if@print@titlepage}{\dhbwtitlepage}{}
     \ifbool{iodhbwm@if@print@declaration}{\dhbwdeclaration}{}
     \ifbool{iodhbwm@if@print@abstract}{\dhbwabstract}{}
-    \ifbool{iodhbwm@if@print@toc}{\tableofcontents}{}
+    \ifbool{iodhbwm@if@print@toc}{%
+    	\tableofcontents
+    	\clearpage
+    }{}
     % Print lof only if at least one figure is available
     \ifbool{iodhbwm@if@print@lof}{%
         \iftotalfigures
         \listoffigures
+        \clearpage
         \fi
     }{}
     % Print lot only if at least one table is available
     \ifbool{iodhbwm@if@print@lot}{%
         \iftotaltables
             \listoftables
+            \clearpage
         \fi
     }{}
     \ifcsempty{iodhbwm@custom@list}{}{\iodhbwm@append@custom@content}
