@@ -48,7 +48,7 @@
         Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
         \ifcsempty{iodhbwm@institute@section}{}{Abteilung: & \getInstituteSection\\}%
         Ausbildungsfirma: & \getInstitute\\
-        Standort: & \getLocation\\
+        Ort: & \getLocation\\
         Betreuer der Ausbildungsfirma: & \getSupervisor\\
         Gutachter der Dualen Hochschule: & \getReviewer\\
         \end{tabularx}
