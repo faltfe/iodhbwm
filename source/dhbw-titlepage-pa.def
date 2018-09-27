@@ -50,7 +50,7 @@
         Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
         \ifcsempty{iodhbwm@institute@section}{}{Abteilung: & \getInstituteSection\\}%
         Ausbildungsfirma: & \getInstitute\\
-        Ort: & \getLocation\\
+        \ifbool{iodhbwm@if@print@location}{Ort: & \getLocation\\}{}%
         Betreuer: & \getSupervisor\\
         Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
         \end{tabularx}
