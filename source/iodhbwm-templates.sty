@@ -65,6 +65,7 @@
 \newbool{iodhbwm@if@print@toc}
 \newbool{iodhbwm@if@print@lot}
 \newbool{iodhbwm@if@print@lof}
+\newbool{iodhbwm@if@print@location}
 
 % ----------------------------------------------------------
 % Define internal commands
@@ -134,6 +135,7 @@
     processing period               = {},
     reviewer/.store in              = \iodhbwm@reviewer,
     reviewer                        = {},
+    titlepage/print location/.is if	  = iodhbwm@if@print@location,
     intro/print titlepage/.is if      = iodhbwm@if@print@titlepage,
     intro/print abstract/.is if       = iodhbwm@if@print@abstract,
     intro/abstract file/.search also  = {/dhbw/abstract},
@@ -321,7 +323,7 @@
 % Remove page number in toc from lof/lot/...loX
 %https://tex.stackexchange.com/questions/440188/remove-page-numbers-of-lof-lot-in-toc
 \RedeclareSectionCommand[
-    tocpagenumberformat=\tocchapterpagenumberformat
+	tocpagenumberformat=\tocchapterpagenumberformat
 ]{chapter}
 \newbool{iodhbwm@if@toc@unnumbered}
 \newcommand*{\tocchapterpagenumberformat}[1]{%
