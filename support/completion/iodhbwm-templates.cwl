@@ -10,6 +10,7 @@ thesis title=
 thesis second title=
 author=
 date=
+submission date=
 location=
 institute=
 institute section=
@@ -45,6 +46,7 @@ intro/append custom content={%|}
 \getSupervisor
 \getProcessingPeriod
 \getDate
+\getSubmissionDate
 \getBachelorDegree
 
 # << Structure >>
