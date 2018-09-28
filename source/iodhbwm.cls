@@ -95,6 +95,7 @@
     auto-intro-pages/custom/.is if  = iodhbwm@cls@if@auto@intro@custom,
     auto-intro-pages/default/.is if = iodhbwm@cls@if@auto@intro@default,
     auto-intro-pages/all/.is if     = iodhbwm@cls@if@auto@intro@all,
+    auto-intro-pages/.default = default,
     unknown/.code                   = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
 }
 
