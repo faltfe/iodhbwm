@@ -114,8 +114,12 @@
     thesis second title             = {},
     author/.store in                = \iodhbwm@author,
     author                          = {},
-    date/.store in                  = \iodhbwm@date,
+    date/.code                      = {%
+        \def\iodhbwm@date{#1}%
+        \def\iodhbwm@date@submission{#1}%
+    },
     date                            = \today,
+    submission date/.store in            = \iodhbwm@date@submission,
     location/.store in              = \iodhbwm@location,
     location                        = {},
     institute/.store in             = \iodhbwm@institute,
@@ -274,6 +278,7 @@
     }{\iodhbwm@processing@period}%
 }
 \newcommand{\getDate}{\iodhbwm@date}
+\newcommand{\getSubmissionDate}{\iodhbwm@date@submission}
 \newcommand{\getReviewer}{%
     \ifdefempty{\iodhbwm@reviewer}{%
         \PackageError{\iodhbwm@pkg@name}{%
@@ -323,7 +328,7 @@
 % Remove page number in toc from lof/lot/...loX
 %https://tex.stackexchange.com/questions/440188/remove-page-numbers-of-lof-lot-in-toc
 \RedeclareSectionCommand[
-	tocpagenumberformat=\tocchapterpagenumberformat
+    tocpagenumberformat=\tocchapterpagenumberformat
 ]{chapter}
 \newbool{iodhbwm@if@toc@unnumbered}
 \newcommand*{\tocchapterpagenumberformat}[1]{%

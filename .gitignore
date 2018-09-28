@@ -5,6 +5,7 @@
 !*/
 /release
 /tmp
+/node_modules
 
 # Don't ignore
 !.gitignore
@@ -20,3 +21,4 @@
 !*.profile
 !*.sh
 !*.makefile
+!*.cwl
