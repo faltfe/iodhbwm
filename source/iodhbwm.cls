@@ -314,7 +314,7 @@
             commentstyle=\color{DHBW-font},
             keywordstyle=\color{DHBW-darkblue},
             numberstyle=\scriptsize\color{DHBW-font},
-            stringstyle=\color{purple},
+            stringstyle=\color{DHBW-dark-font},
             frame=tb,
             captionpos=b,
             aboveskip=\baselineskip
