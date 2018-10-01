@@ -232,6 +232,9 @@
 % when \AtEndPreamble is used
 % https://tex.stackexchange.com/questions/417556/hyperref-doesnt-highlight-cites
 \AtEndPreamble{%
+    \ifdef{\iodhbwm@main@language}{%
+        \PassOptionsToPackage{\iodhbwm@main@language}{hyperref}
+    }{}
     \RequirePackage{hyperref}
     \hypersetup{
         pdftitle       = {\ifdef{\getThesisTitle}{\getThesisTitle}{undefined}},
