@@ -30,6 +30,7 @@ intro/print toc=#true, false
 intro/print lof=#true, false
 intro/print lot=#true, false
 intro/print all lists
+intro/print all
 intro/append custom content={%|}
 #endkeyvals
 
