@@ -7,7 +7,7 @@
 % Felix Faltin
 % E-Mail: ffaltin91@gmail.com
 % ----------------------------------------------------------
-% Copyright 2017 Felix Faltin
+% Copyright 2017-2018 Felix Faltin
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -35,7 +35,7 @@
 \RequirePackage{etoolbox, pgfopts, scrlfile, xstring}
 
 \providecommand*{\iodhbwm@cls@baseclass}{scrreprt}
-\newcommand*{\iodhbwm@cls@baseclass@options}{}
+\providecommand*{\iodhbwm@cls@baseclass@options}{}
 \let\iodhbwm@languages\@empty
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -95,8 +95,8 @@
     auto-intro-pages/custom/.is if  = iodhbwm@cls@if@auto@intro@custom,
     auto-intro-pages/default/.is if = iodhbwm@cls@if@auto@intro@default,
     auto-intro-pages/all/.is if     = iodhbwm@cls@if@auto@intro@all,
-    auto-intro-pages/.default = default,
-    unknown/.code                   = \edef\iodhbwm@cls@baseclass@options{\iodhbwm@cls@baseclass@options,\pgfkeyscurrentname}
+    auto-intro-pages/.default       = default,
+    .unknown/.code                  = \edef\iodhbwm@cls@baseclass@options{\pgfkeyscurrentname}
 }
 
 \ProcessPgfOptions{/iodhbwm}
@@ -104,11 +104,17 @@
 % ----------------------------------------------------------
 % Default class option
 % ----------------------------------------------------------
-\PassOptionsToClass{%
-    fontsize=12pt,
-%    a4paper,
-    parskip=half-
-}{\iodhbwm@cls@baseclass}
+
+% If unknown options are passed prepend a comma (,)
+% before prepend again and always the predefind options.
+\ifcsempty{iodhbwm@cls@baseclass@options}{}%
+{%
+    \preto{\iodhbwm@cls@baseclass@options}{,}%
+}
+\preto{\iodhbwm@cls@baseclass@options}{%
+    fontsize=12pt,%
+    parskip=half-%
+}%
 
 \LoadClass[\iodhbwm@cls@baseclass@options]{\iodhbwm@cls@baseclass}
 
@@ -120,6 +126,41 @@
         listof  = totoc
     }%
 }{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                          LANGUAGE                         %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ----------------------------------------------------------
+% Defining language
+% ----------------------------------------------------------
+\ifcsempty{iodhbwm@languages}{}{%
+    % Delete trailing comma
+    \IfEndWith{\iodhbwm@languages}{,}{%
+        \StrGobbleRight{\iodhbwm@languages}{1}[\iodhbwm@languages@list]
+    }{\let\iodhbwm@languages@list\iodhbwm@languages}
+    
+    % If no main language was set use last language
+    % as main language
+    \ifundef{\iodhbwm@main@language}{%
+        \StrCount{\iodhbwm@languages@list}{,}[\numofelem]
+        \ifnum\numofelem>0\relax
+        \StrBehind[\numofelem]{\iodhbwm@languages@list}{,}[\iodhbwm@main@language]%
+        \else
+        \let\iodhbwm@main@language\iodhbwm@languages@list%
+        \fi
+    }{}
+    \RequirePackage[\iodhbwm@languages@list]{babel}
+    \RequirePackage[autostyle]{csquotes}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                          PACKAGES                         %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % ----------------------------------------------------------
 % Load default packages
@@ -361,35 +402,6 @@
         \dhbwprintintro%
     }%
 }{}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                           %
-%                          LANGUAGE                         %
-%                                                           %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% ----------------------------------------------------------
-% Defining language
-% ----------------------------------------------------------
-\ifcsempty{iodhbwm@languages}{}{%
-    % Delete trailing comma
-    \IfEndWith{\iodhbwm@languages}{,}{%
-        \StrGobbleRight{\iodhbwm@languages}{1}[\iodhbwm@languages@list]
-    }{\let\iodhbwm@languages@list\iodhbwm@languages}
-
-    % If no main language was set use last language
-    % as main language
-    \ifundef{\iodhbwm@main@language}{%
-        \StrCount{\iodhbwm@languages@list}{,}[\numofelem]
-        \ifnum\numofelem>0\relax
-            \StrBehind[\numofelem]{\iodhbwm@languages@list}{,}[\iodhbwm@main@language]%
-        \else
-            \let\iodhbwm@main@language\iodhbwm@languages@list%
-        \fi
-    }{}
-    \RequirePackage[\iodhbwm@languages@list]{babel}
-    \RequirePackage[autostyle]{csquotes}
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                           %
