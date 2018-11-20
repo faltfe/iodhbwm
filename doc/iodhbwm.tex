@@ -4,7 +4,7 @@
 \usepackage{enumitem}
 \usepackage[most]{tcolorbox}
 \usepackage{fontawesome}
-\usepackage{showframe}
+%\usepackage{showframe}
 
 \package[vcs=https://github.com/faltfe/iodhbwm]{iodhbwm}
 \version{0.4.1-alpha}
@@ -176,6 +176,24 @@
 %    add-bibliography = true,
 %    bib-file = my-source.bib
 %]{iodhbwm}
+    
+    \begin{description}[leftmargin=!, labelwidth=3.5cm]
+        \item[\classOption{Klassenoptionen}] Bei Klassenoptionen handelt es sich um Optionen, welche im optionalen Argument von \cs{documentclass} angegeben werden.
+        \item[\setupOption{Setupoption}] Die Klasse stellt das Makro \Macro\dhbwsetup (s.~\ref{pkg:options}) bereit, welchem die Setupoptionen übergeben werden.
+    \end{description}
+
+    \begin{info}{}
+        Hallo, ich bin nur eine allgemeine Information.
+    \end{info}
+
+    \begin{hint}{}
+        Ich bin ein Hinweis und kann an manchen Stellen sehr hilfreich sein.
+    \end{hint}
+
+    \begin{warning}{}
+        Ich bin eine Warnung und sollte unbedingt berücksichtigt werden.
+    \end{warning}
+
 
     \section{Einleitung}
         Die Entwicklung des Bundle geschah ursprünglich aus persönlichen Gründen, denn mit jeder neuen Arbeit musste ich stets die gesamte Präamble meiner letzten Arbeit kopieren und gegebenenfalls Änderungen vornehmen. Außerdem war ich es leid, mir von Kommilitonen immer die gesamte Vorlage schicken lassen zu müssen, um dann doch festzustellen, dass die Dokumente doch nicht gleich aussehen.
