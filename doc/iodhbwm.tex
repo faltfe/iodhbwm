@@ -4,10 +4,11 @@
 \usepackage{enumitem}
 \usepackage[most]{tcolorbox}
 \usepackage{fontawesome}
+\usepackage[ngerman, noabbrev, nameinlink]{cleveref}
 %\usepackage{showframe}
 
 \package[vcs=https://github.com/faltfe/iodhbwm]{iodhbwm}
-\version{0.4.1-alpha}
+\version{0.1}
 
 \title{iodhbwm Klasse}
 \author{Felix Faltin}
@@ -36,6 +37,9 @@
 % Custom command
 % -------------------------------------------------------
 
+\setlength{\parindent}{0pt}
+%\setlength{\parskip}{3pt plus 0.3pt minus 0.3pt}
+
 %\definecolorset{RGB}{}{}{
 %    section,11,72,107;
 %    extlink,73,10,61;
@@ -58,7 +62,7 @@
 \definecolor{darkcyan}{HTML}{085656}
 \definecolor{lightcyan}{HTML}{2B7E7E}
 
-%\colorlet{opt}{darkred}
+%\colorlet{meta}{darkred}
 
 \newtcbox{\setupOption}{%
     enhanced,
@@ -165,8 +169,6 @@
         Die vorgenommenen Einstellungen richtigen sie im Wesentlichen nach den Richtlinien der DHBW Mannheim zur Erstellung wissenschaftlicher Arbeiten.
     \end{abstract}
 
-    \LongWarning{Das Bundle befindet sich derzeit noch in einer \textcolor{intlink}{Alpha}-Version. Änderungen sind jederzeit möglich.}
-
     \tableofcontents
     
     \section{Konventionen}
@@ -182,34 +184,41 @@
         \item[\setupOption{Setupoption}] Die Klasse stellt das Makro \Macro\dhbwsetup (s.~\ref{pkg:options}) bereit, welchem die Setupoptionen übergeben werden.
     \end{description}
 
-    \begin{info}{}
-        Hallo, ich bin nur eine allgemeine Information.
-    \end{info}
-
-    \begin{hint}{}
-        Ich bin ein Hinweis und kann an manchen Stellen sehr hilfreich sein.
-    \end{hint}
-
-    \begin{warning}{}
-        Ich bin eine Warnung und sollte unbedingt berücksichtigt werden.
-    \end{warning}
+%    \begin{info}{}
+%        Hallo, ich bin nur eine allgemeine Information.
+%    \end{info}
+%
+%    \begin{hint}{}
+%        Ich bin ein Hinweis und kann an manchen Stellen sehr hilfreich sein.
+%    \end{hint}
+%
+%    \begin{warning}{}
+%        Ich bin eine Warnung und sollte unbedingt berücksichtigt werden.
+%    \end{warning}
 
 
     \section{Einleitung}
         Die Entwicklung des Bundle geschah ursprünglich aus persönlichen Gründen, denn mit jeder neuen Arbeit musste ich stets die gesamte Präamble meiner letzten Arbeit kopieren und gegebenenfalls Änderungen vornehmen. Außerdem war ich es leid, mir von Kommilitonen immer die gesamte Vorlage schicken lassen zu müssen, um dann doch festzustellen, dass die Dokumente doch nicht gleich aussehen.
 
-        Deshalb kam ich zu dem Entschluss eine einfache Klasse zu entwickeln, welches das grundlegende Design entsprechend der Richtlinien der DHBW umsetzt. Zusätzlich dazu habe ich ein kleines Paket geschrieben, welches häufige Befehle definiert. Es wird empfohlen, dass das Paket in Verbindung mit der Klasse verwendet wird. Eine Voraussetzung ist es jedoch nicht.
+        Deshalb kam ich zu dem Entschluss eine einfache Klasse zu entwickeln, welches das grundlegende Design entsprechend der Richtlinien der \hyperlink{https://www.dhbw-mannheim.de/}{DHBW Mannheim} umsetzt. Zusätzlich dazu habe ich ein kleines Paket geschrieben, welches häufige Befehle definiert. Es wird empfohlen, dass das Paket in Verbindung mit der Klasse verwendet wird. Eine Voraussetzung ist es jedoch nicht.
 
     \section{Die Klasse iodhbwm}\label{cls:iodhbwm}
-        Die Angabe der Optionen erfolgt über das optionale Argument von \cs{documentclass}.
+        Die Angabe der Optionen erfolgt über das optionale Argument von\\
+        \Macro\documentclass[\meta{key}\oarg{= value}]{iodhbwm}.
         Dabei wird auf das \meta{key}=\meta{value} System von \pkg{pgfopts} zurückgegriffen.
 
         \subsection{Optionen}
-            Die beschriebenen Klassenoptionen müssen direkt beim Laden der Klasse angegeben werden. Eine Änderung im Verlauf des Dokuments ist nicht vorgesehen.
+            Die beschriebenen Klassenoptionen müssen direkt beim Laden der Klasse angegeben werden. Eine Änderung im Verlauf des Dokuments ist nicht vorgesehen und technisch auch nicht immer möglich.
 
             \subsubsection{Allgemeine}
                 \Option{load-preamble}\WithValues{true, false}\AndDefault{true}
-                Bei Angabe der Option \classOption{\opt{load-preamble}} werden eine Reihe von zusätzlichen Paketen geladen und teilweise vorkonfiguriert. Nachfolgend erfolgt eine Auflistung der geladenen Pakete:
+                Bei Angabe der Option \classOption{\opt{load-preamble}} werden eine Reihe von zusätzlichen Paketen geladen und teilweise vorkonfiguriert
+                
+                \begin{hint}{}
+                    Die Option ist standardmäßig mit \meta{true} vorbelegt. Damit muss die Option nicht angegeben werden. Möchte man jedoch die Voreinstellungen \textbf{nicht} laden, so ist \opt{load-preamle} = \meta{false} zu setzen.
+                \end{hint}
+                
+                \noindent Nachfolgend erfolgt eine Auflistung der geladenen Pakete:
                 \begin{description}[itemsep=1pt, style=multiline, leftmargin=3cm]
                     \item [\pkg{lmodern}] Verwendung von Latin Modern anstatt Computer Modern
                     \item [\pkg{microtype}] Verbesserungen des Schriftsatzes durch Änderungen der Abstände zwischen einzelnen Buchstaben und Wörtern
@@ -228,16 +237,21 @@
 
                 \noindent Für den internen Gebrauch werden weitere Pakete geladen.\medskip
 
-                \marginpar[\raggedleft v0.12]{\raggedright v0.12}
+%                \marginpar[\raggedleft v0.12]{\raggedright v0.12}
                 \Option{load-dhbw-templates}\WithValues{true, false}\AndDefault{false}
-                Bei Angabe der Option wird das Paket \pkg{iodhbwm-templates} geladen. Die dadurch bereitgestellten zusätzlichen Funktionen werden im Abschnitt~\ref{pkg:iodhbwm-templates} beschrieben.\medskip
+                Bei Angabe der Option wird das Paket \pkg{iodhbwm-templates} geladen. Die dadurch bereitgestellten zusätzlichen Funktionen werden im \Cref{pkg:iodhbwm-templates} beschrieben. Für den vollständigen Funktionsumfang sollte die Option immer gesetzt werden.\medskip
 
                 \Option{add-tocs-to-toc}\WithValues{true, false}\AndDefault{false}
                 bei Aktivierung der Option werden alle Verzeichnisse (Tabellen-, Abbildungs- und Literaturverzeichnis) in das Inhaltsverzeichnis übernommen. Es ist ein zusätzlicher Lauf von pdf\LaTeX{} notwendig, damit das Literaturverzeichnis im Inhaltsverzeichnis erscheint.
+                
+                \begin{info}{Verzeichnisse werden automatisch ausgeblendet}
+                    Wenn die Option \opt{add-tocs-to-tocs} aktiviert wurde und die Verzeichnisse trotzdem nicht angezeigt werden, kann es darin liegen, dass diese \textbf{leer} sind. Die Klasse überprüft, ob überhaupt Tabellen oder Abbildungen vorhanden sind. Sollte dies nicht der Fall sein, wird das entsprechende Verzeichnis \textbf{nicht} angezeigt.
+                \end{info}
+                
                 \medskip
 
                 \Option{language}\WithValues{babel language}\AndDefault{empty}
-                Sprachen, welche im Dokument verwendet werden soll, sind über diese Option anzugeben. Als Hauptsprache wird die letzte angegebene Sprache verwendet. Alternativ kann die Option \classOption{\opt{mainlanguage}} genutzt werden.
+                Sprachen, welche im Dokument verwendet werden soll, sind über diese Option anzugeben. Als Hauptsprache wird die \textbf{letzte angegebene Sprache} verwendet. Alternativ kann die Option \classOption{\opt{mainlanguage}} genutzt werden.
 
                 \begin{sourcecode}[listing only]
 \documentclass[%
@@ -245,34 +259,49 @@
     language = ngerman
 ]{iodhbwm}
                 \end{sourcecode}
+            
+                \begin{warning}{}
+                    Wenn mehrere Sprachen verwendet werden, können diese \textbf als \opt{language} = \marg{english, ngerman} übergeben werden, sondern müssen wir im Beispiel einzeln angegeben werden!
+                \end{warning}
+            
                 Im Beispiel werden die Sprachen Englisch und Deutsch (neue Deutsche Rechtschreibung) geladen, wobei Deutsch automatisch als Hauptsprache verwendet wird.
 
                 Die Sprachen werden als Option an alle notwendigen Pakete (\pkg{babel}, \pkg{cleveref}) weiter gereicht.\medskip
 
-                \Option{mainlanguage}\WithValues{babel language}\AndDefault{empty}\medskip
+                \Option{mainlanguage}\WithValues{babel language}\AndDefault{empty}
                 Im Gegensatz zu \classOption{\opt{language}} wird mit der Option ausschließlich die Hauptsprache gesetzt, welche im Dokument benutzt wird. Die Sprache wird zusätzlich an entsprechende Pakete übergeben.
+                
+                
 
                 \begin{sourcecode}[listing only]
 \documentclass[%
-    language = english,
+    language     = english,
     mainlanguage = ngerman
 ]{iodhbwm}
                 \end{sourcecode}
                 Die Angaben der Sprache ist äquivalent zum vorherigen Beispiel.\medskip
 
-            \subsubsection{Verzeichnisse und Formatierung}\label{subsub:format}
-                Die Klasse nimmt bei Bedarf einige Änderungen an der Formatierung vor. Insbesondere wird eine farbige Darstellung hinzugefügt. Wenn die Arbeit jedoch gedruckt wird, kann ein grau/schwarzer Druck zu unschönen Ergebnissen führen. Die beiden Optionen \classOption{\opt{print-}} und \classOption{\opt{print}} sollen hierbei Abhilfe schaffen.
+            \subsubsection{Formatierung}\label{subsub:format}
+                Die Klasse kann bei Bedarf einige Änderungen an der Formatierung vornehmen. Insbesondere wird eine farbige Darstellung hinzugefügt. Wenn die Arbeit jedoch gedruckt wird, kann ein grau/schwarzer Druck zu unschönen Ergebnissen führen. Die beiden Optionen \classOption{\opt{print-}} und \classOption{\opt{print}} sollen hierbei Abhilfe schaffen.
 
                 \Option{print-}\WithValues{true, false}\AndDefault{false}
                 Bei Aktivierung der Option wird die farbige Darstellung von Links deaktiviert. Dies wird durch \verb|\hypersetup{hidelinks}| erreicht.\medskip
 
                 \Option{print}\WithValues{true, false}\AndDefault{false}
-                Im Gegensatz zu der Option \classOption{\opt{print-}} schaltet die Option zusätzlich noch die Darstellung von Quelltext um. Die farbige Überschrift wird entfernt und durch eine einfache Überschrift ersetzt, welche durch einen Rahmen abgegrenzt ist.\bigskip
+                Im Gegensatz zu der Option \classOption{\opt{print-}} schaltet die Option zusätzlich noch die Darstellung von Quelltext um. Die farbige Überschrift wird entfernt und durch eine einfache Überschrift ersetzt, welche durch einen Rahmen abgegrenzt ist.
+                
+                \begin{warning}{Verschiebungen von Texten}
+                    Bei der Verwendung von \opt{print} wird der Quelltext anders formatiert. Dadurch kann es unter Umständen zu Verschiebungen des Layouts kommen.
+                \end{warning}
+            
+            \subsubsection{Darstellung der Verzeichnisse}
+                Die DHBW gibt eine gewissen Struktur der Arbeit vor. Um dem Autor die Arbeit etwas zu erleichtern, bietet die Klasse drei Optionen an, welche eine automatisierte Darstellung der Verzeichnisse vornimmt. Alle Optionen sind nur in Kombination mit \classOption{\opt{load-dhbw-templates}} wirksam. Im \Cref{subsub:options-tocs} werden weitere paketseitige Einstellungen beschrieben, mit welchen die zu erstellenden Verzeichnisse angepasst werden können.\medskip
 
-                Die DHBW gibt eine gewissen Struktur der Arbeit vor. Um dem Autor die Arbeit etwas zu erleichtern, bietet die Klasse drei Optionen an, welche eine automatisierte Darstellung der Verzeichnisse vornimmt. Alle Optionen sind nur in Kombination mit \classOption{\opt{load-dhbw-templates}} wirksam. Im Abschnitt~\ref{subsub:options-tocs} werden weitere paketseitige Einstellungen beschrieben, mit welchen die zu erstellenden Verzeichnisse angepasst werden können.\medskip
-
-                \Option{auto-intro-pages}\WithValues{custom, default, all}\AndDefault{none}
+                \Option{auto-intro-pages}\WithValues{none, custom, default, all}\AndDefault{default}
                 Standardmäßig erfolgt keine automatische Generierung von Verzeichnissen.
+                
+                \minisec{none}
+                Wenn die Option mit dem Argument \meta{none} geladen wird, geschieht absolut gar nicht und ist gleichbedeutend mit einer nicht vorhandenen Option.
 
                 \minisec{custom}
                 Es werden \textbf{keine} automatischen Voreinstellungen für das Setzen von Verzeichnissen vorgenommen. Die Option ist ausschließlich dafür verantwortlich, dass das Kommando \Macro\dhbwprintintro direkt nach dem Beginn des Dokuments ausgeführt wird.\medskip
@@ -290,35 +319,40 @@
                     \item Titelseite
                     \item (Eigenständigkeits-) Erklärung
                     \item Inhaltsverzeichnis
-                    \item Abbildungsverzeichnis \footnote{Das Abbildungs- und Tabellenverzeichnis wird nur erstellt, wenn mindestens eine Abbildung oder Tabelle vorhanden ist.}
-                    \item Tabellenverzeichnis
+                    \item Abbildungsverzeichnis\footnote{\label{fn:abb}Das Abbildungs- und Tabellenverzeichnis wird nur erstellt, wenn mindestens eine Abbildung oder Tabelle vorhanden ist.}
+                    \item Tabellenverzeichnis\footref{fn:abb}
                     \item Eigene Verzeichnisse
                 \end{itemize}
 
                 \minisec{all}
-                Es wird zusätzlich zu den genannten Verzeichnissen von \meta{default} ein Abstract vor dem Inhaltsverzeichnis eingefügt. Das Abtract \textbf{muss} als Datei bereitgestellt werden (s.~Option \setupOption{\opt{abstract}} \ref{pkg:iodhbwm-templates}).
+                Es wird zusätzlich zu den genannten Verzeichnissen von \meta{default} ein Abstract vor dem Inhaltsverzeichnis eingefügt. Das Abtract \textbf{muss} als Datei bereitgestellt werden (s.~Option \setupOption{\opt{abstract}} \Cref{pkg:iodhbwm-templates}).
 
             \subsubsection{Bibliographie}
                 \Option{add-bibliography}\WithValues{true, false}\AndDefault{false}
                 Bei Aktivierung der Option wird versucht, ein Literaturverzeichnis zu erstellen, welches automatisch am Ende des Dokuments ausgegeben werden soll. Wenn die Option \classOption{\opt{bib-file}} nicht gesetzt ist, wird automatisch nach der Datei \file{dhbw-source.bib} gesucht.
 
-                Das Literaturverzeichnis wird mittel \pkg{biblatex} und biber erstellt. Es ist darauf zu achten, dass die Einstellungen in der IDE gegebenenfalls anzupassen sind!\medskip
+                Das Literaturverzeichnis wird mittel \pkg{biblatex} und biber erstellt. Es ist darauf zu achten, dass die Einstellungen in der IDE gegebenenfalls anzupassen sind!
+                
+                \begin{hint}{}
+                    Es existiert keine Unterstützung von bib\LaTeX{} für Generierung des Literaturverzeichnis und es wird auch zukünftig keine Implementierung einer Schnittstelle geben.
+                \end{hint}
+                \medskip
 
                 \Option{add-bibliography-}\WithValues{true, false}\AndDefault{false}
-                Die Option verhält sich ähnlich wie \classOption{\opt{add-bibliography}} mit dem Unterschied, dass am Ende des Dokuments kein Literaturverzeichnis abgebildet wird. Diese Option ist gut geeignet, wenn Fußnoten für Zitate verwendet werden sollen.\medskip
+                Die Option verhält sich ähnlich wie \classOption{\opt{add-bibliography}} mit dem Unterschied, dass am Ende des Dokuments kein Literaturverzeichnis abgebildet wird. Diese Option ist gut geeignet, wenn ausschließlich Fußnoten für Zitate verwendet werden sollen und am Ende des Dokuments kein zusätzliches Literaturverzeichnis gebraucht wird.\medskip
 
                 \Option{bib-file}\WithValues{\meta{filename}}
-                Der Option kann als \meta{key} eine Datei mitgegeben werden, welche die Einträge für das Inhaltsverzeichnis beinhalten. Es ist darauf zu achten, dass die Datei einschließlich Dateiendung übergeben wird.
+                Der Option kann als \meta{value} eine Datei mitgegeben werden, welche die Einträge für das Inhaltsverzeichnis beinhalten. Es ist darauf zu achten, dass die Datei \textbf{einschließlich} Dateiendung übergeben wird.
                 \begin{sourcecode}[listing only]
 \documentclass[%
     add-bibliography = true,
-    bib-file = my-source.bib
+    bib-file         = my-source.bib
 ]{iodhbwm}
                 \end{sourcecode}
                 Diese Option ist nur in Verbindung mit \classOption{\opt{add-bibliography}} oder \classOption{\opt{add-bibliography-}} wirksam.\medskip
 
                 \Option{biblatex/style}\WithValues{\meta{citation style}}\AndDefault{numeric-comp}
-                Biblatex bietet unterschiedliche Zitierweisen an. Diese Option erlaubt die Angabe der gewünschten Zitierweise. Wenn der Option ein Stil übergeben wird, überschreibt dieser die Optionen \classOption{\opt{biblatex/bibstyle}} und \classOption{\opt{biblatex/citestyle}}, wenn diese zuvor definiert wurden.\medskip
+                Bib\LaTeX{} bietet unterschiedliche Zitierweisen an. Diese Option erlaubt die Angabe der gewünschten Zitierweise. Wenn der Option ein Stil übergeben wird, überschreibt dieser die Optionen \classOption{\opt{biblatex/bibstyle}} und \classOption{\opt{biblatex/citestyle}}, wenn diese zuvor definiert wurden.\medskip
 
                 \Option{biblatex/bibstyle}\WithValues{\meta{citation style}}
                 Wenn sich die Zitierweise im Literaturverzeichnis von jener im Text unterscheiden soll, kann ein abweichender Stil mit dieser Option definiert werden. Es ist darauf zu achten, dass die Option zwingend nach \classOption{\opt{biblatex/style}} zu setzen ist, falls diese verwendet wird.\medskip
@@ -346,7 +380,7 @@
 
                 Es gilt zu beachten, dass die Option \setupOption{\opt{thesis type}} eine höhere Priorität besitzt. Das bedeutet, dass bei der Angabe eines \setupOption{\opt{thesis type}} die Option \setupOption{\opt{titlepage}} überschrieben wird und stattdessen die gewählte Vorlage geladen wird.
 
-                Bei gleichzeitiger Verwendung von \Macro\dhbwdeclaration ist es notwendig, dass die Option \opt{location} gesetzt wird. Alle anderen Optionen sind in Abhängigkeit der verwendeten Macros (s.~Abschnitt~\ref{subsec:macro}) zu setzen.\medskip
+                Bei gleichzeitiger Verwendung von \Macro\dhbwdeclaration ist es notwendig, dass die Option \setupOption{\opt{location}} gesetzt wird. Alle anderen Optionen sind in Abhängigkeit der verwendeten Macros (s.~\Cref{subsec:macro}) zu setzen.\medskip
 
                 \Option{declaration}\WithValues{\meta{filename}}\AndDefault{dhbw-declaration.def}
                 Mit der Option kann eine eigene Eigenständigkeitserklärung übergeben werden. In der derzeitigen Version wird nur eine deutsche Variante bereitgestellt.\medskip
@@ -434,15 +468,15 @@
                 \Option{intro/print abstract}\WithValues{true, false}\AndDefault{false}\medskip
 
                 \Option{intro/print toc}\WithValues{true, false}\AndDefault{false}
-                Erstellen des Inhaltsverzeichnis (Table of Contents ToC)
+                Erstellen des Inhaltsverzeichnis (Table of Contents $\stackrel{\wedge}{=}$ ToC)
                 \medskip
 
                 \Option{intro/print lof}\WithValues{true, false}\AndDefault{false}
-                Erstellen des Abbildungsverzeichnis (List of Figures LoF)
+                Erstellen des Abbildungsverzeichnis (List of Figures $\stackrel{\wedge}{=}$ LoF)
                 \medskip
 
                 \Option{intro/print lot}\WithValues{true, false}\AndDefault{false}
-                Erstellen des Tabellenverzeichnis (List of Tables LoT)
+                Erstellen des Tabellenverzeichnis (List of Tables $\stackrel{\wedge}{=}$ LoT)
                 \medskip
 
                 \Option{intro/append custom content}\WithValues{\meta{value}}\changes{0.4a-alpha}{Rename \opt{intro/add custom list} into \opt{intro/append custom content}}%
@@ -457,7 +491,7 @@
                 \medskip
 
         \subsection{Anhang}
-            \changes{v0.4.1-alpha}{Unterstützung eines Anhang wurde hinzugefügt}%
+            \changes{0.4.1-alpha}{Unterstützung eines Anhang wurde hinzugefügt}%
             \LaTeX{} bietet stellt das Makro \Macro\appendix bereit, um mit Dokument mitzuteilen, dass anschließend der Anhang folgt. Die DHBW empfiehlt bei der Erstellung die folgenden Dinge zu beachten:
 
             \begin{enumerate}
@@ -467,7 +501,7 @@
 
             Die Klasse ermöglicht die Kompatibilität mit der Option \classOption{\opt{add-bibliography}}. Wenn ein Literaturverzeichnis erstellt werden soll, wird automatisch überprüft, ob ein Anhang mit \verb|appendix| vorhanden ist.
 
-            \DescribeMacro\listofappendices{} Das Makro erstellt ein Verzeichnis mit allen Einträgen, die nach \verb|appendix| folgen. Es wird empfohlen das Anhangsverzeichnis mit der Option \opt{intro/append custom constent} einzubinden.
+            \DescribeMacro\listofappendices{} Das Makro erstellt ein Verzeichnis mit allen Einträgen, die nach \verb|appendix| folgen. Es wird empfohlen das Anhangsverzeichnis mit der Option \setupOption{\opt{intro/append custom constent}} einzubinden.
 
             \begin{sourcecode}[listing only]
 \dhbwsetup{
@@ -475,9 +509,9 @@
 }
             \end{sourcecode}
 
-            Dies erfordert jedoch die Klassenoption \opt{auto-intro-page = default|all} damit das Anhangsverzeichnis automatisch eingebunden wird.
+            Dies erfordert jedoch die Klassenoption \classOption{\opt{auto-intro-page = default|all}} damit das Anhangsverzeichnis automatisch eingebunden wird.
 
-            Der Name des Anhang wird in dem Makro \cs{listappendixname} gespeichert. Wenn anstatt dem Wort \enquote{Anhang} \textit{Anhangsverzeichnis} im Inhaltsverzeichnis stehen soll, kann dies durch eine Umdefinierung erfolgen.
+            Der Name des Anhang wird in dem Makro \Macro\listappendixname gespeichert. Wenn anstatt dem Wort \enquote{Anhang} \textit{Anhangsverzeichnis} im Inhaltsverzeichnis stehen soll, kann dies durch eine Umdefinierung erfolgen.
 
             \begin{sourcecode}[listing only]
 \renewcommand{\listappendixname}{Anhangsverzeichnis}
@@ -493,9 +527,9 @@
 
             \DescribeMacro\dhbwfrontmatter{} Der Befehl deaktiviert die Ausgabe einer Seitenzahl. Es erfolgt ein Aufruf durch \Macro\dhbwprintintro. Wenn die Verzeichnisse manuell erstellt werden, kann der Befehl \textit{vor} dem ersten Aufruf von \cs{maketitle} bzw. \cs{tableofcontents} verwendet werden.
 
-            \DescribeMacro\dhbwmainmatter{} Das Kommando sorgt als erstes dafür, dass eine neue Seite erstellt wird. Anschließend werden die Seitenzahlen wieder aktiviert. Zusätzlich wird der Zähler für die Seitenzahlen wieder auf \textit{1} gesetzt.
+            \DescribeMacro\dhbwmainmatter{} Das Kommando sorgt als erstes dafür, dass eine neue Seite erstellt wird. Anschließend werden die Seitenzahlen wieder aktiviert. Zusätzlich wird der Zähler für die Seitenzahlen wieder auf \textit{eins (1)} gesetzt.
 
-            \DescribeMacro\dhbwprintintro{} Sorgt für die Ausgabe der aktivierten Seiten und Verzeichnisse, welche im Abschnitt \ref{subsub:options-tocs} beschrieben wurden. Durch die Option \classOption{\opt{auto-intro-pages}} wird der Befehl automatisch am Beginn des Dokuments aufgerufen.
+            \DescribeMacro\dhbwprintintro{} Sorgt für die Ausgabe der aktivierten Seiten und Verzeichnisse, welche im \Cref{subsub:options-tocs} beschrieben wurden. Durch die Option \classOption{\opt{auto-intro-pages}} wird der Befehl automatisch am Beginn des Dokuments aufgerufen.
 
             \DescribeMacro\getAuthor Abfrage des Autor, welcher durch \setupOption{\opt{author}} übergeben wurde.
 
@@ -542,9 +576,23 @@
             \minisec{Titelseite mit der Umgebung \env{titlepage}}
             Diese Variante bietet eine größere gestalterische Freiheit. Das Grundgerüst kann den beiliegenden Templates entnommen werden. Anschließend kann dann über die Option \setupOption{\opt{titlepage} = \meta{filename}} die eigene Titelseite angegeben werden. Die Dateiendung kann bei Angabe des \meta{filename} weggelassen werden.
 
-        \section{Eigene Erklärung definieren}
+        \subsection{Eigene Erklärung definieren}
             Eine eigene (Eigenständigkeits-) Erklärung kann über die Option \setupOption{\opt{declaration} = \meta{filename}} übergeben werden. Auf die Angabe der Dateiendung kann verzichtet werden.
-
+            
+         \subsection{Umschaltung auf 2-seitige Ausgabe}
+            \begin{sourcecode}[listing only]
+\makeatletter
+    \newcommand{\iodhbwm@cls@baseclass}{scrbook}
+%    \newcommand{\iodhbwm@cls@baseclass@options}{open=right}
+\makeatother
+\documentclass{iodhbwm}
+            \end{sourcecode}
+        
+        \subsection{Verwendung von Parts}
+            Hello world
+        
+    \section{CWL Files}
+        Hello
 
     \section{Installation}
         \subsection{Lokale Installation}
