@@ -42,9 +42,11 @@ intro/append custom content={%|}
 \getCourseName
 \getCourseId
 \getStudentId
+\getInstitute
 \getInstituteLogo
 \getInstituteSection
 \getSupervisor
+\getReviewer
 \getProcessingPeriod
 \getDate
 \getSubmissionDate
