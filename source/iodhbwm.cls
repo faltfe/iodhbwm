@@ -356,7 +356,7 @@
             backgroundcolor=\color{DHBW-light},
             rulecolor=\color{black},
             commentstyle=\color{DHBW-font},
-            keywordstyle=\color{DHBW-darkblue},
+            keywordstyle=\color{DHBW-dark-font},
             numberstyle=\scriptsize\color{DHBW-font},
             stringstyle=\color{DHBW-dark-font},
             frame=tb,
