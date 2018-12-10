@@ -1,7 +1,5 @@
 # Ignore all
 *
-source/test-doc.pdf
-source/test-doc.tex
 
 # Don't ignore directories, so we can recurse into them
 !*/
@@ -24,3 +22,7 @@ source/test-doc.tex
 !*.sh
 !*.makefile
 !*.cwl
+
+# explicit ignore
+source/test-doc.pdf
+source/test-doc.tex
