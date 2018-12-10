@@ -1,5 +1,7 @@
 # Ignore all
 *
+source/test-doc.pdf
+source/test-doc.tex
 
 # Don't ignore directories, so we can recurse into them
 !*/
