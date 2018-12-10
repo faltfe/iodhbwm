@@ -39,7 +39,7 @@
     
     \par
     {\bfseries\large \getAuthor}\par
-    \today
+    \getDate
     
     \vfill
     
