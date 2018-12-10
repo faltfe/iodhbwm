@@ -2,14 +2,10 @@
     add-bibliography,
     add-tocs-to-toc,
     bib-file = biblatex-examples.bib,
-%    biblatex/style = authoryear,
-    biblatex/bibstyle = authortitle,
-    biblatex/citestyle = numeric,
     language = ngerman,
     debug
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}    % UTF-8 is default at the latest release
 
 % Umbennen des Literaturverzeichnis
 \DefineBibliographyStrings{ngerman}{%
@@ -21,7 +17,5 @@
     \tableofcontents
     \chapter{Einfaches Zitat}
         \blindtext \cite{bertram}
-    
-    \chapter{Zitat als Fußnote}
-        \blindtext \footfullcite{doody}
+
 \end{document}

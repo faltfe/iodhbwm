@@ -1,7 +1,6 @@
 \documentclass[
     add-bibliography,
     add-tocs-to-toc,
-    bib-file = biblatex-examples.bib,
     language = ngerman,
     debug
 ]{iodhbwm}
@@ -10,9 +9,9 @@
 
 \begin{document}
     \tableofcontents
-    \chapter{Einfaches Zitat}
-        \blindtext \cite{bertram}
+    \chapter{Einfaches Zitat}\label{chap:test}
+        \blindtext
     
     \chapter{Zitat als Fußnote}
-        \blindtext \cite{doody}
+        See \Cref{chap:test} in comparison to \ref{chap:test}.
 \end{document}
