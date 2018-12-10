@@ -20,26 +20,16 @@ script:
 # Prefix command with travis_wait x so it times out after 3 mins
 # Run how to use examples
   - cd doc/examples/how-to-use-iodhbwm
-  # Simple
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-simple-starter
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-simple-starter
-  # Advanced + biber
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-advanced-starter
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-simple-starter
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-advanced-starter
   - travis_wait 3 biber iodhbwm-advanced-starter
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-advanced-starter
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-advanced-starter
-  # Recommended + biber
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-recommended-starter
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-advanced-starter
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-advanced-starter
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-recommended-starter
   - travis_wait 3 biber iodhbwm-recommended-starter
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-recommended-starter
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-recommended-starter
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-recommended-starter
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-recommended-starter
 # Run listings example
   - cd ../listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
@@ -63,38 +53,24 @@ script:
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix-auto
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-appendix-auto
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix-auto
 # Run bibliography
   - cd ../bibliography
-  #
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-biblatex-custom-option
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-custom-option
   - travis_wait 3 biber iodhbwm-biblatex-custom-option
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-biblatex-custom-option
-  #
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-biblatex-footcite
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-custom-option
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-footcite
   - travis_wait 3 biber iodhbwm-biblatex-footcite
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-biblatex-footcite
-  #
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-biblatex-rename-heading
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-footcite
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-rename-heading
   - travis_wait 3 biber iodhbwm-biblatex-rename-heading
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-biblatex-rename-heading
-  #
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-biblatex-custom-option
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-rename-heading
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-custom-option
   - travis_wait 3 biber iodhbwm-biblatex-custom-option
-  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error
-  iodhbwm-biblatex-style-option
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-style-option
 # Run customizing
   - cd ../customizing
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-print
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-replace-part-naming
-
 after_script:
   - rm -r ~/texmf/tex/latex/*
