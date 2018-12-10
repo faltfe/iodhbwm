@@ -37,7 +37,7 @@
     von\par
     {\bfseries\large \getAuthor}\bigskip
     
-    Abgabe am \getDate
+    Abgabe am \getSubmissionDate
     
     \vfill
     
