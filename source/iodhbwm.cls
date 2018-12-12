@@ -434,6 +434,7 @@
             \iodhbwm@printbibliography
         }
     }%
+    \ifbool{iodhbwm@cls@if@bib@print}{}{\PassOptionsToPackage{hyperref=false}{biblatex}}
     \RequirePackage[%
         backend      = biber,           % bibtex oder biber [default]
         bibstyle     = \iodhbwm@bib@bibstyle@opt,
