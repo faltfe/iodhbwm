@@ -119,11 +119,12 @@ Diese befinden sich im Ordner [doc/examples](doc/examples)
 
 ## Installationshinweis
 
-Das Paket befindet sich ab der Version `v1.0` in den offizellen Paketquellen von
+Das Paket befindet sich ab der Version `v1.0` in den offiziellen Paketquellen von
 [CTAN](https://ctan.org/). Daher ist eine manuelle Installtion in einem lokalen `texmf`-Verzeichnis
-nicht mehr notwendig. In der Dokumentation sind zusätzlich kurze Anleitungen für die Installation unter MiKTeX und TeXlive integriert.
+nicht mehr notwendig. In der Dokumentation sind zusätzlich kurze Anleitungen für die Installation
+unter MiKTeX und TeXlive integriert.
 
-Die neueste Version kann unter https://github.com/faltfe/iodhbwm/releases/latest heruntergeladen
+Die neueste Version kann unter <https://github.com/faltfe/iodhbwm/releases/latest> heruntergeladen
 werden. Ab Version `v0.4-alpha` enthalten Downloads eine TDS-konforme Ordnerstruktur.
 
 ## Für Entwickler

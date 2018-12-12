@@ -1,15 +1,25 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
 \documentclass[
-    load-dhbw-templates,
+    load-dhbw-templates, % Necessary for correct listing style
     language = ngerman,
     debug
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}    % UTF-8 is default at the latest release
 
+% Rename listings
 \renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
 \renewcommand{\lstlistingname}{Quellcode}
 
-
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
 \begin{document}
     
     \lstlistoflistings

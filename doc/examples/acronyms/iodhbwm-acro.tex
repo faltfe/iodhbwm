@@ -1,12 +1,24 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
 \documentclass[
-    load-dhbw-templates,
-    add-tocs-to-toc,
-    debug,
-    language = ngerman,
-    auto-intro-pages = custom
+    load-dhbw-templates,      % Allow \dhbw* commands
+    add-tocs-to-toc,          % Add LoF, LoT, etc. to ToC
+    debug,                    % Provide \lipsum, \blindtext
+    language = ngerman,       % Set main document language
+    auto-intro-pages = custom % Takes care about titlepage, abstract, ToC, etc.
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
 
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
+% Add a summary of all acronyms to the ToC
 \dhbwsetup{%
     intro/print toc     = true,
     intro/append custom content = {%
@@ -14,7 +26,9 @@
     }
 }
 
+% Include acro package
 \usepackage{acro}
+% Declare an example acronym
 \DeclareAcronym{Team}{
     short = Team,
     long = {Toll ein anderer macht's}

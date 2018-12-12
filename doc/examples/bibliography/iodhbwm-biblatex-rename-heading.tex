@@ -1,20 +1,30 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
 \documentclass[
-    add-bibliography,
-    add-tocs-to-toc,
-    bib-file = biblatex-examples.bib,
-    language = ngerman,
-    debug
+    add-bibliography,                 % Include bibliography (needs biber run)
+    bib-file = biblatex-examples.bib, % Set bibliography file
+    language = ngerman,               % Set main language
+    debug                             % Provide \lipsum, \blindtext
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
 
-% Umbennen des Literaturverzeichnis
+% Rename bibliography heading depending
+% on selected language
 \DefineBibliographyStrings{ngerman}{%
     bibliography = {Literaturverzeichnis},
     references = {Literaturverzeichnis},
 }
 
+% ---------------------------------------------------
+% --- --- --- --- Begin actual content -- --- --- ---
+% ---------------------------------------------------
 \begin{document}
-    \tableofcontents
     \chapter{Einfaches Zitat}
         \blindtext \cite{bertram}
 

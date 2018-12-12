@@ -1,3 +1,11 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
 \documentclass[
     load-dhbw-templates,
     debug,
@@ -6,8 +14,9 @@
 \usepackage[T1]{fontenc}
 %\usepackage[utf8]{inputenc}    % UTF-8 is default at the latest release
 
-\graphicspath{{./img/}}
-
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
 \dhbwsetup{%
     author              = Max Mustermann,
     thesis type         = PA,
@@ -22,6 +31,12 @@
     processing period   = {01.01.17 -- 31.01.17}
 }
 
+% Extend default image path
+\graphicspath{{./img/}}
+
+% ---------------------------------------------------
+% --- --- --- --- Begin actual content -- --- --- ---
+% ---------------------------------------------------
 \begin{document}
     \dhbwtitlepage
     

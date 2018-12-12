@@ -1,17 +1,33 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
 \documentclass[
-    add-bibliography,
-    add-tocs-to-toc,
-    language = ngerman,
-    debug
+    load-dhbw-templates,      % Allow \dhbw* commands
+    language = english,       % Set main document language
+    auto-intro-pages = custom % Takes care about titlepage, abstract, ToC, etc.
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}    % UTF-8 is default at the latest release
+%\usepackage[utf8]{inputenc}  % UTF-8 is default at the latest release
 
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
+\dhbwsetup{
+    intro/print toc=true
+}
+
+% ---------------------------------------------------
+% --- --- --- --- Begin actual content -- --- --- ---
+% ---------------------------------------------------
 \begin{document}
-    \tableofcontents
-    \chapter{Einfaches Zitat}\label{chap:test}
-        \blindtext
+    \chapter{Simple reference}\label{chap:ref}
+        See chapter~\ref{chap:cref} for more information.
     
-    \chapter{Zitat als Fußnote}
-        See \Cref{chap:test} in comparison to \ref{chap:test}.
+    \chapter{Reference with identifier}\label{chap:cref}
+        See \Cref{chap:ref} in comparison to \ref{chap:ref}.
 \end{document}

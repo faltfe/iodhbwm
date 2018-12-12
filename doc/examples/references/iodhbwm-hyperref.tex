@@ -1,34 +1,51 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
 \documentclass[
-    add-tocs-to-toc,
-    debug,
-    language = ngerman,
-    auto-intro-pages = custom
+    load-dhbw-templates,      % Allow \dhbw* commands
+    debug,                    % Provide \lipsum, \blindtext
+    language = ngerman,       % Set main document language
+    auto-intro-pages = custom % Takes care about titlepage, abstract, ToC, etc.
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
 
-% Eigene Farbe definieren
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
+\dhbwsetup{
+    intro/print toc=true
+}
+
+% Define custom color
 \definecolor{DHBW-dark-red}{HTML}{93404A}
 
-% Für das Laden von hyperref werden Ankerpunkte (Hooks) verwendet.
-% Das Setzen der Einstellungen muss NACH dem Laden von hyperref erfolgen,
-% weshalb \AtBeginDocument verwendet werden muss
+% Anchor points (hooks) are used to load hyperref.
+% The settings must be set AFTER loading hyperref,
+% why \AtBeginDocument must be used.
 \AtBeginDocument{%
     \hypersetup{%
         linkcolor=DHBW-dark-red
     }
 }
 
-% Wenn alle farbigen Einstellungen deaktiviert werden soll,
-% kann dies mit der Option `hidelinks` erfolgen.
-% Die Klasse bietet jedoch die Optionen print und print- an,
-% die sich um die farbige Darstellung kümmern.
+% If all color settings are to be deactivated,
+% this can be done with the `hidelinks` option.
+% However, the class offers the options print and print-,
+% who take care of the colored display.
 %\AtBeginDocument{%
 %    \hypersetup{%
 %        hidelinks
 %    }
 %}
 
+% ---------------------------------------------------
+% --- --- --- --- Begin actual content -- --- --- ---
+% ---------------------------------------------------
 \begin{document}
-    \tableofcontents
     \Blinddocument
 \end{document}

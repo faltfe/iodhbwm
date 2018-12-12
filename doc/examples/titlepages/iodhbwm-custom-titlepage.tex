@@ -1,16 +1,29 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
 \documentclass[
-    load-dhbw-templates,
-    debug,
-    language = ngerman
+    load-dhbw-templates, % Allow \dhbw* commands
+    debug,               % Provide \lipsum, \blindtext
+    language = ngerman  % Set main document language
 ]{iodhbwm}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}  % UTF-8 is default at the latest release
 
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
 \dhbwsetup{%
-    titlepage = my-titlepage,
-    location = Musterstadt
+    titlepage = my-titlepage, % Add custom titlepage (without file extention)
 }
 
+% ---------------------------------------------------
+% --- --- --- --- Begin actual content -- --- --- ---
+% ---------------------------------------------------
 \begin{document}
     \dhbwtitlepage
     
