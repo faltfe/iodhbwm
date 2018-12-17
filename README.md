@@ -1,9 +1,11 @@
 # LaTeX _iodhbwm_ Klasse
 
-[![Latest release](https://img.shields.io/github/release/faltfe/iodhbwm.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/releases)
+[![Latest
+release](https://img.shields.io/github/release/faltfe/iodhbwm.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/releases)
+[![CTAN](https://img.shields.io/ctan/v/iodhbwm.svg)](https://www.ctan.org/pkg/iodhbwm)
+[![Build Status](https://img.shields.io/travis/faltfe/iodhbwm/master.svg?style=flat-square)](https://travis-ci.org/faltfe/iodhbwm)
 [![Downloads](https://img.shields.io/github/downloads/faltfe/iodhbwm/total.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/releases)
 [![GitHub license](https://img.shields.io/github/license/faltfe/iodhbwm.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/blob/master/LICENSE)
-[![Build Status](https://img.shields.io/travis/faltfe/iodhbwm/master.svg?style=flat-square)](https://travis-ci.org/faltfe/iodhbwm)
 
 Das Projekt stellt eine _inoffizelle_ Vorlage der [DHBW Mannheim](http://www.dhbw-mannheim.de) für
 die Erstellung von Bachelor-, Studien- oder Projektarbeit mit _LaTeX_ bereit. Das Ziel des Paket ist
@@ -120,8 +122,9 @@ Diese befinden sich im Ordner [doc/examples](doc/examples)
 ## Installationshinweis
 
 Das Paket befindet sich ab der Version `v1.0` in den offiziellen Paketquellen von
-[CTAN](https://ctan.org/). Daher ist eine manuelle Installtion in einem lokalen `texmf`-Verzeichnis
-nicht mehr notwendig. In der Dokumentation sind zusätzlich kurze Anleitungen für die Installation
+[CTAN](https://www.ctan.org/pkg/iodhbwm). Daher ist eine manuelle Installtion in
+einem lokalen `texmf`-Verzeichnis nicht mehr notwendig. In der Dokumentation
+sind zusätzlich kurze Anleitungen für die Installation
 unter MiKTeX und TeXlive integriert.
 
 Die neueste Version kann unter <https://github.com/faltfe/iodhbwm/releases/latest> heruntergeladen
