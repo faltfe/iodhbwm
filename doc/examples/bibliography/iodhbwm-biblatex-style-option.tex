@@ -1,0 +1,31 @@
+% ---------------------------------------------------
+% Date:       12.11.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
+\documentclass[
+    add-bibliography,                   % Include bibliography (needs biber run)
+    bib-file = biblatex-examples.bib,   % Set bibliography file
+    biblatex/style = alphabetic,        % Change citestyle and biblatex to alphabetic
+%    biblatex/citestyle = alphabetic,
+%    biblatex/bibstyle = alphabetic,
+    language = ngerman,                 % Set main document language
+    debug                               % Provide \lipsum, \blindtext
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}    % UTF-8 is default at the latest release
+
+\begin{document}
+
+    % ---------------------------------------------------
+    % --- --- --- --- Begin actual content -- --- --- ---
+    % ---------------------------------------------------
+    \Blinddocument % Dummy content
+    
+    \nocite{*}     % Cite every entry from the passed file
+
+    % ---------------------------------------------------
+\end{document}

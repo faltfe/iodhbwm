@@ -1,0 +1,38 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
+\documentclass[
+    load-dhbw-templates,        % Allow \dhbw* commands
+    add-tocs-to-toc,            % Add LoF, LoT, etc. to ToC
+    auto-intro-pages = custom,  % Takes care about titlepage, abstract, ToC, etc.
+    language         = ngerman, % Set main document language
+    debug                       % Provide \lipsum, \blindtext
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
+\dhbwsetup{%
+    intro/print toc,
+    intro/append custom content = {\listofappendices}
+}
+
+% ---------------------------------------------------
+% --- --- --- --- Begin actual content -- --- --- ---
+% ---------------------------------------------------
+\begin{document}
+    \Blinddocument
+
+     % ---------------------------------------------------
+     % --- --- --- --- -- Begin appendix - --- --- --- ---
+     % ---------------------------------------------------
+    \appendix
+    \chapter{Hello world}
+        \blindtext
+\end{document}

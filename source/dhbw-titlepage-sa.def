@@ -1,0 +1,46 @@
+\begin{titlepage}
+    \centering
+    \includegraphics[height=1.7cm]{dhbw-logo}
+
+    \Large\textsc{Studienarbeit}
+    
+    \normalsize
+    des Studiengangs \getCourseName\par
+    der Dualen Hochschule Baden-Württemberg Mannheim
+    
+    \rule{\textwidth}{.5mm}\bigskip
+
+    \textsc{\large Thema \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
+    
+    {\bfseries \getThesisTitle}\bigskip
+    
+    \ifcsempty{iodhbwm@thesis@second@title}{}{%
+        \textsc{\large Thema B}\par
+        %\tikz{\node (1) [draw, rounded rectangle] {Kolloquium};}
+        {\bfseries \getThesisSecondTitle}
+    }{}
+    
+    \rule{\textwidth}{.5mm}
+    
+    \vfill
+    
+    von\par
+    {\bfseries\large \getAuthor}\par
+    \getDate
+    
+    \vfill
+    
+    \small{%
+        \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \toprule
+        Bearbeitungszeitraum: & \getProcessingPeriod\\
+        Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
+%        Abteilung: & \getInstituteSection\\
+        Ausbildungsfirma: & \getInstitute\\
+        \ifbool{iodhbwm@if@print@location}{Ort: & \getLocation\\}{}%
+        Betreuer: & \getSupervisor\\
+%        Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}
+        \end{tabularx}
+    }
+    \cleardoublepage
+\end{titlepage}

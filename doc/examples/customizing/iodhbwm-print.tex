@@ -1,0 +1,52 @@
+% ---------------------------------------------------
+% Date:       08.10.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
+\documentclass[
+    load-dhbw-templates,
+    print,                  % alternativ print- oder auskommentieren
+    add-tocs-to-toc,
+    debug,
+    language = ngerman
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
+\dhbwsetup{%
+    author              = Max Mustermann,
+    thesis type         = SA,
+    thesis title        = Überprüfung von Bausteinen,
+    thesis second title = Zweiter Titel,
+    student id          = 12345,
+    location            = Musterstadt,
+    institute           = Musterwerke GmbH,
+    course/id           = Txxxx,
+    supervisor          = Gott,
+    processing period   = {01.01.17 -- 31.01.17}
+}
+
+% ---------------------------------------------------
+% --- --- --- --- Begin actual content -- --- --- ---
+% ---------------------------------------------------
+\begin{document}
+    
+    \chapter{My listing}
+        \blindtext
+        
+        \begin{lstlisting}[caption={Hello World},language=TeX]
+\newcommand{\hello}{hello}
+\newcommand{\world}{world}
+\newcommand{\print}{\hello\space\world}
+\print
+        \end{lstlisting}
+        
+        \blindtext
+    
+    \Blinddocument
+\end{document}

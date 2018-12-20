@@ -3,6 +3,9 @@
 
 # Don't ignore directories, so we can recurse into them
 !*/
+/release
+/tmp
+/node_modules
 
 # Don't ignore
 !.gitignore
@@ -13,3 +16,13 @@
 !*.def
 !*.cls
 !*.sty
+!*.png
+!*.travis.yml
+!*.profile
+!*.sh
+!*.makefile
+!*.cwl
+
+# explicit ignore
+source/test-doc.pdf
+source/test-doc.tex

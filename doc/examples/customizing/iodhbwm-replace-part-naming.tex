@@ -1,0 +1,47 @@
+% ---------------------------------------------------
+% Date:       08.10.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
+\documentclass[
+    load-dhbw-templates,                  % Allow \dhbw* commands
+    auto-intro-pages = custom,            % Takes care about titlepage, abstract, ToC, etc.
+    add-tocs-to-toc,                      % Add LoF, LoT, etc. to ToC
+    mainlanguage = ngerman,               % Set main document language
+    debug                                 % Provide \lipsum, \blindtext
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+
+\dhbwsetup{intro/print toc=true}
+
+% Change the part name depending on the selected language
+% You can also use \captionsenglish if use picked English.
+\addto\captionsngerman{\renewcommand{\partname}{Thema}}
+% Use a alphabetic counter instead of a numeric counter
+\renewcommand{\thepart}{\Alph{part}}
+% Change the part format to "Thema A"
+\renewcommand*{\partformat}{\partname~\thepart}
+% Define a new part style for the toc
+\newcommand\partentrynumberformat[1]{\partname\ #1}
+% Set up the new part style
+\RedeclareSectionCommand[
+    tocentrynumberformat=\partentrynumberformat,
+    tocnumwidth=6em     % Can be changed separate
+]{part}
+
+\begin{document}
+    
+
+    % ---------------------------------------------------
+    % --- --- --- --- Begin actual content -- --- --- ---
+    % ---------------------------------------------------
+    \part{Grundlagenwissen}
+    \Blinddocument
+    
+    \part{Hintergrundwissen}
+    \Blinddocument
+
+\end{document}

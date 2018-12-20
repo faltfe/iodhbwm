@@ -1,0 +1,432 @@
+% ----------------------------------------------------------
+% iodhbwm-templates package
+%
+%   inofficial package for DHBW Mannheim to simplify writing
+%   theses with the given requirements
+% ----------------------------------------------------------
+% Felix Faltin
+% E-Mail: ffaltin91@gmail.com
+% ----------------------------------------------------------
+% Copyright 2017 Felix Faltin
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Felix Faltin.
+%
+% ----------------------------------------------------------
+
+\newcommand*{\iodhbwm@pkg@version}{v1.0}
+\newcommand*{\iodhbwm@pkg@date}{2018-12-20}
+\newcommand*{\iodhbwm@pkg@info}{Inoffical DHBW Mannheim thesis package}
+\newcommand*{\iodhbwm@pkg@name}{iodhbwm-templates}
+
+\ProvidesPackage{\iodhbwm@pkg@name}[%
+\iodhbwm@pkg@date\space
+\iodhbwm@pkg@version\space
+\iodhbwm@pkg@info]
+\RequirePackage{etoolbox, pgfopts}
+
+%---------------------------------------------------
+% KOMA-Script settings
+%---------------------------------------------------
+\@ifundefined{KOMAClassName}{%
+    \PackageWarningNoLine{iodhbwm}{This package is designed to work with KOMA-Script. Please use either `scrartcl`, `scrreprt` or `scrbook`}
+}{}
+\RequirePackage[figure,table]{totalcount}
+\RequirePackage{xpatch}
+
+%\PassOptionsToPackage{table}{xcolor}
+%\RequirePackage{graphicx, tikz}         % Required inside titlepage templates
+%\RequirePackage{tabularx, booktabs}     % Required inside titlepage templates
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                    OPTIONS AND FLAGS                      %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ----------------------------------------------------------
+% Define booleans
+% ----------------------------------------------------------
+\newbool{iodhbwm@if@hasSecondTopic}
+\newbool{iodhbwm@if@customtitlepage}
+\newbool{iodhbwm@if@customdeclaration}
+\newbool{iodhbwm@if@print@titlepage}
+\newbool{iodhbwm@if@print@declaration}
+\newbool{iodhbwm@if@print@abstract}
+\newbool{iodhbwm@if@print@toc}
+\newbool{iodhbwm@if@print@lot}
+\newbool{iodhbwm@if@print@lof}
+\newbool{iodhbwm@if@print@location}
+
+% ----------------------------------------------------------
+% Define internal commands
+% ----------------------------------------------------------
+\newcommand*{\iodhbwm@file@prefix}{dhbw}
+\newcommand*{\iodhbwm@file@ending}{.def}
+\edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@ba{\iodhbwm@file@prefix-titlepage-ba\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@sa{\iodhbwm@file@prefix-titlepage-sa\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@pa{\iodhbwm@file@prefix-titlepage-pa\iodhbwm@file@ending}
+\edef\iodhbwm@file@declaration@default{\iodhbwm@file@prefix-declaration\iodhbwm@file@ending}
+\edef\iodhbw@file@abstract@default{\iodhbwm@file@prefix-abstract.inc}
+
+\def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
+\def\iodhbwm@bachelor@type@bos{Bachelor of Science}
+\def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
+
+%---------------------------------------------------
+% Defining package options
+%---------------------------------------------------
+\pgfkeys{
+    /dhbw/.cd,
+    titlepage/.store in             = \@iodhbwm@file@titlepage,
+    titlepage/.default              = \iodhbwm@file@titlepage@default,
+    titlepage                       = \iodhbwm@file@titlepage@default,
+    declaration/.store in           = \@iodhbwm@file@declaration,
+    declaration/.default            = \iodhbwm@file@declaration@default,
+    declaration                     = \iodhbwm@file@declaration@default,
+    abstract/.store in              = \@iodhbwm@file@abstract,
+    abstract/.default               = \iodhbw@file@abstract@default,
+    abstract =                      = \iodhbw@file@abstract@default,
+    bachelor degree type/.store in  = \iodhbwm@bachelor@degree,
+    bachelor degree type/.default   = \iodhbwm@bachelor@type@boe,
+    bachelor degree type            = \iodhbwm@bachelor@type@boe,
+    bachelor degree/.is choice,
+    bachelor degree/BoE/.estyle = {/dhbw/bachelor degree type = \iodhbwm@bachelor@type@boe},
+    bachelor degree/BoS/.estyle = {/dhbw/bachelor degree type = \iodhbwm@bachelor@type@bos},
+    bachelor degree/BoA/.estyle = {/dhbw/bachelor degree type = \iodhbwm@bachelor@type@boa},
+    thesis type/.is choice,
+    thesis type/BA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@ba},
+    thesis type/SA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@sa},
+    thesis type/PA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@pa},
+    thesis title/.store in = \iodhbwm@thesis@title,
+    thesis title                    = {},
+    thesis second title/.store in   = \iodhbwm@thesis@second@title,
+    thesis second title             = {},
+    author/.store in                = \iodhbwm@author,
+    author                          = {},
+    date/.code                      = {%
+        \def\iodhbwm@date{#1}%
+        \def\iodhbwm@date@submission{#1}%
+    },
+    date                            = \today,
+    submission date/.store in            = \iodhbwm@date@submission,
+    location/.store in              = \iodhbwm@location,
+    location                        = {},
+    institute/.store in             = \iodhbwm@institute,
+    institute section/.store in     = \iodhbwm@institute@section,
+    institute section               = {},
+    institute logo/.store in        = \iodhbwm@institute@logo,
+    institute logo                  = {},
+    student id/.store in            = \iodhbwm@student@id,
+    student id                      = {},
+    course/name/.store in           = \iodhbwm@course@name,
+    course/name                     = {Informationstechnik},
+    course/id/.store in             = \iodhbwm@course@id,
+    course/id                       = {},
+    supervisor/.store in            = \iodhbwm@supervisor,
+    supervisor                      = {},
+    processing period/.store in     = \iodhbwm@processing@period,
+    processing period               = {},
+    reviewer/.store in              = \iodhbwm@reviewer,
+    reviewer                        = {},
+    titlepage/print location/.is if	  = iodhbwm@if@print@location,
+    intro/print titlepage/.is if      = iodhbwm@if@print@titlepage,
+    intro/print abstract/.is if       = iodhbwm@if@print@abstract,
+    intro/abstract file/.search also  = {/dhbw/abstract},
+    intro/print declaration/.is if    = iodhbwm@if@print@declaration,
+    intro/print toc/.is if            = iodhbwm@if@print@toc,
+    intro/print lof/.is if            = iodhbwm@if@print@lof,
+    intro/print lot/.is if            = iodhbwm@if@print@lot,
+    intro/print all lists/.style      = {%
+        /dhbw/intro/print toc = true,
+        /dhbw/intro/print lot = true,
+        /dhbw/intro/print lof = true
+    },
+    intro/print all/.style = {%
+        /dhbw/intro/print all lists     = true,
+        /dhbw/intro/print titlepage     = true,
+        /dhbw/intro/print declaration   = true,
+        /dhbw/intro/print abstract      = true
+    },
+    intro/append custom content/.store in   = \iodhbwm@append@custom@content,
+    intro/append custom content             = {}
+}
+
+\newrobustcmd\dhbwsetup[1]{\pgfqkeys{/dhbw}{#1}}
+
+\ProcessPgfOptions{/dhbw}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                 DEFINE PACKAGE COMMANDS                   %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Some of these commands are required to print
+% predefined titlepages.
+% required
+%---------------------------------------------------
+% GETTER
+%---------------------------------------------------
+\newcommand{\getAuthor}{%
+    \ifdefempty{\iodhbwm@author}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option author required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space author = {Your name}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@author}%
+}
+% required
+\newcommand{\getThesisTitle}{%
+    \ifdefempty{\iodhbwm@thesis@title}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option thesis title required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space thesis title = {Your title}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@thesis@title}%
+}
+% optional
+\newcommand{\getThesisSecondTitle}{\iodhbwm@thesis@second@title}
+
+% required
+\newcommand{\getLocation}{%
+    \ifdefempty{\iodhbwm@location}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option location required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space location = {Your location}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@location}%
+}
+% required
+\newcommand{\getCourseName}{%
+    \ifdefempty{\iodhbwm@course@name}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option course/name required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space course/name = {Your course name}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@course@name}%
+}
+\newcommand{\getCourseId}{%
+    \ifdefempty{\iodhbwm@course@id}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option course required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space course/id = {Your course id}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@course@id}%
+}
+% required
+\newcommand{\getStudentId}{%
+    \ifdefempty{\iodhbwm@student@id}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option student id required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space student id = {Your student id}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@student@id}%
+}
+% optional
+\newcommand{\getInstituteLogo}{\iodhbwm@institute@logo}
+\newcommand{\getInstitute}{%
+    \ifdefempty{\iodhbwm@institute}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option institute required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space institute = {Your institute}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@institute}%
+}
+\newcommand{\getInstituteSection}{%
+    \ifdefempty{\iodhbwm@institute@section}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option institute section required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space institute section = {Your institute section}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@institute@section}%
+}
+\newcommand{\getSupervisor}{%
+    \ifdefempty{\iodhbwm@supervisor}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option supervisor required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space supervisor = {Your supervisor}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@supervisor}%
+}
+\newcommand{\getProcessingPeriod}{%
+    \ifdefempty{\iodhbwm@processing@period}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option supervisor required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space processing period = {Your processing period}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@processing@period}%
+}
+\newcommand{\getDate}{\iodhbwm@date}
+\newcommand{\getSubmissionDate}{\iodhbwm@date@submission}
+\newcommand{\getReviewer}{%
+    \ifdefempty{\iodhbwm@reviewer}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option reviewer required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space reviewer = {Your reviewer}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@reviewer}%
+}
+\newcommand{\getBachelorDegree}{%
+    \ifdefempty{\iodhbwm@bachelorDegree}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option bachelor degree required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space bachelor degree = BoE | BoS | BoA\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@bachelor@degree}%
+}
+
+% ----------------------------------------------------------
+% Commands for structuring
+% ----------------------------------------------------------
+
+% Makro zum Einfügen einer Titelseite
+\newcommand{\dhbwtitlepage}{%
+    \InputIfFileExists{\@iodhbwm@file@titlepage}{}{%
+        \input{\pgfkeysvalueof{/dhbw/titlepage/.@def}}%
+        \PackageWarning{\iodhbwm@pkg@name}{The passed file `\@iodhbwm@file@titlepage` was not found.\MessageBreak Used default titlepage instead.}
+    }%
+}
+
+% Makro zum Einfügen der Selbsterklärung
+\newcommand{\dhbwdeclaration}{%
+    \InputIfFileExists{\@iodhbwm@file@declaration}{}{%
+        \input{\pgfkeysvalueof{/dhbw/declaration/.@def}}%
+        \PackageWarning{\iodhbwm@pkg@name}{The passed declaration `\@iodhbwm@file@declaration` is unknown.\MessageBreak Used default declaration instead.}
+    }%
+}
+
+% Input abstract
+\newcommand{\dhbwabstract}{%
+    \InputIfFileExists{\@iodhbwm@file@abstract}{}{%
+        \PackageInfo{\iodhbwm@pkg@name}{The passed abstract `\@iodhbwm@file@abstract` could not be found.}
+    }%
+}
+
+% Remove page number in toc from lof/lot/...loX
+%https://tex.stackexchange.com/questions/440188/remove-page-numbers-of-lof-lot-in-toc
+\RedeclareSectionCommand[
+    tocpagenumberformat=\tocchapterpagenumberformat
+]{chapter}
+\newbool{iodhbwm@if@toc@unnumbered}
+\newcommand*{\tocchapterpagenumberformat}[1]{%
+    {\ifbool{iodhbwm@if@toc@unnumbered}{}{\usekomafont{chapterentrypagenumber}#1}}%
+}
+
+% Switch pagestyle
+% Deactivate page numbers in ToC
+\newcommand{\dhbwfrontmatter}{%
+    \pagestyle{empty}
+    \renewcommand*{\chapterpagestyle}{empty}
+    \hypersetup{pageanchor=false}
+    \addtocontents{toc}{\booltrue{iodhbwm@if@toc@unnumbered}}
+}
+
+% Switch pagestyle
+% Start page numbering
+% Set linespacing
+% Activate page numbers in ToC
+\newcommand{\dhbwmainmatter}{%
+    \cleardoubleoddpage
+    \pagestyle{scrheadings}
+    \renewcommand*{\chapterpagestyle}{plain}
+    \hypersetup{pageanchor=true}
+    \pagenumbering{arabic}
+    \onehalfspacing
+    \addtocontents{toc}{\boolfalse{iodhbwm@if@toc@unnumbered}}
+}
+
+% Print default structure
+\newcommand{\dhbwprintintro}{%
+    \dhbwfrontmatter
+
+    \ifbool{iodhbwm@if@print@titlepage}{\dhbwtitlepage}{}
+    \ifbool{iodhbwm@if@print@declaration}{\dhbwdeclaration}{}
+    \ifbool{iodhbwm@if@print@abstract}{\dhbwabstract}{}
+    \ifbool{iodhbwm@if@print@toc}{\tableofcontents}{}
+    % Print lof only if at least one figure is available
+    \ifbool{iodhbwm@if@print@lof}{%
+        \iftotalfigures
+        \listoffigures
+        \fi
+    }{}
+    % Print lot only if at least one table is available
+    \ifbool{iodhbwm@if@print@lot}{%
+        \iftotaltables
+            \listoftables
+        \fi
+    }{}
+    \ifcsempty{iodhbwm@custom@list}{}{\iodhbwm@append@custom@content}
+%
+    \dhbwmainmatter
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                          APPENDIX                         %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pretocmd\appendix{%
+    \booltrue{iodhbwm@cls@if@appendix}%
+    \singlespacing%
+    \ifbool{iodhbwm@cls@if@bib}{\iodhbwm@printbibliography}{}
+    % Add all entries from the appendix to the \listofappendices
+    \renewcommand*{\ext@toc}{atoc}%
+    \scr@ifundefinedorrelax{hypersetup}{}{\hypersetup{bookmarkstype=atoc}}%
+}{%
+    \typeout{iodhbwm patched \noexpand\appendix successfully}
+}{}
+
+% Prepend "Anhang" to chapter name
+\KOMAoptions{appendixprefix}
+
+\DeclareNewTOC[%
+    listname = {\appendixname},
+    type = appendix,
+    types = appendices
+]{atoc}
+
+% Prepend "Anhang" inside ToC
+%https://texwelt.de/wissen/fragen/2123/wie-bekomme-ich-anhang-vor-den-buchstaben-im-inhaltsverzeichnis
+\providecommand*\texorpdfstring[2]{#1}% falls hyperref nicht geladen wird
+\providecommand*\appendixmore{}% falls appendixprefix=false
+\newcommand*{\SavedOriginalchaptertocentry}{}
+\appto\appendixmore{%
+    \let\SavedOriginaladdchaptertocentry\addchaptertocentry
+    \renewcommand*{\addchaptertocentry}[2]{%
+        \ifstr{#1}{}{% Eintrag ohne Nummer
+            \SavedOriginalchaptertocentry{#1}{#2}%
+        }{% Eintrag mit Nummer
+            \SavedOriginaladdchaptertocentry{}{%
+                \texorpdfstring{
+                    \string\expandafter\string\MakeUppercase\string\appendixname
+                    ~#1:\string\enskip{}#2
+                }{#2}%
+            }%
+        }%
+    }%
+}
+
+\endinput

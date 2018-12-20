@@ -1,0 +1,68 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
+\documentclass[
+    load-dhbw-templates, % Necessary for correct listing style
+    language = ngerman,
+    debug
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+
+% Rename listings
+\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+\renewcommand{\lstlistingname}{Quellcode}
+
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
+\begin{document}
+    
+    \lstlistoflistings
+    
+    \chapter{Einfache Beispiele}
+        \section{Simple example}
+            \blindtext
+            \begin{lstlisting}[caption={Simple Java method},label=lst:whatever,language=Java]
+/*
+ * This is a test class doing nothing
+ */
+public class TestClass() {
+  public static void main(String args[]) {
+    // A simple line comment
+    system.out.println("Hello world");
+  }
+}
+            \end{lstlisting}
+        
+        \section{Advanced floating}
+            \begin{lstlisting}[language={[Sharp]C},float,caption={Simple C\# method},label=lst:whatever-2]
+// If have no idea what I'm doing here
+public void Testfunc(string msg) {
+    for (var i = 0; i <= 10; i++) {
+        Console.WriteLine($"String: {msg}{i}");
+    }
+}
+            \end{lstlisting}
+            \blindtext
+            
+        \section{Advanced styling}
+            \lstset{
+                captionpos=b,
+                frame=t
+            }
+            \begin{lstlisting}[language={[Sharp]C},float=htb,caption={Caption below code},label=lst:whatever-3]
+// If have no idea what I'm doing here
+ public void Testfunc(string msg) {
+    for (var i = 0; i <= 10; i++) {
+        Console.WriteLine($"String: {msg}{i}");
+    }
+}
+            \end{lstlisting}
+            \blindtext
+
+\end{document}

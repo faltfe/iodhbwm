@@ -1,0 +1,57 @@
+\begin{titlepage}
+    \centering
+    \ifcsempty{iodhbwm@institute@logo}{%
+        \includegraphics[height=1.7cm]{dhbw-logo}
+    }{%
+        \begin{minipage}[c]{.25\textwidth}
+            \includegraphics[width=\linewidth,keepaspectratio]{dhbw-logo}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[c]{.25\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,keepaspectratio]{\getInstituteLogo}
+        \end{minipage}
+    }
+
+    \bigskip
+    
+    \rule{\textwidth}{.5mm}\bigskip
+    
+    {\bfseries \getThesisTitle}\smallskip
+    
+    \rule{\textwidth}{.5mm}\bigskip
+
+    \textsc{\Large Bachelorarbeit}
+    
+    \bigskip
+    für die Prüfung zum
+    
+    \textsc{\large \getBachelorDegree}
+    
+    \bigskip
+    des Studiengangs \getCourseName\par
+    der Dualen Hochschule Baden-Württemberg Mannheim
+    
+    \vfill
+    
+    von\par
+    {\bfseries\large \getAuthor}\bigskip
+    
+    Abgabe am \getSubmissionDate
+    
+    \vfill
+    
+    \small{%
+        \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \toprule
+        Bearbeitungszeitraum: & \getProcessingPeriod\\
+        Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
+        \ifcsempty{iodhbwm@institute@section}{}{Abteilung: & \getInstituteSection\\}%
+        Ausbildungsfirma: & \getInstitute\\
+        \ifbool{iodhbwm@if@print@location}{Ort: & \getLocation\\}{}%
+        Betreuer der Ausbildungsfirma: & \getSupervisor\\
+        Gutachter der Dualen Hochschule: & \getReviewer\\
+        \end{tabularx}
+    }
+    \cleardoublepage
+\end{titlepage}

@@ -1,0 +1,26 @@
+% ---------------------------------------------------
+% Date:       12.12.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
+\documentclass[
+    add-bibliography-,                % Include bibliography (needs biber run) wihout a bibliography
+    bib-file = biblatex-examples.bib, % Set bibliography file
+    biblatex/style = authoryear,      % Change used biblatex style
+    language = ngerman,               % Set main language
+    debug                             % Provide \lipsum, \blindtext
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+
+% ---------------------------------------------------
+% --- --- --- --- Begin actual content -- --- --- ---
+% ---------------------------------------------------
+\begin{document}
+    \chapter{Zitat als Fußnote}
+        \blindtext \footcite{doody}
+    
+        \blindtext \footfullcite{doody}
+\end{document}

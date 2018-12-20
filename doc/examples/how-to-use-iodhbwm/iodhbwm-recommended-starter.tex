@@ -1,0 +1,55 @@
+% ---------------------------------------------------
+% Date:       08.10.2018
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
+\documentclass[
+    load-dhbw-templates,                  % Allow \dhbw* commands
+    auto-intro-pages,                     % Takes care about titlepage, abstract, ToC, etc.
+    add-tocs-to-toc,                      % Add LoF, LoT, etc. to ToC
+    add-bibliography,                     % Include bibliography (needs biber run)
+    bib-file     = biblatex-examples.bib, % Set bibliography file
+    language     = english,               % Set english as second language
+    mainlanguage = ngerman,               % Set main document language
+    debug                                 % Provide \lipsum, \blindtext
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
+\dhbwsetup{%
+    author            = Max Mustermann,
+    thesis type       = PA,
+    thesis title      = Einführungsbeispiel mit empfohlenen Einstellungen,
+    student id        = 12345,
+    location          = Musterstadt,
+    institute         = Musterwerke GmbH,
+    course/id         = Txxxx,
+    supervisor        = Felix Faltin,
+    processing period = {01.01.17 -- 31.01.17},
+}
+
+\begin{document}
+    % ---------------------------------------------------
+    % --- --- --- --- Begin actual content -- --- --- ---
+    % ---------------------------------------------------
+    \chapter{Test Kapitel}\label{chap:test-chap}
+        \section{Test Section}\label{sec:test-sec}
+            \blindtext
+    
+            Verweis auf \Cref{chap:test-chap} und auf mich selbst \Cref{sec:test-sec}~\cite{glashow}.
+    
+            \lipsum
+    % ---------------------------------------------------
+    % --- --- --- --- End actual content --- --- --- ---
+    % ---------------------------------------------------
+    % There is no need to include the bibliography
+    % manually. The class takes care about the correct
+    % position. You only have to run
+    %   pdfLaTeX -> biber -> 2x pdfLaTeX
+    % ---------------------------------------------------
+\end{document}
