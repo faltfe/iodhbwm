@@ -12,8 +12,8 @@ die Erstellung von Bachelor-, Studien- oder Projektarbeit mit _LaTeX_ bereit. Da
 die schnelle Erstellung eines Grundgerüst ohne viel Aufwand. Schließlich hat ein Student bekanntlich
 wenig Zeit :beer:
 
-> **Hinweis** Das Paket unterstützt derzeit ausschließlich pdfLaTeX. Die Verwendung von XeLaTex oder
-> LuaLaTeX wird noch nicht unterstützt.
+> **Hinweis** Das Paket wurde ausschließlich mit pdfLaTeX getestet. Die Verwendung von XeLaTex oder
+> LuaLaTeX wurde nur rudimentär (fehlerfrei) überprüft.
 
 ```LaTeX
 \documentclass[
