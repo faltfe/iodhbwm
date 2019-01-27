@@ -326,7 +326,7 @@
         framexleftmargin=17pt,
     }
 
-    \DeclareCaptionFont{DHBWwhite}{\color{DHBW-light}}
+    \DeclareCaptionFont{DHBWlisting}{\color{DHBW-light}}
     \DeclareCaptionFont{print}{\color{black}}
     \DeclareCaptionFormat{listing}{%
         \colorbox{DHBW-red}{%
@@ -371,7 +371,7 @@
             format=listing,
             singlelinecheck=false,
             margin=0pt,
-            font={DHBWwhite,sf},
+            font={DHBWlisting,sf},
         }%
         
         \lstset{

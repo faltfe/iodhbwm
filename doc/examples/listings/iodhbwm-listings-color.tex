@@ -1,0 +1,89 @@
+% ---------------------------------------------------
+% Date:       23.01.2019
+% Version:    v0.1
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% Provided by: https://github.com/NelDav
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
+\documentclass[
+    load-dhbw-templates, % Necessary for correct listing style
+    language = ngerman,
+    debug
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+
+% Change the color of the caption box of the listing
+\ifbool{iodhbwm@cls@if@templates}{%
+    % Change the color of the caption font
+    \DeclareCaptionFont{DHBWlisting}{\color{Blue}}
+    %
+    % Change the color of the caption box
+    \DeclareCaptionFormat{listing}{%
+        \colorbox{Orange}{%
+            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
+        }%
+    }
+}
+
+% Do global changes to all used listings of your document
+\lstset{
+    %Change the color of the line on the other side of the listing
+    rulecolor=\color{Orange},
+    %
+    %change the color of special words
+    commentstyle=\color{green},
+    keywordstyle=\color{blue},
+    numberstyle=\scriptsize\color{DHBW-font},
+    stringstyle=\color{purple}
+}
+
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
+\begin{document}
+
+    \lstlistoflistings
+
+    \chapter{Einfache Beispiele}
+        \section{Simple example}
+            \blindtext
+            \begin{lstlisting}[caption={Simple Java method},label=lst:whatever,language=Java]
+/*
+ * This is a test class doing nothing
+ */
+public class TestClass() {
+  public static void main(String args[]) {
+    // A simple line comment
+    system.out.println("Hello world");
+  }
+}
+            \end{lstlisting}
+
+        \section{Advanced floating}
+            \begin{lstlisting}[language={[Sharp]C},float,caption={Simple C\# method},label=lst:whatever-2]
+// If have no idea what I'm doing here
+public void Testfunc(string msg) {
+    for (var i = 0; i <= 10; i++) {
+        Console.WriteLine($"String: {msg}{i}");
+    }
+}
+            \end{lstlisting}
+            \blindtext
+
+        \section{Advanced styling}
+            \lstset{
+                captionpos=b,
+                frame=t
+            }
+            \begin{lstlisting}[language={[Sharp]C},float=htb,caption={Caption below code},label=lst:whatever-3]
+// If have no idea what I'm doing here
+ public void Testfunc(string msg) {
+    for (var i = 0; i <= 10; i++) {
+        Console.WriteLine($"String: {msg}{i}");
+    }
+}
+            \end{lstlisting}
+            \blindtext
+\end{document}
