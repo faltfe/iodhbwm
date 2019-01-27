@@ -297,6 +297,9 @@
         }%
     }%
 }
+% hyperref loads auxhook, which does not work correctly if it is loaded
+% via \AtEndPreamble. So we load it immediately to avoid problems:
+\RequirePackage{auxhook}
 
 % ----------------------------------------------------------
 % Format captions and listings
