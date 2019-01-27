@@ -34,6 +34,8 @@ script:
   - cd ../listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings-color
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings-color
 # Run acronym example
   - cd ../acronyms
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-acro
