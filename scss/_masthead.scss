@@ -7,24 +7,19 @@ header.masthead {
     padding-bottom: 100px;
 
     color: white;
-    background: url('../img/bg-pattern.png'), $theme-secondary;
-    background: url('../img/bg-pattern.png'), -webkit-linear-gradient(to left, $theme-secondary, $theme-tertiary);
-    background: url('../img/bg-pattern.png'), linear-gradient(to left, $theme-secondary, $theme-tertiary);
+    background: url('../img/notebook.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     .header-content {
         max-width: 500px;
         margin-bottom: 100px;
 
         text-align: center;
         h1 {
-            font-size: 30px;
+            font-size: 50px;
         }
-    }
-    .device-container {
-        max-width: 325px;
-        margin-right: auto;
-        margin-left: auto;
-        .screen img {
-            border-radius: 3px;
+        h2 {
+            font-size: 30px;
         }
     }
     @media (min-width: 992px) {
@@ -37,11 +32,11 @@ header.masthead {
 
             text-align: left;
             h1 {
+                font-size: 75px;
+            }
+            h2 {
                 font-size: 50px;
             }
-        }
-        .device-container {
-            max-width: 325px;
         }
     }
 }

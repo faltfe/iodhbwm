@@ -3,6 +3,7 @@
     background: $theme-primary;
     background: -webkit-linear-gradient($theme-primary, darken($theme-primary, 5%));
     background: linear-gradient($theme-primary, darken($theme-primary, 5%));
+    color: map-get($iodhbwm, dhbw-text);
 }
 
 .text-primary {
