@@ -83,7 +83,8 @@
 \def\iodhbwm@bachelor@type@bos{Bachelor of Science}
 \def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
 
-\def\iodhbwm@dhbwlocation@default{Mannheim}
+\def\iodhbwm@dhbw@location@default{Mannheim}
+\def\iodhbwm@dhbw@logo@default{dhbw-logo.png}
 
 %---------------------------------------------------
 % Defining package options
@@ -124,9 +125,12 @@
     submission date/.store in            = \iodhbwm@date@submission,
     location/.store in              = \iodhbwm@location,
     location                        = {},
-    dhbwlocation/.store in          = \iodhbwm@dhbwlocation,
-    dhbwlocation/.default           = \iodhbwm@dhbwlocation@default,
-    dhbwlocation                    = \iodhbwm@dhbwlocation@default,
+    dhbw location/.store in         = \iodhbwm@dhbw@location,
+    dhbw location/.default          = \iodhbwm@dhbw@location@default,
+    dhbw location                   = \iodhbwm@dhbw@location@default,
+    dhbw logo/.store in             = \iodhbwm@dhbw@logo,
+    dhbw logo/.default              = \iodhbwm@dhbw@logo@default,
+    dhbw logo                       = \iodhbwm@dhbw@logo@default,
     institute/.store in             = \iodhbwm@institute,
     institute section/.store in     = \iodhbwm@institute@section,
     institute section               = {},
@@ -303,14 +307,16 @@
     }{\iodhbwm@bachelor@degree}%
 }
 \newcommand{\getDHBWLocation}{%
-    \ifdefempty{\iodhbwm@dhbwlocation}{%
+    \ifdefempty{\iodhbwm@dhbw location}{%
         \PackageError{\iodhbwm@pkg@name}{%
-            Option dhbwlocation required!\MessageBreak
+            Option dhbw location required!\MessageBreak
             Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
-                \space\space dhbwlocation = Location\MessageBreak
+                \space\space dhbw location = {Your DHBW Location}\MessageBreak
         }}{See documentation for more information}%
-    }{\iodhbwm@dhbwlocation}%
+    }{\iodhbwm@dhbw@location}%
 }
+\newcommand{\getDHBWLogo}{\iodhbwm@dhbw@logo}
+
 % ----------------------------------------------------------
 % Commands for structuring
 % ----------------------------------------------------------
