@@ -77,11 +77,14 @@
 \edef\iodhbwm@file@titlepage@sa{\iodhbwm@file@prefix-titlepage-sa\iodhbwm@file@ending}
 \edef\iodhbwm@file@titlepage@pa{\iodhbwm@file@prefix-titlepage-pa\iodhbwm@file@ending}
 \edef\iodhbwm@file@declaration@default{\iodhbwm@file@prefix-declaration\iodhbwm@file@ending}
-\edef\iodhbw@file@abstract@default{\iodhbwm@file@prefix-abstract.inc}
+\edef\iodhbwm@file@abstract@default{\iodhbwm@file@prefix-abstract.inc}
 
 \def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
 \def\iodhbwm@bachelor@type@bos{Bachelor of Science}
 \def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
+
+\def\iodhbwm@dhbw@location@default{Mannheim}
+\def\iodhbwm@dhbw@logo@default{dhbw-logo}
 
 %---------------------------------------------------
 % Defining package options
@@ -95,8 +98,8 @@
     declaration/.default            = \iodhbwm@file@declaration@default,
     declaration                     = \iodhbwm@file@declaration@default,
     abstract/.store in              = \@iodhbwm@file@abstract,
-    abstract/.default               = \iodhbw@file@abstract@default,
-    abstract =                      = \iodhbw@file@abstract@default,
+    abstract/.default               = \iodhbwm@file@abstract@default,
+    abstract =                      = \iodhbwm@file@abstract@default,
     bachelor degree type/.store in  = \iodhbwm@bachelor@degree,
     bachelor degree type/.default   = \iodhbwm@bachelor@type@boe,
     bachelor degree type            = \iodhbwm@bachelor@type@boe,
@@ -122,6 +125,12 @@
     submission date/.store in            = \iodhbwm@date@submission,
     location/.store in              = \iodhbwm@location,
     location                        = {},
+    dhbw location/.store in         = \iodhbwm@dhbw@location,
+    dhbw location/.default          = \iodhbwm@dhbw@location@default,
+    dhbw location                   = \iodhbwm@dhbw@location@default,
+    dhbw logo/.store in             = \iodhbwm@dhbw@logo,
+    dhbw logo/.default              = \iodhbwm@dhbw@logo@default,
+    dhbw logo                       = \iodhbwm@dhbw@logo@default,
     institute/.store in             = \iodhbwm@institute,
     institute section/.store in     = \iodhbwm@institute@section,
     institute section               = {},
@@ -297,6 +306,16 @@
         }}{See documentation for more information}%
     }{\iodhbwm@bachelor@degree}%
 }
+\newcommand{\getDHBWLocation}{%
+    \ifdefempty{\iodhbwm@dhbw@location}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option dhbw location required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space dhbw location = {Your DHBW Location}\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@dhbw@location}%
+}
+\newcommand{\getDHBWLogo}{\iodhbwm@dhbw@logo}
 
 % ----------------------------------------------------------
 % Commands for structuring

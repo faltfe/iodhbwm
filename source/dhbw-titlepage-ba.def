@@ -30,7 +30,7 @@
     
     \bigskip
     des Studiengangs \getCourseName\par
-    der Dualen Hochschule Baden-Württemberg Mannheim
+    der Dualen Hochschule Baden-Württemberg \getDHBWLocation
     
     \vfill
     

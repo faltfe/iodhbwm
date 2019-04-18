@@ -6,7 +6,7 @@
     
     \normalsize
     des Studiengangs \getCourseName\par
-    der Dualen Hochschule Baden-Württemberg Mannheim
+    der Dualen Hochschule Baden-Württemberg \getDHBWLocation
     
     \rule{\textwidth}{.5mm}\bigskip
 
