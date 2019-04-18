@@ -18,7 +18,7 @@
     
     \normalsize
     des Studiengangs Informationstechnik\par
-    der Dualen Hochschule Baden-Württemberg Mannheim
+    der Dualen Hochschule Baden-Württemberg \getDHBWLocation
     \end{center}
     
     \rule{\textwidth}{.5mm}\bigskip
