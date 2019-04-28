@@ -66,6 +66,7 @@
 \newbool{iodhbwm@if@print@lot}
 \newbool{iodhbwm@if@print@lof}
 \newbool{iodhbwm@if@print@location}
+\newbool{iodhbwm@if@oldpagestyle}
 
 % ----------------------------------------------------------
 % Define internal commands
@@ -183,8 +184,9 @@
         /dhbw/intro/print declaration   = true,
         /dhbw/intro/print abstract      = true
     },
-    intro/append custom content/.store in   = \iodhbwm@append@custom@content,
-    intro/append custom content             = {}
+    intro/append custom content/.store in = \iodhbwm@append@custom@content,
+    intro/append custom content           = {},
+    intro/roman page numbers/.is if       = iodhbwm@if@oldpagestyle
 }
 
 \newrobustcmd\dhbwsetup[1]{\pgfqkeys{/dhbw}{#1}}
@@ -382,10 +384,14 @@
 % Switch pagestyle
 % Deactivate page numbers in ToC
 \newcommand{\dhbwfrontmatter}{%
-    \pagestyle{empty}
-    \renewcommand*{\chapterpagestyle}{empty}
-    \hypersetup{pageanchor=false}
-    \addtocontents{toc}{\booltrue{iodhbwm@if@toc@unnumbered}}
+    \ifbool{iodhbwm@if@oldpagestyle}{%
+        \pagenumbering{Roman}%
+    }{%
+        \pagestyle{empty}%
+        \renewcommand*{\chapterpagestyle}{empty}%
+        \hypersetup{pageanchor=false}%
+        \addtocontents{toc}{\booltrue{iodhbwm@if@toc@unnumbered}}%
+    }%
 }
 
 % Switch pagestyle
