@@ -6,7 +6,7 @@
 
 \bigskip
 
-Ich versichere hiermit, dass ich meine Bachelorarbeit (bzw. Studien- und Projektarbeit) mit dem
+Ich versichere hiermit, dass ich meine \getThesisType{} mit dem\bigskip
 
 \textsc{Thema \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
 
@@ -16,7 +16,7 @@ Ich versichere hiermit, dass ich meine Bachelorarbeit (bzw. Studien- und Projekt
     \bigskip
     \textsc{Thema B}\par%
     {\bfseries \getThesisSecondTitle}%
-}{}
+}{}\bigskip
 
 selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe.
 

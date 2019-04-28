@@ -6,6 +6,7 @@ abstract=%<file%>
 bachelor degree=#BoE,BoS,BoA
 bachelor degree type
 thesis type=#BA,SA,PA
+thesis type name=
 thesis title=
 thesis second title=
 author=
@@ -51,6 +52,8 @@ intro/append custom content={%|}
 \getDate
 \getSubmissionDate
 \getBachelorDegree
+\getThesisType
+\getDHBWLocation
 
 # << Structure >>
 \dhbwtitlepage

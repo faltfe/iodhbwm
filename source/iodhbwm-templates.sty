@@ -83,6 +83,10 @@
 \def\iodhbwm@bachelor@type@bos{Bachelor of Science}
 \def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
 
+\def\iodhbwm@thesis@type@ba{Bachelorarbeit}
+\def\iodhbwm@thesis@type@pa{Projektarbeit}
+\def\iodhbwm@thesis@type@sa{Studienarbeit}
+
 \def\iodhbwm@dhbw@location@default{Mannheim}
 \def\iodhbwm@dhbw@logo@default{dhbw-logo}
 
@@ -107,10 +111,22 @@
     bachelor degree/BoE/.estyle = {/dhbw/bachelor degree type = \iodhbwm@bachelor@type@boe},
     bachelor degree/BoS/.estyle = {/dhbw/bachelor degree type = \iodhbwm@bachelor@type@bos},
     bachelor degree/BoA/.estyle = {/dhbw/bachelor degree type = \iodhbwm@bachelor@type@boa},
+    thesis type name/.store in  = \iodhbwm@thesis@type,
+    thesis type name/.default   = \iodhbwm@thesis@type@ba,
+    thesis type name            = \iodhbwm@thesis@type@ba,
     thesis type/.is choice,
-    thesis type/BA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@ba},
-    thesis type/SA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@sa},
-    thesis type/PA/.estyle = {/dhbw/titlepage = \iodhbwm@file@titlepage@pa},
+    thesis type/BA/.estyle = {%
+        /dhbw/titlepage = \iodhbwm@file@titlepage@ba,%
+        /dhbw/thesis type name = \iodhbwm@thesis@type@ba%
+    },
+    thesis type/SA/.estyle = {%
+        /dhbw/titlepage = \iodhbwm@file@titlepage@sa,%
+        /dhbw/thesis type name = \iodhbwm@thesis@type@sa%
+    },
+    thesis type/PA/.estyle = {%
+        /dhbw/titlepage = \iodhbwm@file@titlepage@pa,%
+        /dhbw/thesis type name = \iodhbwm@thesis@type@pa%
+    },
     thesis title/.store in = \iodhbwm@thesis@title,
     thesis title                    = {},
     thesis second title/.store in   = \iodhbwm@thesis@second@title,
@@ -122,7 +138,7 @@
         \def\iodhbwm@date@submission{#1}%
     },
     date                            = \today,
-    submission date/.store in            = \iodhbwm@date@submission,
+    submission date/.store in       = \iodhbwm@date@submission,
     location/.store in              = \iodhbwm@location,
     location                        = {},
     dhbw location/.store in         = \iodhbwm@dhbw@location,
@@ -148,15 +164,15 @@
     processing period               = {},
     reviewer/.store in              = \iodhbwm@reviewer,
     reviewer                        = {},
-    titlepage/print location/.is if	  = iodhbwm@if@print@location,
-    intro/print titlepage/.is if      = iodhbwm@if@print@titlepage,
-    intro/print abstract/.is if       = iodhbwm@if@print@abstract,
-    intro/abstract file/.search also  = {/dhbw/abstract},
-    intro/print declaration/.is if    = iodhbwm@if@print@declaration,
-    intro/print toc/.is if            = iodhbwm@if@print@toc,
-    intro/print lof/.is if            = iodhbwm@if@print@lof,
-    intro/print lot/.is if            = iodhbwm@if@print@lot,
-    intro/print all lists/.style      = {%
+    titlepage/print location/.is if  = iodhbwm@if@print@location,
+    intro/print titlepage/.is if     = iodhbwm@if@print@titlepage,
+    intro/print abstract/.is if      = iodhbwm@if@print@abstract,
+    intro/abstract file/.search also = {/dhbw/abstract},
+    intro/print declaration/.is if   = iodhbwm@if@print@declaration,
+    intro/print toc/.is if           = iodhbwm@if@print@toc,
+    intro/print lof/.is if           = iodhbwm@if@print@lof,
+    intro/print lot/.is if           = iodhbwm@if@print@lot,
+    intro/print all lists/.style     = {%
         /dhbw/intro/print toc = true,
         /dhbw/intro/print lot = true,
         /dhbw/intro/print lof = true
@@ -305,6 +321,15 @@
                 \space\space bachelor degree = BoE | BoS | BoA\MessageBreak
         }}{See documentation for more information}%
     }{\iodhbwm@bachelor@degree}%
+}
+\newcommand{\getThesisType}{%
+    \ifdefempty{\iodhbwm@thesis@type}{%
+        \PackageError{\iodhbwm@pkg@name}{%
+            Option thesis type required!\MessageBreak
+            Please use\MessageBreak\protect\dhbwsetup{\MessageBreak
+                \space\space thesis type = BA | SA | PA\MessageBreak
+        }}{See documentation for more information}%
+    }{\iodhbwm@thesis@type}%
 }
 \newcommand{\getDHBWLocation}{%
     \ifdefempty{\iodhbwm@dhbw@location}{%
