@@ -1,6 +1,6 @@
 \begin{titlepage}
     \centering
-    \includegraphics[height=1.7cm]{dhbw-logo}
+    \includegraphics[height=1.7cm]{\getDHBWLogo}
 
     \Large\textsc{Studienarbeit}
     
