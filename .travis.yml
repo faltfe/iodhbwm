@@ -1,24 +1,24 @@
-
+language: generic
 branches:
   only:
     - master
     - develop
 install:
- - source ./support/texlive_install.sh
+  - source ./support/texlive_install.sh
 cache:
   directories:
     - /tmp/texlive
     - $HOME/.texlive
 before_script:
-# install iodhbwm bundle
-  - source support/create-fake-tds.sh
+  # install iodhbwm bundle
+  - source ./support/create-fake-tds.sh
   - mkdir -p ~/texmf/
   - latestTag=$(git describe --tags)
   - yes | cp -rf release/$latestTag-tds/* ~/texmf/
   - mktexlsr ~/texmf
 script:
-# Prefix command with travis_wait x so it times out after 3 mins
-# Run how to use examples
+  # Prefix command with travis_wait x so it times out after 3 mins
+  # Run how to use examples
   - cd doc/examples/how-to-use-iodhbwm
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-simple-starter
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-simple-starter
@@ -30,33 +30,33 @@ script:
   - travis_wait 3 biber iodhbwm-recommended-starter
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-recommended-starter
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-recommended-starter
-# Run listings example
+  # Run listings example
   - cd ../listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings-color
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-listings-color
-# Run acronym example
+  # Run acronym example
   - cd ../acronyms
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-acro
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-acro
-# Run titlepage example
+  # Run titlepage example
   - cd ../titlepages
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-custom-titlepage
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-titlepage-logo
-# Run reference example
+  # Run reference example
   - cd ../references
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-hyperref
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-hyperref
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-references
-# Run appendix example
+  # Run appendix example
   - cd ../appendix
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix-auto
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-appendix-auto
-# Run bibliography
+  # Run bibliography
   - cd ../bibliography
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-custom-option
   - travis_wait 3 biber iodhbwm-biblatex-custom-option
@@ -70,7 +70,7 @@ script:
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-custom-option
   - travis_wait 3 biber iodhbwm-biblatex-custom-option
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-biblatex-style-option
-# Run customizing
+  # Run customizing
   - cd ../customizing
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-print
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-replace-part-naming
