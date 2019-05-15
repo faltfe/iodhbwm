@@ -1,0 +1,46 @@
+% ---------------------------------------------------
+% Date:       15.05.2019
+% Version:    v1.1.0
+% Autor:      Felix Faltin <ffaltin91[at]gmail.com>
+% Repository: https://github.com/faltfe/iodhbwm
+% ---------------------------------------------------
+% --- --- --- --- -- Class options -- --- --- --- ---
+% ---------------------------------------------------
+\documentclass[
+    load-dhbw-templates,                  % Allow \dhbw* commands
+    auto-intro-pages,                     % Takes care about titlepage, abstract, ToC, etc.
+    add-tocs-to-toc,                      % Add LoF, LoT, etc. to ToC
+    mainlanguage = ngerman,               % Set main document language
+    debug                                 % Provide \lipsum, \blindtext
+]{iodhbwm}
+\usepackage[T1]{fontenc}
+
+% ---------------------------------------------------
+% --- --- --- --- - Necessary setup - --- --- --- ---
+% ---------------------------------------------------
+\dhbwsetup{%
+    author            = Max Mustermann,
+    thesis type       = PA,
+    thesis title      = Einführungsbeispiel mit empfohlenen Einstellungen,
+    student id        = 12345,
+    location          = Musterstadt,
+    institute         = Musterwerke GmbH,
+    course/id         = Txxxx,
+    supervisor        = Felix Faltin,
+    processing period = {01.01.17 -- 31.01.17},
+    intro/roman page numbers
+}
+
+\begin{document}
+    \chapter{Testbild}
+        \blindtext
+        
+        \begin{figure}
+            \includegraphics[width=.5\linewidth]{example-image-a}
+            \caption{Example image a}
+        \end{figure}
+    
+        \blindtext
+    
+    \Blinddocument
+\end{document}

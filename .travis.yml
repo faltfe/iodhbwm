@@ -74,5 +74,6 @@ script:
   - cd ../customizing
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-print
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-replace-part-naming
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-roman-numbers
 after_script:
   - rm -r ~/texmf/tex/latex/*
