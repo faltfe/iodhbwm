@@ -486,15 +486,15 @@
                 Bei Bachelorarbeiten \setupOption{\opt{thesis type}=\meta{BA}} ist es üblich einen Gutachter anzugeben. Dieser wird durch die Angabe eines \setupOption{\opt{reviewer}} übergeben.
                 
             \subsubsection{Angaben zur DHBW}
-	            \Option{dhbw location}\WithValues{\meta{value}}\AndDefault{Mannheim}
-	            \Version{1.2.0}Die Option erlaubt eine Änderung des DHBW Standortes. Als Standardeinstellung ist die DHBW Manneinheim gesetzt. Der Standort wird automatisch auf den mitgelieferten Titelseiten angepasst.
-	            
-	            \Option{dhbw logo}\WithValues{\meta{value}}\AndDefault{dhbw-logo}
-	            \Version{1.2.0}Ein alternatives Logo der DHBW kann mithilfe dieser Option angegeben werden. Die Dateiendung sollte, wie in \LaTeX{} üblich, weggelassen werden.
-	            
-	            \begin{warning}{Abmaße beachten}
-	            	Wenn ein eigenes Logo gesetzt wird, müssen die Dimensionen beachtet werden. Das bereitgestellte Logo hat eine Abmessung von $540 \times 264~px$.
-	            \end{warning}
+                \Option{dhbw location}\WithValues{\meta{value}}\AndDefault{Mannheim}
+                \Version{1.1.0}Die Option erlaubt eine Änderung des DHBW Standortes. Als Standardeinstellung ist die DHBW Manneinheim gesetzt. Der Standort wird automatisch auf den mitgelieferten Titelseiten angepasst.
+                
+                \Option{dhbw logo}\WithValues{\meta{value}}\AndDefault{dhbw-logo}
+                \Version{1.1.0}Ein alternatives Logo der DHBW kann mithilfe dieser Option angegeben werden. Die Dateiendung sollte, wie in \LaTeX{} üblich, weggelassen werden.
+                
+                \begin{warning}{Abmaße beachten}
+                    Wenn ein eigenes Logo gesetzt wird, müssen die Dimensionen beachtet werden. Das bereitgestellte Logo hat eine Abmessung von $540 \times 264~px$.
+                \end{warning}
 
             \subsubsection{Optionen zur automatisierten Erstellung von Verzeichnissen}\label{subsub:options-tocs}
                 Im Abschnitt~\ref{subsub:format} wurde die Option \classOption{\opt{auto-intro-pages}} beschrieben. Durch die nachfolgenden Optionen können weitere Konfigurationen vorgenommen werden. Insbesondere handelt es sich dabei um die Möglichkeit, nur bestimmte Verzeichnisse oder Seiten anzuzeigen. Die meisten der Optionen sind selbsterklärend.\medskip
@@ -544,7 +544,7 @@
                 \Version{1.2.0}Bei Aktivierung der Option wird die Nummerierung innerhalb der Verzeichnisse auf Römisch umgeschaltet. Des Weiteren werden die Römischen Seitenzahlen für die Verzeichnisse ebenfalls im Inhalsverzeichnis angezeigt.
                 
                 \begin{hint}{}
-                	Bei Aktivierung der Option \setupOption{\opt{intro/roman page numbers}=\meta{true}} erfolgt eine Abweichung von den Richtlinien der DHBW.
+                    Bei Aktivierung der Option \setupOption{\opt{intro/roman page numbers}=\meta{true}} erfolgt eine Abweichung von den Richtlinien der DHBW.
                 \end{hint}
 
         \subsection{Anhang}
@@ -617,10 +617,9 @@
 
             \DescribeMacro\getBachelorDegree{} Abfrage des Bearbeitungszeitraums, welcher durch \setupOption{\opt{author}} übergeben wurde.
             
-            \Version{1.2.0}
-            \DescribeMacro\getDHBWLocation{}\Version{1.2.0}Abfrage des DHBW Standorts, welcher durch die \setupOption{\opt{dhbw location}} gesetzt wurde.
+            \DescribeMacro\getDHBWLocation{}\Version{1.1.0}Abfrage des DHBW Standorts, welcher durch die \setupOption{\opt{dhbw location}} gesetzt wurde.
             
-            \DescribeMacro\getDHBWLogo{}\Version{1.2.0}Abfrage des DHBW Logo, welches durch die \setupOption{\opt{dhbw logo}} gesetzt wurde.
+            \DescribeMacro\getDHBWLogo{}\Version{1.1.0}Abfrage des DHBW Logo, welches durch die \setupOption{\opt{dhbw logo}} gesetzt wurde.
 
     \section{Beispiele und Anwendungen}
         Alle Beispiele sind auf \url{https://github.com/faltfe/iodhbwm/tree/master/doc/examples} zu finden.
