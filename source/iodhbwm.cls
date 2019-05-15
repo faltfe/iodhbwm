@@ -23,8 +23,8 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@cls@version}{v1.0.1}
-\newcommand*{\iodhbwm@cls@date}{2019-01-27}
+\newcommand*{\iodhbwm@cls@version}{v1.1.0}
+\newcommand*{\iodhbwm@cls@date}{2019-05-15}
 \newcommand*{\iodhbwm@cls@info}{Inoffical DHBW Mannheim thesis class}
 
 \ProvidesClass{iodhbwm}[%
