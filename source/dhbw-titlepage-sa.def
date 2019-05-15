@@ -1,12 +1,12 @@
 \begin{titlepage}
     \centering
-    \includegraphics[height=1.7cm]{dhbw-logo}
+    \includegraphics[height=1.7cm]{\getDHBWLogo}
 
     \Large\textsc{Studienarbeit}
     
     \normalsize
     des Studiengangs \getCourseName\par
-    der Dualen Hochschule Baden-Württemberg Mannheim
+    der Dualen Hochschule Baden-Württemberg \getDHBWLocation
     
     \rule{\textwidth}{.5mm}\bigskip
 

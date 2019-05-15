@@ -1,10 +1,10 @@
 \begin{titlepage}
     \centering
     \ifcsempty{iodhbwm@institute@logo}{%
-        \includegraphics[height=1.7cm]{dhbw-logo}
+        \includegraphics[height=1.7cm]{\getDHBWLogo}
     }{%
         \begin{minipage}[c]{.25\textwidth}
-            \includegraphics[width=\linewidth,keepaspectratio]{dhbw-logo}
+            \includegraphics[width=\linewidth,keepaspectratio]{\getDHBWLogo}
         \end{minipage}
         \hfill
         \begin{minipage}[c]{.25\textwidth}
@@ -30,7 +30,7 @@
     
     \bigskip
     des Studiengangs \getCourseName\par
-    der Dualen Hochschule Baden-Württemberg Mannheim
+    der Dualen Hochschule Baden-Württemberg \getDHBWLocation
     
     \vfill
     

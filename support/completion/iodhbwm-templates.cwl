@@ -6,6 +6,7 @@ abstract=%<file%>
 bachelor degree=#BoE,BoS,BoA
 bachelor degree type
 thesis type=#BA,SA,PA
+thesis type name=
 thesis title=
 thesis second title=
 author=
@@ -16,6 +17,8 @@ institute=
 institute section=
 institute logo=%<imagefile%>
 student id=
+dhbw location=
+dhbw logo=
 course/name=
 course/id=
 supervisor=
@@ -32,6 +35,7 @@ intro/print lot=#true, false
 intro/print all lists
 intro/print all
 intro/append custom content={%|}
+intro/roman page numbers=#true, false
 #endkeyvals
 
 # << Commands >>
@@ -51,6 +55,10 @@ intro/append custom content={%|}
 \getDate
 \getSubmissionDate
 \getBachelorDegree
+\getThesisType
+\getDHBWLocation
+\getDHBWLogo
+\listofappendices
 
 # << Structure >>
 \dhbwtitlepage

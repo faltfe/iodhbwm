@@ -1,12 +1,29 @@
 \ifcsdef{chapter}%
-{\chapter*{Ehrenwörtliche Erklärung}}%
-{\section*{Ehrenwörtliche Erklärung}}
+{\chapter*{Erklärung}}%
+{\section*{Erklärung}}
 
 \thispagestyle{empty}
 
-\vspace{5cm}
-Gemäß \S 5 (3) der Studien- und Prüfungsordnung DHBW Technik vom 22. September 2011.\\
-Ich habe die vorliegende Arbeit selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel verwendet.
+\bigskip
+
+Ich versichere hiermit, dass ich meine \getThesisType{} mit dem\bigskip
+
+\textsc{Thema \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
+
+{\bfseries \getThesisTitle}
+
+\ifcsempty{iodhbwm@thesis@second@title}{}{%
+    \bigskip
+    \textsc{Thema B}\par%
+    {\bfseries \getThesisSecondTitle}%
+}{}\bigskip
+
+selbstständig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe.
+
+
+Ich versichere zudem, dass die eingereichte elektronische Fassung mit der gedruckten Fassung übereinstimmt.$^\ast$
+
+{\small$^\ast$ falls beide Fassungen gefordert sind}
 
 \vfill
 
