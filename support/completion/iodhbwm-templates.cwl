@@ -33,6 +33,7 @@ intro/print lot=#true, false
 intro/print all lists
 intro/print all
 intro/append custom content={%|}
+intro/roman page numbers=#true, false
 #endkeyvals
 
 # << Commands >>
@@ -54,6 +55,8 @@ intro/append custom content={%|}
 \getBachelorDegree
 \getThesisType
 \getDHBWLocation
+\getDHBWLogo
+\listofappendices
 
 # << Structure >>
 \dhbwtitlepage
