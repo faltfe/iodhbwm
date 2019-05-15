@@ -118,6 +118,7 @@ Diese befinden sich im Ordner [doc/examples](doc/examples)
 - [Customizing](doc/examples/customizing)
   - Umbenennung von `\part`
   - Erstellen einer schwarz/weiß Ausgabe
+  - Römische Nummerierung vor dem Inhaltsverzeichnis
 
 ## Installationshinweis
 
