@@ -75,5 +75,8 @@ script:
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-print
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-replace-part-naming
   - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-roman-numbers
+  # Run abstract
+  - cd ../abstract
+  - travis_wait 3 pdflatex -interaction=nonstopmode -halt-on-error iodhbwm-auto-sections-with-abstract
 after_script:
   - rm -r ~/texmf/tex/latex/*
