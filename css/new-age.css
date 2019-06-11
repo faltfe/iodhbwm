@@ -297,6 +297,7 @@ section.cta {
   padding: 250px 0;
   background-image: url("../img/bg-cta.jpg");
   background-position: center;
+  background-attachment: fixed;
   background-size: cover;
 }
 
