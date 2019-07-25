@@ -204,6 +204,7 @@
 \definecolor{DHBW-blue}{HTML}{026f93}
 \definecolor{DHBW-darkblue}{HTML}{23527c}
 \definecolor{DHBW-light}{HTML}{ffffff}
+\definecolor{DHBW-light-gray}{HTML}{f2f2f2}
 \definecolor{DHBW-font}{HTML}{5c6971}
 \definecolor{DHBW-dark-font}{HTML}{333333}
 
@@ -322,8 +323,9 @@
         showstringspaces=false,
         tabsize=2,
         breaklines=true,
-        xleftmargin=17pt,
-        framexleftmargin=17pt,
+        xleftmargin=3em,
+        framexleftmargin=3em,
+        aboveskip=\baselineskip,
     }
 
     \DeclareCaptionFont{DHBWlisting}{\color{DHBW-light}}
@@ -355,16 +357,15 @@
         }%
     
         \lstset{
-            basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
+            basicstyle=\scriptsize\ttfamily\color{DHBW-dark-font},
             backgroundcolor=\color{DHBW-light},
             rulecolor=\color{black},
             commentstyle=\color{DHBW-font},
             keywordstyle=\color{DHBW-dark-font},
-            numberstyle=\scriptsize\color{DHBW-font},
+            numberstyle=\scriptsize\ttfamily\color{DHBW-font},
             stringstyle=\color{DHBW-dark-font},
             frame=tb,
             captionpos=b,
-            aboveskip=\baselineskip
         }%
     }{%
         \captionsetup[lstlisting]{%
@@ -375,15 +376,15 @@
         }%
         
         \lstset{
-            basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
-            backgroundcolor=\color{DHBW-light},
+            basicstyle=\scriptsize\ttfamily\color{DHBW-dark-font},
+            backgroundcolor=\color{DHBW-light-gray},
             rulecolor=\color{DHBW-red},
             commentstyle=\color{DHBW-font},
             keywordstyle=\color{DHBW-darkblue},
-            numberstyle=\scriptsize\color{DHBW-font},
+            numberstyle=\scriptsize\ttfamily\color{DHBW-font},
             stringstyle=\color{purple},
-            frame=b,
-            captionpos=t,
+            frame=tb,
+            captionpos=b,
         }
     }
 }{}
