@@ -326,6 +326,8 @@
         xleftmargin=3em,
         framexleftmargin=3em,
         aboveskip=\baselineskip,
+        frame=tb,
+        captionpos=t,
     }
 
     \DeclareCaptionFont{DHBWlisting}{\color{DHBW-light}}
@@ -338,21 +340,18 @@
 
     \DeclareCaptionFormat{listingprint}{%
         \colorbox{white}{%
-            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
+            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}
         }%
     }
 
     \captionsetup[lstlisting]{%
-        format=listing,
+        format=listingprint,
         singlelinecheck=false,
         margin=0pt
     }%
     
     \ifbool{iodhbwm@cls@if@print}{%
         \captionsetup[lstlisting]{%
-            format=listingprint,
-            singlelinecheck=false,
-            margin=0pt,
             font={print,sf},
         }%
     
@@ -363,15 +362,11 @@
             commentstyle=\color{DHBW-font},
             keywordstyle=\color{DHBW-dark-font},
             numberstyle=\scriptsize\ttfamily\color{DHBW-font},
-            stringstyle=\color{DHBW-dark-font},
-            frame=tb,
-            captionpos=b,
+            stringstyle=\color{DHBW-dark-font}
         }%
     }{%
         \captionsetup[lstlisting]{%
             format=listing,
-            singlelinecheck=false,
-            margin=0pt,
             font={DHBWlisting,sf},
         }%
         
@@ -382,9 +377,7 @@
             commentstyle=\color{DHBW-font},
             keywordstyle=\color{DHBW-darkblue},
             numberstyle=\scriptsize\ttfamily\color{DHBW-font},
-            stringstyle=\color{purple},
-            frame=tb,
-            captionpos=b,
+            stringstyle=\color{purple}
         }
     }
 }{}
