@@ -1,6 +1,6 @@
 \documentclass[babel=ngerman,highlight=false]{skdoc}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{enumitem}
 \usepackage[most]{tcolorbox}
@@ -276,8 +276,6 @@
                 \Option{mainlanguage}\WithValues{babel language}\AndDefault{empty}
                 Im Gegensatz zu \classOption{\opt{language}} wird mit der Option ausschließlich die Hauptsprache gesetzt, welche im Dokument benutzt wird. Die Sprache wird zusätzlich an entsprechende Pakete übergeben.
 
-
-
                 \begin{sourcecode}[listing only]
 \documentclass[%
     language     = english,
@@ -292,12 +290,8 @@
                 \Option{print-}\WithValues{true, false}\AndDefault{false}
                 Bei Aktivierung der Option wird die farbige Darstellung von Links deaktiviert. Dies wird durch \verb|\hypersetup{hidelinks}| erreicht.\medskip
 
-                \Option{print}\WithValues{true, false}\AndDefault{false}
-                Im Gegensatz zu der Option \classOption{\opt{print-}} schaltet die Option zusätzlich noch die Darstellung von Quelltext um. Die farbige Überschrift wird entfernt und durch eine einfache Überschrift ersetzt, welche durch einen Rahmen abgegrenzt ist.
-
-                \begin{warning}{Verschiebungen von Texten}
-                    Bei der Verwendung von \opt{print} wird der Quelltext anders formatiert. Dadurch kann es unter Umständen zu Verschiebungen des Layouts kommen. Dieses Verhalten ist nicht vollständig beabsichtigt, bot jedoch vorläufig die einfachste Umsetzung. An einer adäquaten Lösung wird gearbeitet.
-                \end{warning}
+                \Option{print}\WithValues{}
+                Im Gegensatz zu der Option \classOption{\opt{print-}} schaltet die Option \textit{zusätzlich} noch die Darstellung von Quelltext um. Die farbige Überschrift wird durch eine einfache Überschrift ersetzt. Zusätzliche wird der Quelltext in schwarzer Farbe dargestellt.
 
             \subsubsection{Darstellung der Verzeichnisse}
                 Die DHBW gibt eine gewissen Struktur der Arbeit vor. Um dem Autor die Arbeit etwas zu erleichtern, bietet die Klasse drei Optionen an, welche eine automatisierte Darstellung der Verzeichnisse vornimmt. Alle Optionen sind nur in Kombination mit \classOption{\opt{load-dhbw-templates}} wirksam. Im \Cref{subsub:options-tocs} werden weitere paketseitige Einstellungen beschrieben, mit welchen die zu erstellenden Verzeichnisse angepasst werden können.\medskip
@@ -341,7 +335,7 @@
                 \end{hint}
                 \medskip
 
-                \Option{add-bibliography-}\WithValues{true, false}\AndDefault{false}
+                \Option{add-bibliography-}\WithValues{}
                 Die Option verhält sich ähnlich wie \classOption{\opt{add-bibliography}} mit dem Unterschied, dass am Ende des Dokuments kein Literaturverzeichnis abgebildet wird. Zusätzlich werden die Verlinkungen zum Literaturverzeichnis deaktiviert. Möchte man ein manuelles Literaturverzeichnis, so sollte die Verlinkung wieder aktiviert werden.
 
                 \begin{sourcecode}[listing only]
