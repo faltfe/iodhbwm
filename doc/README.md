@@ -21,7 +21,7 @@ Web:    <https://github.com/faltfe/iodhbwm>
 E-Mail: ffaltin91@gmail.com
 
 --------------------------------------------------------------------------
-Copyright 2018 Felix Faltin
+Copyright 2018-2019 Felix Faltin
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3

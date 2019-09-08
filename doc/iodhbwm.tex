@@ -1,6 +1,6 @@
 \documentclass[babel=ngerman,highlight=false]{skdoc}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{enumitem}
 \usepackage[most]{tcolorbox}
@@ -9,7 +9,7 @@
 %\usepackage{showframe}
 
 \package[vcs=https://github.com/faltfe/iodhbwm,ctan=iodhbwm]{iodhbwm}
-\version{1.1.0}
+\version{1.1.1}
 
 \title{iodhbwm Klasse}
 \author{Felix Faltin}
@@ -276,8 +276,6 @@
                 \Option{mainlanguage}\WithValues{babel language}\AndDefault{empty}
                 Im Gegensatz zu \classOption{\opt{language}} wird mit der Option ausschließlich die Hauptsprache gesetzt, welche im Dokument benutzt wird. Die Sprache wird zusätzlich an entsprechende Pakete übergeben.
 
-
-
                 \begin{sourcecode}[listing only]
 \documentclass[%
     language     = english,
@@ -292,12 +290,8 @@
                 \Option{print-}\WithValues{true, false}\AndDefault{false}
                 Bei Aktivierung der Option wird die farbige Darstellung von Links deaktiviert. Dies wird durch \verb|\hypersetup{hidelinks}| erreicht.\medskip
 
-                \Option{print}\WithValues{true, false}\AndDefault{false}
-                Im Gegensatz zu der Option \classOption{\opt{print-}} schaltet die Option zusätzlich noch die Darstellung von Quelltext um. Die farbige Überschrift wird entfernt und durch eine einfache Überschrift ersetzt, welche durch einen Rahmen abgegrenzt ist.
-
-                \begin{warning}{Verschiebungen von Texten}
-                    Bei der Verwendung von \opt{print} wird der Quelltext anders formatiert. Dadurch kann es unter Umständen zu Verschiebungen des Layouts kommen. Dieses Verhalten ist nicht vollständig beabsichtigt, bot jedoch vorläufig die einfachste Umsetzung. An einer adäquaten Lösung wird gearbeitet.
-                \end{warning}
+                \Option{print}\WithValues{}
+                Im Gegensatz zu der Option \classOption{\opt{print-}} schaltet die Option \textit{zusätzlich} noch die Darstellung von Quelltext um. Die farbige Überschrift wird durch eine einfache Überschrift ersetzt. Zusätzliche wird der Quelltext in schwarzer Farbe dargestellt.
 
             \subsubsection{Darstellung der Verzeichnisse}
                 Die DHBW gibt eine gewissen Struktur der Arbeit vor. Um dem Autor die Arbeit etwas zu erleichtern, bietet die Klasse drei Optionen an, welche eine automatisierte Darstellung der Verzeichnisse vornimmt. Alle Optionen sind nur in Kombination mit \classOption{\opt{load-dhbw-templates}} wirksam. Im \Cref{subsub:options-tocs} werden weitere paketseitige Einstellungen beschrieben, mit welchen die zu erstellenden Verzeichnisse angepasst werden können.\medskip
@@ -341,7 +335,7 @@
                 \end{hint}
                 \medskip
 
-                \Option{add-bibliography-}\WithValues{true, false}\AndDefault{false}
+                \Option{add-bibliography-}\WithValues{}
                 Die Option verhält sich ähnlich wie \classOption{\opt{add-bibliography}} mit dem Unterschied, dass am Ende des Dokuments kein Literaturverzeichnis abgebildet wird. Zusätzlich werden die Verlinkungen zum Literaturverzeichnis deaktiviert. Möchte man ein manuelles Literaturverzeichnis, so sollte die Verlinkung wieder aktiviert werden.
 
                 \begin{sourcecode}[listing only]
@@ -442,7 +436,7 @@
                 Mit der Option wird das Datum angegeben.\medskip
 
                 \Option{submission date}\WithValues{\meta{value}}\AndDefault{\opt{date}}
-                Mit der Option wird das Abgabedatum angegeben. Standardmäßig entspricht der Wert der Option \setupOption{\opt{date}} und hat nur Einfluss auf \setupOption{\opt{bachelor type} = \meta{BA}}.\medskip
+                Mit der Option wird das Abgabedatum angegeben. Standardmäßig entspricht der Wert der Option \setupOption{\opt{date}} und hat nur Einfluss auf \setupOption{\opt{thesis type} = \meta{BA}}.\medskip
 
                 \Option{location}\WithValues{\meta{value}}
                 Mit Setzen der Option wird der Ort angegeben, an welchem die Arbeit erstellt wurde.\medskip
@@ -487,7 +481,7 @@
                 
             \subsubsection{Angaben zur DHBW}
                 \Option{dhbw location}\WithValues{\meta{value}}\AndDefault{Mannheim}
-                \Version{1.1.0}Die Option erlaubt eine Änderung des DHBW Standortes. Als Standardeinstellung ist die DHBW Manneinheim gesetzt. Der Standort wird automatisch auf den mitgelieferten Titelseiten angepasst.
+                \Version{1.1.0}Die Option erlaubt eine Änderung des DHBW Standortes. Als Standardeinstellung ist die DHBW Mannheim gesetzt. Der Standort wird automatisch auf den mitgelieferten Titelseiten angepasst.
                 
                 \Option{dhbw logo}\WithValues{\meta{value}}\AndDefault{dhbw-logo}
                 \Version{1.1.0}Ein alternatives Logo der DHBW kann mithilfe dieser Option angegeben werden. Die Dateiendung sollte, wie in \LaTeX{} üblich, weggelassen werden.
@@ -541,7 +535,7 @@
                 
                 
                 \Option{intro/roman page numbers}\WithValues{true, false}\AndDefault{false}
-                \Version{1.2.0}Bei Aktivierung der Option wird die Nummerierung innerhalb der Verzeichnisse auf Römisch umgeschaltet. Des Weiteren werden die Römischen Seitenzahlen für die Verzeichnisse ebenfalls im Inhalsverzeichnis angezeigt.
+                \Version{1.1.0}Bei Aktivierung der Option wird die Nummerierung innerhalb der Verzeichnisse auf Römisch umgeschaltet. Des Weiteren werden die Römischen Seitenzahlen für die Verzeichnisse ebenfalls im Inhalsverzeichnis angezeigt.
                 
                 \begin{hint}{}
                     Bei Aktivierung der Option \setupOption{\opt{intro/roman page numbers}=\meta{true}} erfolgt eine Abweichung von den Richtlinien der DHBW.

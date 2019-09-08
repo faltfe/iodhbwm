@@ -23,8 +23,8 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@cls@version}{v1.1.0}
-\newcommand*{\iodhbwm@cls@date}{2019-05-15}
+\newcommand*{\iodhbwm@cls@version}{v1.1.1}
+\newcommand*{\iodhbwm@cls@date}{2019-09-08}
 \newcommand*{\iodhbwm@cls@info}{Inoffical DHBW Mannheim thesis class}
 
 \ProvidesClass{iodhbwm}[%
@@ -204,6 +204,7 @@
 \definecolor{DHBW-blue}{HTML}{026f93}
 \definecolor{DHBW-darkblue}{HTML}{23527c}
 \definecolor{DHBW-light}{HTML}{ffffff}
+\definecolor{DHBW-light-gray}{HTML}{f2f2f2}
 \definecolor{DHBW-font}{HTML}{5c6971}
 \definecolor{DHBW-dark-font}{HTML}{333333}
 
@@ -322,8 +323,11 @@
         showstringspaces=false,
         tabsize=2,
         breaklines=true,
-        xleftmargin=17pt,
-        framexleftmargin=17pt,
+        xleftmargin=3em,
+        framexleftmargin=3em,
+        aboveskip=\baselineskip,
+        frame=tb,
+        captionpos=t,
     }
 
     \DeclareCaptionFont{DHBWlisting}{\color{DHBW-light}}
@@ -336,54 +340,44 @@
 
     \DeclareCaptionFormat{listingprint}{%
         \colorbox{white}{%
-            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
+            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}
         }%
     }
 
     \captionsetup[lstlisting]{%
-        format=listing,
+        format=listingprint,
         singlelinecheck=false,
         margin=0pt
     }%
     
     \ifbool{iodhbwm@cls@if@print}{%
         \captionsetup[lstlisting]{%
-            format=listingprint,
-            singlelinecheck=false,
-            margin=0pt,
             font={print,sf},
         }%
     
         \lstset{
-            basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
+            basicstyle=\scriptsize\ttfamily\color{DHBW-dark-font},
             backgroundcolor=\color{DHBW-light},
             rulecolor=\color{black},
             commentstyle=\color{DHBW-font},
             keywordstyle=\color{DHBW-dark-font},
-            numberstyle=\scriptsize\color{DHBW-font},
-            stringstyle=\color{DHBW-dark-font},
-            frame=tb,
-            captionpos=b,
-            aboveskip=\baselineskip
+            numberstyle=\scriptsize\ttfamily\color{DHBW-font},
+            stringstyle=\color{DHBW-dark-font}
         }%
     }{%
         \captionsetup[lstlisting]{%
             format=listing,
-            singlelinecheck=false,
-            margin=0pt,
             font={DHBWlisting,sf},
         }%
         
         \lstset{
-            basicstyle=\footnotesize\ttfamily\color{DHBW-dark-font},
-            backgroundcolor=\color{DHBW-light},
+            basicstyle=\scriptsize\ttfamily\color{DHBW-dark-font},
+            backgroundcolor=\color{DHBW-light-gray},
             rulecolor=\color{DHBW-red},
             commentstyle=\color{DHBW-font},
             keywordstyle=\color{DHBW-darkblue},
-            numberstyle=\scriptsize\color{DHBW-font},
-            stringstyle=\color{purple},
-            frame=b,
-            captionpos=t,
+            numberstyle=\scriptsize\ttfamily\color{DHBW-font},
+            stringstyle=\color{purple}
         }
     }
 }{}
