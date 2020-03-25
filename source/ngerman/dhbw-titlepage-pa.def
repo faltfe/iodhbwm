@@ -49,7 +49,7 @@
         Bearbeitungszeitraum: & \getProcessingPeriod\\
         Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
         \ifcsempty{iodhbwm@institute@section}{}{Abteilung: & \getInstituteSection\\}%
-        Ausbildungsfirma: & \getInstitute\\
+        Ausbildungsbetrieb: & \getInstitute\\
         \ifbool{iodhbwm@if@print@location}{Ort: & \getLocation\\}{}%
         Betreuer: & \getSupervisor\\
         Unterschrift Betreuer & \rule[-.5cm]{.5\columnwidth}{.5pt}

@@ -71,7 +71,7 @@
 % ----------------------------------------------------------
 % Define internal commands
 % ----------------------------------------------------------
-\newcommand*{\iodhbwm@file@prefix}{dhbw}
+\newcommand*{\iodhbwm@file@prefix}{\iodhbwm@main@language/dhbw}
 \newcommand*{\iodhbwm@file@ending}{.def}
 \edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
 \edef\iodhbwm@file@titlepage@ba{\iodhbwm@file@prefix-titlepage-ba\iodhbwm@file@ending}
@@ -84,9 +84,20 @@
 \def\iodhbwm@bachelor@type@bos{Bachelor of Science}
 \def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
 
-\def\iodhbwm@thesis@type@ba{Bachelorarbeit}
-\def\iodhbwm@thesis@type@pa{Projektarbeit}
-\def\iodhbwm@thesis@type@sa{Studienarbeit}
+\def\iodhbwm@thesis@type@ba{UNDEFINED LANGUAGE}
+\def\iodhbwm@thesis@type@pa{UNDEFINED LANGUAGE}
+\def\iodhbwm@thesis@type@sa{UNDEFINED LANGUAGE}
+
+\iflanguage{ngerman}{
+	\def\iodhbwm@thesis@type@ba{Bachelorarbeit}
+	\def\iodhbwm@thesis@type@pa{Projektarbeit}
+	\def\iodhbwm@thesis@type@sa{Studienarbeit}
+}{}
+\iflanguage{english}{
+	\def\iodhbwm@thesis@type@ba{bachelor's thesis}
+	\def\iodhbwm@thesis@type@pa{project report}
+	\def\iodhbwm@thesis@type@sa{study report}
+}{}
 
 \def\iodhbwm@dhbw@location@default{Mannheim}
 \def\iodhbwm@dhbw@logo@default{dhbw-logo}
