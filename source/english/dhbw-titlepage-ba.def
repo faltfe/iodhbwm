@@ -1,0 +1,57 @@
+\begin{titlepage}
+    \centering
+    \ifcsempty{iodhbwm@institute@logo}{%
+        \includegraphics[height=1.7cm]{\getDHBWLogo}
+    }{%
+        \begin{minipage}[c]{.25\textwidth}
+            \includegraphics[width=\linewidth,keepaspectratio]{\getDHBWLogo}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[c]{.25\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,keepaspectratio]{\getInstituteLogo}
+        \end{minipage}
+    }
+
+    \bigskip
+    
+    \rule{\textwidth}{.5mm}\bigskip
+    
+    {\bfseries \getThesisTitle}\smallskip
+    
+    \rule{\textwidth}{.5mm}\bigskip
+
+    \textsc{\Large Bachelor's thesis}
+    
+    \bigskip
+    for the degree
+    
+    \textsc{\large \getBachelorDegree}
+    
+    \bigskip
+    of the course \getCourseName\par
+    at the Baden-Wuerttemberg Cooperative State University \getDHBWLocation
+    
+    \vfill
+    
+    by\par
+    {\bfseries\large \getAuthor}\bigskip
+    
+    Submission on \getSubmissionDate
+    
+    \vfill
+    
+    \small{%
+        \begin{tabularx}{\textwidth}{@{}lX@{}}
+        	\toprule
+        	Processing Period: & \getProcessingPeriod\\
+    	    Student id, course: & \getStudentId, \getCourseId\\
+	        \ifcsempty{iodhbwm@institute@section}{}{Department: & \getInstituteSection\\}%
+        	Apprenticing company: & \getInstitute\\
+        	\ifbool{iodhbwm@if@print@location}{Ort: & \getLocation\\}{}%
+        	Company's supervisor: & \getSupervisor\\
+        	University's reviewer: & \getReviewer\\
+        \end{tabularx}
+    }
+    \cleardoublepage
+\end{titlepage}
