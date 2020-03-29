@@ -150,9 +150,11 @@
 \newcommand{\Version}[1]{\marginpar[\raggedleft v#1]{\raggedright v#1}}
 
 \begin{document}
-    \changes{0.4-alpha}{Add print option, auto-intro-pages and some new commands}
+    \changes{0.4-alpha}{Add print option, auto-intro-pages and some new commands}%
     \changes{0.4a-alpha}{Rename \opt{intro/add custom list} into \opt{intro/append custom content}}%
     \changes{0.4.1-alpha}{Unterstützung eines Anhang wurde hinzugefügt}%
+    \changes{1.1}{Erweiterung der Optionen}%
+    \changes{1.2}{Bereitstellung Englischer Vorlagen (Danke an mickmack1213)}
 
     \maketitle
 
@@ -173,7 +175,11 @@
     \clearpage
 
     \tableofcontents
-
+    
+    \clearpage
+    \PrintChanges
+    \clearpage
+    
     \section{Konventionen}
 %    \begin{sourcecode}[listing side comment, comment={Ich bin ein Kommentar},title={Hello world example}]
 %% Hello again
@@ -707,8 +713,6 @@
                 \end{enumerate}
 
                 Eine ausführliche Beschreibung befindet sich auf \url{https://tex.stackexchange.com/a/73017/142408}.
-
-%    \PrintChanges
 
     \PrintIndex
 
