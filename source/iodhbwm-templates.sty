@@ -67,12 +67,28 @@
 \newbool{iodhbwm@if@print@lof}
 \newbool{iodhbwm@if@print@location}
 \newbool{iodhbwm@if@oldpagestyle}
+\newbool{iodhbwm@if@supported@language}
+
+% ----------------------------------------------------------
+% Define language depended settings
+% ----------------------------------------------------------
+% Default language: ngerman
+\newcommand*{\iodhbwm@file@prefix}{i18n/ngerman/dhbw}
+
+\def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
+\def\iodhbwm@bachelor@type@bos{Bachelor of Science}
+\def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
+
+\def\iodhbwm@thesis@type@ba{Bachelorarbeit}
+\def\iodhbwm@thesis@type@pa{Projektarbeit}
+\def\iodhbwm@thesis@type@sa{Studienarbeit}
+
+\iflanguage{ngerman}{\booltrue{iodhbwm@if@supported@language}}{}
+\input{i18n.def}
 
 % ----------------------------------------------------------
 % Define internal commands
 % ----------------------------------------------------------
-\input{i18n.def}
-
 \newcommand*{\iodhbwm@file@ending}{.def}
 \edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
 \edef\iodhbwm@file@titlepage@ba{\iodhbwm@file@prefix-titlepage-ba\iodhbwm@file@ending}

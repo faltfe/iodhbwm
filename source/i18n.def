@@ -1,31 +1,36 @@
-% english
-\ifundef{\iodhbwm@file@prefix}{
-	\iflanguage{english}{	
-		\newcommand*{\iodhbwm@file@prefix}{english/dhbw}
-	
-		\def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
-		\def\iodhbwm@bachelor@type@bos{Bachelor of Science}
-		\def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
+\newcommand{\@addlanguage}[7]{%
+	\iflanguage{#1}{	
+		\renewcommand*{\iodhbwm@file@prefix}{i18n/#1/dhbw}
 		
-		\def\iodhbwm@thesis@type@ba{bachelor's thesis}
-		\def\iodhbwm@thesis@type@pa{project report}
-		\def\iodhbwm@thesis@type@sa{study report}
-	}{}
-}{}
+		\def\iodhbwm@bachelor@type@boe{#2}
+		\def\iodhbwm@bachelor@type@bos{#3}
+		\def\iodhbwm@bachelor@type@boa{#4}
+		
+		\def\iodhbwm@thesis@type@ba{#5}
+		\def\iodhbwm@thesis@type@pa{#6}
+		\def\iodhbwm@thesis@type@sa{#7}
+		
+		\booltrue{iodhbwm@if@supported@language}
+		}%
+	{}%
+}
 
-% Default language: ngerman
-\ifundef{\iodhbwm@file@prefix}{
-	\iflanguage{ngerman}{}{
-		\PackageWarning{\iodhbwm@pkg@name}{The passed language `\iodhbwm@main@language` was not found.\MessageBreak Using ngerman instead.}
-	}
-	
-	\newcommand*{\iodhbwm@file@prefix}{ngerman/dhbw}
-	
-	\def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
-	\def\iodhbwm@bachelor@type@bos{Bachelor of Science}
-	\def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
-	
-	\def\iodhbwm@thesis@type@ba{Bachelorarbeit}
-	\def\iodhbwm@thesis@type@pa{Projektarbeit}
-	\def\iodhbwm@thesis@type@sa{Studienarbeit}
-}{}
+% ################################################################
+% ### ADD SUPPORTED LANGUAGES HERE
+% ################################################################
+
+% english
+\@addlanguage{english}
+    {Bachelor of Engineering}
+    {Bachelor of Science}
+    {Bachelor of Arts}
+    {bachelor's thesis}
+    {project report}
+    {study report}
+
+% ################################################################
+
+% Print waring if an unsupported language is used
+\ifbool{iodhbwm@if@supported@language}{}{%
+	\PackageWarning{\iodhbwm@pkg@name}{The passed language `\iodhbwm@main@language` was not found.\MessageBreak Using ngerman instead.}
+}
