@@ -1,42 +1,25 @@
 \begin{titlepage}
-    \begin{minipage}[c]{.30\textwidth}
-        \includegraphics[height=1.7cm]{dhbw-logo}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{.30\textwidth}
-        \centering
-        \includegraphics[height=1.7cm]{example-image}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{.30\textwidth}
-        \raggedleft
-        \includegraphics[height=1.7cm]{example-image}
-    \end{minipage}
+	\centering
+	\begin{minipage}[c]{.25\textwidth}
+		\includegraphics[width=\linewidth,keepaspectratio]{dhbw-logo}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{.25\textwidth}
+		\raggedleft
+		\includegraphics[width=\linewidth,keepaspectratio]{example-image}
+	\end{minipage}
     
-    \begin{center}
+    \bigskip
+    
     \Large\textsc{Arbeit}
     
     \normalsize
     des Studiengangs Informationstechnik\par
     der Dualen Hochschule Baden-Württemberg \getDHBWLocation
-    \end{center}
     
     \rule{\textwidth}{.5mm}\bigskip
-    %    \begin{minipage}[t]{.45\textwidth}
-    %        \centering\textsc{Thema A}
-    %        
-    %        \bfseries\large \dots
-    %    \hfill
-    %    \begin{minipage}[t]{.45\textwidth}
-    %        \centering\textsc{Thema B}
-    %        
-    %        \tikz{\node (1) [draw, rounded rectangle] {Kolloquium};}\par
-    %        
-    %        \bfseries\large \dots
-    %    \end{minipage}
-    %    \\[1em]
     
-    \centering\textsc{\large Thema \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
+    \textsc{\large Thema \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
     
     {\bfseries \getThesisTitle}\bigskip
     
@@ -50,11 +33,9 @@
     
     \vfill
     
-    \begin{center}
-    von\par
+    \par
     \centering{\bfseries\large \getAuthor}\par
     \today
-    \end{center}
     
     \vfill
     

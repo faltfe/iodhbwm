@@ -1,0 +1,37 @@
+\clearpage
+
+\ifcsdef{chapter}%
+{\chapter*{Declaration}}%
+{\section*{Declaration}}
+
+\thispagestyle{empty}
+
+\bigskip
+
+I hereby assure you that I have written my \getThesisType{} on the\bigskip
+
+\textsc{Subject \ifcsempty{iodhbwm@thesis@second@title}{}{A}}
+
+{\bfseries \getThesisTitle}
+
+\ifcsempty{iodhbwm@thesis@second@title}{}{%
+\bigskip
+\textsc{Subject B}\par%
+{\bfseries \getThesisSecondTitle}%
+}{}\bigskip
+
+independently and that I have not used any other sources and aids than those indicated.
+
+
+I also assure you that the electronic version submitted is the same as the printed version.$^\ast$
+
+{\small$^\ast$ if both versions are required.}
+
+\vfill
+
+\begin{tabular}{l}
+\hline
+\getLocation, \getDate
+\end{tabular}
+
+\clearpage

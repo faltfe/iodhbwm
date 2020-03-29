@@ -67,18 +67,13 @@
 \newbool{iodhbwm@if@print@lof}
 \newbool{iodhbwm@if@print@location}
 \newbool{iodhbwm@if@oldpagestyle}
+\newbool{iodhbwm@if@supported@language}
 
 % ----------------------------------------------------------
-% Define internal commands
+% Define language depended settings
 % ----------------------------------------------------------
-\newcommand*{\iodhbwm@file@prefix}{dhbw}
-\newcommand*{\iodhbwm@file@ending}{.def}
-\edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
-\edef\iodhbwm@file@titlepage@ba{\iodhbwm@file@prefix-titlepage-ba\iodhbwm@file@ending}
-\edef\iodhbwm@file@titlepage@sa{\iodhbwm@file@prefix-titlepage-sa\iodhbwm@file@ending}
-\edef\iodhbwm@file@titlepage@pa{\iodhbwm@file@prefix-titlepage-pa\iodhbwm@file@ending}
-\edef\iodhbwm@file@declaration@default{\iodhbwm@file@prefix-declaration\iodhbwm@file@ending}
-\edef\iodhbwm@file@abstract@default{\iodhbwm@file@prefix-abstract.inc}
+% Default language: ngerman
+\newcommand*{\iodhbwm@file@prefix}{i18n/ngerman/dhbw}
 
 \def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
 \def\iodhbwm@bachelor@type@bos{Bachelor of Science}
@@ -87,6 +82,21 @@
 \def\iodhbwm@thesis@type@ba{Bachelorarbeit}
 \def\iodhbwm@thesis@type@pa{Projektarbeit}
 \def\iodhbwm@thesis@type@sa{Studienarbeit}
+
+\iflanguage{ngerman}{\booltrue{iodhbwm@if@supported@language}}{}
+\input{i18n.def}
+
+% ----------------------------------------------------------
+% Define internal commands
+% ----------------------------------------------------------
+\newcommand*{\iodhbwm@file@ending}{.def}
+\edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@ba{\iodhbwm@file@prefix-titlepage-ba\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@sa{\iodhbwm@file@prefix-titlepage-sa\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@pa{\iodhbwm@file@prefix-titlepage-pa\iodhbwm@file@ending}
+\edef\iodhbwm@file@declaration@default{\iodhbwm@file@prefix-declaration\iodhbwm@file@ending}
+\edef\iodhbwm@file@abstract@default{\iodhbwm@file@prefix-abstract.inc}
+
 
 \def\iodhbwm@dhbw@location@default{Mannheim}
 \def\iodhbwm@dhbw@logo@default{dhbw-logo}
