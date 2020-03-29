@@ -1,0 +1,31 @@
+% english
+\ifundef{\iodhbwm@file@prefix}{
+	\iflanguage{english}{	
+		\newcommand*{\iodhbwm@file@prefix}{english/dhbw}
+	
+		\def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
+		\def\iodhbwm@bachelor@type@bos{Bachelor of Science}
+		\def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
+		
+		\def\iodhbwm@thesis@type@ba{bachelor's thesis}
+		\def\iodhbwm@thesis@type@pa{project report}
+		\def\iodhbwm@thesis@type@sa{study report}
+	}{}
+}{}
+
+% Default language: ngerman
+\ifundef{\iodhbwm@file@prefix}{
+	\iflanguage{ngerman}{}{
+		\PackageWarning{\iodhbwm@pkg@name}{The passed language `\iodhbwm@main@language` was not found.\MessageBreak Using ngerman instead.}
+	}
+	
+	\newcommand*{\iodhbwm@file@prefix}{ngerman/dhbw}
+	
+	\def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
+	\def\iodhbwm@bachelor@type@bos{Bachelor of Science}
+	\def\iodhbwm@bachelor@type@boa{Bachelor of Arts}
+	
+	\def\iodhbwm@thesis@type@ba{Bachelorarbeit}
+	\def\iodhbwm@thesis@type@pa{Projektarbeit}
+	\def\iodhbwm@thesis@type@sa{Studienarbeit}
+}{}

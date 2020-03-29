@@ -21,36 +21,36 @@
     
     \rule{\textwidth}{.5mm}\bigskip
 
-    \textsc{\Large Bachelorarbeit}
+    \textsc{\Large Bachelor's thesis}
     
     \bigskip
-    für die Prüfung zum
+    for the degree
     
     \textsc{\large \getBachelorDegree}
     
     \bigskip
-    des Studiengangs \getCourseName\par
-    der Dualen Hochschule Baden-Württemberg \getDHBWLocation
+    of the course \getCourseName\par
+    at the Baden-Wuerttemberg Cooperative State University \getDHBWLocation
     
     \vfill
     
-    von\par
+    by\par
     {\bfseries\large \getAuthor}\bigskip
     
-    Abgabe am \getSubmissionDate
+    Submission on \getSubmissionDate
     
     \vfill
     
     \small{%
         \begin{tabularx}{\textwidth}{@{}lX@{}}
-        \toprule
-        Bearbeitungszeitraum: & \getProcessingPeriod\\
-        Matrikelnummer, Kurs: & \getStudentId, \getCourseId\\
-        \ifcsempty{iodhbwm@institute@section}{}{Abteilung: & \getInstituteSection\\}%
-        Ausbildungsfirma: & \getInstitute\\
-        \ifbool{iodhbwm@if@print@location}{Ort: & \getLocation\\}{}%
-        Betreuer der Ausbildungsfirma: & \getSupervisor\\
-        Gutachter der Dualen Hochschule: & \getReviewer\\
+        	\toprule
+        	Processing Period: & \getProcessingPeriod\\
+    	    Student id, course: & \getStudentId, \getCourseId\\
+	        \ifcsempty{iodhbwm@institute@section}{}{Department: & \getInstituteSection\\}%
+        	Apprenticing company: & \getInstitute\\
+        	\ifbool{iodhbwm@if@print@location}{Ort: & \getLocation\\}{}%
+        	Company's supervisor: & \getSupervisor\\
+        	University's reviewer: & \getReviewer\\
         \end{tabularx}
     }
     \cleardoublepage
