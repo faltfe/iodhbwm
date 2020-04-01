@@ -9,7 +9,7 @@
 %\usepackage{showframe}
 
 \package[vcs=https://github.com/faltfe/iodhbwm,ctan=iodhbwm]{iodhbwm}
-\version{1.1.1}
+\version{1.2}
 
 \title{iodhbwm Klasse}
 \author{Felix Faltin}
@@ -150,9 +150,9 @@
 \newcommand{\Version}[1]{\marginpar[\raggedleft v#1]{\raggedright v#1}}
 
 \begin{document}
-    \changes{0.4-alpha}{Add print option, auto-intro-pages and some new commands}
-    \changes{0.4a-alpha}{Rename \opt{intro/add custom list} into \opt{intro/append custom content}}%
-    \changes{0.4.1-alpha}{Unterstützung eines Anhang wurde hinzugefügt}%
+    \changes{1.1}{Erweiterung der Optionen}%
+    \changes{1.1.1}{Kleinere Fehlerbehebungen innerhalb von listings}
+    \changes{1.2}{Bereitstellung Englischer Vorlagen (Danke an mickmack1213)}
 
     \maketitle
 
@@ -173,7 +173,11 @@
     \clearpage
 
     \tableofcontents
-
+    
+    \clearpage
+    \PrintChanges
+    \clearpage
+    
     \section{Konventionen}
 %    \begin{sourcecode}[listing side comment, comment={Ich bin ein Kommentar},title={Hello world example}]
 %% Hello again
@@ -679,12 +683,11 @@
             Um die Autovervollständigung für \thepackage{} zu aktiveren, müssen die Dateien \file{iodhbwm.cwl} und \file{iodhbwm-template.cwl} nach \path|%appdata%\texstudio\completion\user| beziehungsweise nach \path|.config/texstudio/completion/user| kopiert werden.
 
     \section{Installation}
+        \subsection{CTAN}
+            Das Bundle wird ebenfalls über CTAN zur Verfügung gestellt und kann deshalb über die offiziellen Paketquellen heruntergeladen und installiert werden. Diese Variante ist zu bevorzugen.
         \subsection{Lokale Installation}
             Eine eigene Installation des Pakets kann in einem lokalen texmf Ordner (lokales Repository) erfolgen. Das Bundle kann manuell aus dem Git-Repository heruntergeladen werden.
-
-            \subsection{CTAN}
-                Das Bundle wird ebenfalls über CTAN (mit Release der Version v1.0) zur Verfügung gestellt und kann deshalb über die offiziellen Paketquellen heruntergeladen und installiert werden. Diese Variante ist zu bevorzugen.
-
+            
             \subsubsection{MiKTeX}
                 \begin{enumerate}
                     \item Lokales Repository anlegen, welches der \href{http://tug.ctan.org/tds/tds.html}{Verzeichnisstruktur für \LaTeX{} Dateien} entspricht. Die Verzeichnisstruktur könnte wie folgt aussehen:\par \verb|C:\Users\<username>\localtexmf\tex\latex\iodhbwm|
@@ -707,8 +710,6 @@
                 \end{enumerate}
 
                 Eine ausführliche Beschreibung befindet sich auf \url{https://tex.stackexchange.com/a/73017/142408}.
-
-%    \PrintChanges
 
     \PrintIndex
 

@@ -1,0 +1,36 @@
+\newcommand{\@addlanguage}[7]{%
+	\iflanguage{#1}{	
+		\renewcommand*{\iodhbwm@file@prefix}{i18n/#1/dhbw}
+		
+		\def\iodhbwm@bachelor@type@boe{#2}
+		\def\iodhbwm@bachelor@type@bos{#3}
+		\def\iodhbwm@bachelor@type@boa{#4}
+		
+		\def\iodhbwm@thesis@type@ba{#5}
+		\def\iodhbwm@thesis@type@pa{#6}
+		\def\iodhbwm@thesis@type@sa{#7}
+		
+		\booltrue{iodhbwm@if@supported@language}
+		}%
+	{}%
+}
+
+% ################################################################
+% ### ADD SUPPORTED LANGUAGES HERE
+% ################################################################
+
+% english
+\@addlanguage{english}
+    {Bachelor of Engineering}
+    {Bachelor of Science}
+    {Bachelor of Arts}
+    {bachelor's thesis}
+    {project report}
+    {study report}
+
+% ################################################################
+
+% Print waring if an unsupported language is used
+\ifbool{iodhbwm@if@supported@language}{}{%
+	\PackageWarning{\iodhbwm@pkg@name}{The passed language `\iodhbwm@main@language` was not found.\MessageBreak Using ngerman instead.}
+}

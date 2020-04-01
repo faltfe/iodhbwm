@@ -16,6 +16,7 @@ l3kernel
 l3packages
 lipsum
 listings
+listingsutf8
 logreq
 mathtools
 microtype
@@ -31,3 +32,4 @@ trimspaces
 xcolor
 xpatch
 xstring
+zref
