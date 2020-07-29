@@ -7,7 +7,7 @@
 % Felix Faltin
 % E-Mail: ffaltin91@gmail.com
 % ----------------------------------------------------------
-% Copyright 2017-2019 Felix Faltin
+% Copyright 2017-2020 Felix Faltin
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -23,8 +23,8 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@cls@version}{v1.1.0}
-\newcommand*{\iodhbwm@cls@date}{2019-05-15}
+\newcommand*{\iodhbwm@cls@version}{v1.2.1}
+\newcommand*{\iodhbwm@cls@date}{2020-04-13}
 \newcommand*{\iodhbwm@cls@info}{Inoffical DHBW Mannheim thesis class}
 
 \ProvidesClass{iodhbwm}[%
@@ -326,6 +326,8 @@
         xleftmargin=3em,
         framexleftmargin=3em,
         aboveskip=\baselineskip,
+        frame=tb,
+        captionpos=t,
     }
 
     \DeclareCaptionFont{DHBWlisting}{\color{DHBW-light}}
@@ -338,21 +340,18 @@
 
     \DeclareCaptionFormat{listingprint}{%
         \colorbox{white}{%
-            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}%
+            \parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}
         }%
     }
 
     \captionsetup[lstlisting]{%
-        format=listing,
+        format=listingprint,
         singlelinecheck=false,
         margin=0pt
     }%
     
     \ifbool{iodhbwm@cls@if@print}{%
         \captionsetup[lstlisting]{%
-            format=listingprint,
-            singlelinecheck=false,
-            margin=0pt,
             font={print,sf},
         }%
     
@@ -363,15 +362,11 @@
             commentstyle=\color{DHBW-font},
             keywordstyle=\color{DHBW-dark-font},
             numberstyle=\scriptsize\ttfamily\color{DHBW-font},
-            stringstyle=\color{DHBW-dark-font},
-            frame=tb,
-            captionpos=b,
+            stringstyle=\color{DHBW-dark-font}
         }%
     }{%
         \captionsetup[lstlisting]{%
             format=listing,
-            singlelinecheck=false,
-            margin=0pt,
             font={DHBWlisting,sf},
         }%
         
@@ -382,9 +377,7 @@
             commentstyle=\color{DHBW-font},
             keywordstyle=\color{DHBW-darkblue},
             numberstyle=\scriptsize\ttfamily\color{DHBW-font},
-            stringstyle=\color{purple},
-            frame=tb,
-            captionpos=b,
+            stringstyle=\color{purple}
         }
     }
 }{}

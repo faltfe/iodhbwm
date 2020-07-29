@@ -7,7 +7,7 @@
 % Felix Faltin
 % E-Mail: ffaltin91@gmail.com
 % ----------------------------------------------------------
-% Copyright 2017 Felix Faltin
+% Copyright 2017-2020 Felix Faltin
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -23,8 +23,8 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@pkg@version}{v1.1.0}
-\newcommand*{\iodhbwm@pkg@date}{2019-05-15}
+\newcommand*{\iodhbwm@pkg@version}{v1.2.1}
+\newcommand*{\iodhbwm@pkg@date}{2020-04-13}
 \newcommand*{\iodhbwm@pkg@info}{Inoffical DHBW Mannheim thesis package}
 \newcommand*{\iodhbwm@pkg@name}{iodhbwm-templates}
 
@@ -67,18 +67,13 @@
 \newbool{iodhbwm@if@print@lof}
 \newbool{iodhbwm@if@print@location}
 \newbool{iodhbwm@if@oldpagestyle}
+\newbool{iodhbwm@if@supported@language}
 
 % ----------------------------------------------------------
-% Define internal commands
+% Define language depended settings
 % ----------------------------------------------------------
-\newcommand*{\iodhbwm@file@prefix}{dhbw}
-\newcommand*{\iodhbwm@file@ending}{.def}
-\edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
-\edef\iodhbwm@file@titlepage@ba{\iodhbwm@file@prefix-titlepage-ba\iodhbwm@file@ending}
-\edef\iodhbwm@file@titlepage@sa{\iodhbwm@file@prefix-titlepage-sa\iodhbwm@file@ending}
-\edef\iodhbwm@file@titlepage@pa{\iodhbwm@file@prefix-titlepage-pa\iodhbwm@file@ending}
-\edef\iodhbwm@file@declaration@default{\iodhbwm@file@prefix-declaration\iodhbwm@file@ending}
-\edef\iodhbwm@file@abstract@default{\iodhbwm@file@prefix-abstract.inc}
+% Default language: ngerman
+\newcommand*{\iodhbwm@file@prefix}{i18n/ngerman/dhbw}
 
 \def\iodhbwm@bachelor@type@boe{Bachelor of Engineering}
 \def\iodhbwm@bachelor@type@bos{Bachelor of Science}
@@ -87,6 +82,21 @@
 \def\iodhbwm@thesis@type@ba{Bachelorarbeit}
 \def\iodhbwm@thesis@type@pa{Projektarbeit}
 \def\iodhbwm@thesis@type@sa{Studienarbeit}
+
+\iflanguage{ngerman}{\booltrue{iodhbwm@if@supported@language}}{}
+\input{iodhbwm-i18n.def}
+
+% ----------------------------------------------------------
+% Define internal commands
+% ----------------------------------------------------------
+\newcommand*{\iodhbwm@file@ending}{.def}
+\edef\iodhbwm@file@titlepage@default{\iodhbwm@file@prefix-titlepage\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@ba{\iodhbwm@file@prefix-titlepage-ba\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@sa{\iodhbwm@file@prefix-titlepage-sa\iodhbwm@file@ending}
+\edef\iodhbwm@file@titlepage@pa{\iodhbwm@file@prefix-titlepage-pa\iodhbwm@file@ending}
+\edef\iodhbwm@file@declaration@default{\iodhbwm@file@prefix-declaration\iodhbwm@file@ending}
+\edef\iodhbwm@file@abstract@default{\iodhbwm@file@prefix-abstract.inc}
+
 
 \def\iodhbwm@dhbw@location@default{Mannheim}
 \def\iodhbwm@dhbw@logo@default{dhbw-logo}
