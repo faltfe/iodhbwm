@@ -259,7 +259,7 @@
 % ----------------------------------------------------------
 % Enable references and links
 % ----------------------------------------------------------
-\AfterPackage!{hyperref}{%
+\AfterAtEndOfPackage*{hyperref}{%
     \ifdef{\iodhbwm@main@language}{%
         \PassOptionsToPackage{\iodhbwm@main@language}{cleveref}
     }{}
