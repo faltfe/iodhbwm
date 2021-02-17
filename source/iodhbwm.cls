@@ -7,7 +7,7 @@
 % Felix Faltin
 % E-Mail: ffaltin91@gmail.com
 % ----------------------------------------------------------
-% Copyright 2017-2020 Felix Faltin
+% Copyright 2017-2021 Felix Faltin
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -23,8 +23,8 @@
 %
 % ----------------------------------------------------------
 
-\newcommand*{\iodhbwm@cls@version}{v1.2.1}
-\newcommand*{\iodhbwm@cls@date}{2020-04-13}
+\newcommand*{\iodhbwm@cls@version}{v1.2.2}
+\newcommand*{\iodhbwm@cls@date}{2021-02-15}
 \newcommand*{\iodhbwm@cls@info}{Inoffical DHBW Mannheim thesis class}
 
 \ProvidesClass{iodhbwm}[%
