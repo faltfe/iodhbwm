@@ -136,7 +136,7 @@ Ordner mit dem Präfix `*-tds` kann direkt in das lokale `texmf`-Verzeichnis kop
 
 ### Pull Request
 
-PR sind bevorzugt in den `develop` zu mergen. Es sollte eine aussagekräftige Beshcreibung der
+PR sind bevorzugt in den `develop` zu mergen. Es sollte eine aussagekräftige Beschreibung der
 vorgenommenen Änderungen beigefügt werden.
 
 ## Kontakt
