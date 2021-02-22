@@ -24,6 +24,9 @@ fi
 mkdir /tmp/texlive/texmf-local/tex/latex/iodhbwm
 cp . /tmp/texlive/texmf-local/tex/latex/iodhbwm
 
+# Output TexLive version
+tlmgr --version
+
 # Just including texlua so the cache check above works
 # Needed for any use of texlua even if not testing LuaTeX
 tlmgr install luatex
