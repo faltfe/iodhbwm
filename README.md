@@ -11,7 +11,7 @@ release](https://img.shields.io/github/release/faltfe/iodhbwm.svg?style=flat-squ
 
 ## :bangbang: Maintainer wanted :bangbang:
 
-This project is not maintained anymore. See #66 for more information.
+This project is not maintained anymore. See [#66](https://github.com/faltfe/iodhbwm/issues/66) for more information.
 
 ---
 
