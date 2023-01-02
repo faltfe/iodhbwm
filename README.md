@@ -7,6 +7,14 @@ release](https://img.shields.io/github/release/faltfe/iodhbwm.svg?style=flat-squ
 [![Downloads](https://img.shields.io/github/downloads/faltfe/iodhbwm/total.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/releases)
 [![GitHub license](https://img.shields.io/github/license/faltfe/iodhbwm.svg?style=flat-square)](https://github.com/faltfe/iodhbwm/blob/master/LICENSE)
 
+---
+
+## :bangbang: Maintainer wanted :bangbang:
+
+This project is not maintained anymore. See #66 for more information.
+
+---
+
 Das Projekt stellt eine _inoffizelle_ Vorlage der [DHBW Mannheim](http://www.dhbw-mannheim.de) für
 die Erstellung von Bachelor-, Studien- oder Projektarbeit mit _LaTeX_ bereit. Das Ziel des Paket ist
 die schnelle Erstellung eines Grundgerüst ohne viel Aufwand. Schließlich hat ein Student bekanntlich
